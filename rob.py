@@ -50,6 +50,12 @@ class ROB:
             while pygame.mixer.music.get_busy():
                 continue
 
+    def rizz(self):
+        pygame.mixer.music.load(rizz.mp3)
+        pygame.mixer.music.play()
+        while pygame.mixer.music.get_busy():
+                continue
+
 rob = ROB()
 rob.setDefaults()
 rob.say("Kill mode activated")
