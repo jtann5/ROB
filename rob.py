@@ -27,9 +27,9 @@ class ROB:
         self.controller = Controller()
 
         self.voice = pyttsx3.init()
-        rob.setProperty('volume', 1.0)
-        rob.setProperty('rate', 150)
-        rob.setProperty('voice', 'english-us')
+        self.voice.setProperty('volume', 1.0)
+        self.voice.setProperty('rate', 150)
+        rob.voice.setProperty('voice', 'english-us')
 
         pygame.mixer.init()
 
