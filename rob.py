@@ -69,8 +69,10 @@ class ROB:
         time.sleep(1)
         self.controller.setTarget(RIGHTSHOULDER, 4000)
         self.controller.setTarget(RIGHTELBOW, 8000)
+        self.controller.setTarget(LEFTSHOULDER, 4000)
+        self.controller.setTarget(LEFTELBOW, 8000)
         while pygame.mixer.music.get_busy():
-                continue
+            continue
 
 rob = ROB()
 rob.defaults()
