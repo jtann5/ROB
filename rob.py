@@ -52,7 +52,7 @@ class ROB:
                 continue
 
     def rizz(self):
-        pygame.mixer.music.load(rizz.mp3)
+        pygame.mixer.music.load("rizz.mp3")
         pygame.mixer.music.play()
         self.controller.setTarget(HEADTILT, 4000)
         self.controller.setTraget(HEADTURN, 7500)
@@ -69,4 +69,5 @@ class ROB:
 
 rob = ROB()
 rob.defaults()
-rob.say("Kill mode activated")
+rob.say("Rizz mode activated")
+rob.rizz()
