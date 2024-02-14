@@ -55,7 +55,7 @@ class ROB:
         pygame.mixer.music.load("rizz.mp3")
         pygame.mixer.music.play()
         self.controller.setTarget(HEADTILT, 4000)
-        self.controller.setTraget(HEADTURN, 7500)
+        self.controller.setTarget(HEADTURN, 7500)
         time.sleep(7)
         self.controller.setTarget(HEADTURN, 6000)
         self.controller.setTarget(HEADTILT, 6000)
