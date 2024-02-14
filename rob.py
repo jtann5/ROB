@@ -18,6 +18,7 @@ RIGHTWRIST = 9
 RIGHTCLAW = 10
 LEFTSHOULDER = 11
 LEFTBICEP = 12
+LEFTELBOW = 13
 LEFTFOREARM = 14
 LEFTWRIST = 15
 LEFTCLAW = 16
@@ -56,14 +57,18 @@ class ROB:
         pygame.mixer.music.play()
         self.controller.setTarget(HEADTILT, 4000)
         self.controller.setTarget(HEADTURN, 7500)
-        time.sleep(7)
+        time.sleep(5)
         self.controller.setTarget(HEADTURN, 6000)
         self.controller.setTarget(HEADTILT, 6000)
         time.sleep(5)
-        self.controller.setTarget(RIGHTBICEP, 7500)
+        self.controller.setTarget(LEFTBICEP, 3500)
+        self.controller.setTarget(RIGHTBICEP, 8500)
         time.sleep(1)
-        self.contoller.setTarget(RIGHTSHOULDER, 7500)
-        self.controller.setTarget(RIGHTBICEP, 4000)
+        self.controller.setTarget(LEFTBICEP, 6000)
+        self.controller.setTarget(RIGHTBICEP, 6000)
+        time.sleep(1)
+        self.contoller.setTarget(RIGHTSHOULDER, 4000)
+        self.controller.setTarget(RIGHTELBOW, 8000)
         while pygame.mixer.music.get_busy():
                 continue
 
