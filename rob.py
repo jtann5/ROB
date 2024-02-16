@@ -74,7 +74,16 @@ class ROB:
         while pygame.mixer.music.get_busy():
             continue
 
+    def fight(self):
+        self.controller.setTarget(RIGHTSHOULDER, 4000)
+        self.controller.setTarget(LEFTSHOULDER, 4000)
+
+        time.sleep(1)
+        self.controller.setTarget(RIGHTSHOULDER, 4000)
+        self.controller.setTarget(RIGHTSHOULDER, 4000)
+        time.sleep(1)
+        self.controller.setTarget(RIGHTSHOULDER, 4000)
+        self.controller.setTarget(RIGHTSHOULDER, 4000)
+
 rob = ROB()
-rob.defaults()
-rob.say("Rizz mode activated")
-rob.rizz()
+rob.gsay("What is my purpose")
