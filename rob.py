@@ -86,4 +86,5 @@ class ROB:
         self.controller.setTarget(RIGHTSHOULDER, 4000)
 
 rob = ROB()
-rob.gsay("What is my purpose")
+rob.say("Greetings, I am Rob, your friendly robotic assistant. Here to make your life easier and more efficient. Let's work together to tackle tasks and streamline your day.")
+rob.gsay("Greetings, I am Rob, your friendly robotic assistant. Here to make your life easier and more efficient. Let's work together to tackle tasks and streamline your day.")
