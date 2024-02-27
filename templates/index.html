@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joystick and Sliders</title>
+    <style>
+        /* Add your custom styles here */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #joystick-container {
+            width: 300px;
+            height: 300px;
+            background-color: lightgray;
+            position: relative;
+            border-radius: 50%;
+            margin-top: 50px; /* Adjust the margin-top as needed */
+        }
+
+        #joystick {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+        }
+
+        #slider-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #slider-container label {
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="joystick-container">
+        <div id="joystick" draggable="true"></div>
+    </div>
+
+    <div id="slider-container">
+        <label for="slider1">Slider 1:</label>
+        <input type="range" id="slider1" min="-10" max="10" value="0">
+
+        <label for="slider2">Slider 2:</label>
+        <input type="range" id="slider2" min="-10" max="10" value="0">
+
+        <label for="slider3">Slider 3:</label>
+        <input type="range" id="slider3" min="-10" max="10" value="0">
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
