@@ -22,6 +22,10 @@ class RobotFace(tk.Tk):
         self.eye_left = self.create_cartoonish_eye(self.lefteyeX, self.lefteyeY)
         self.eye_right = self.create_cartoonish_eye(self.righteyeX, self.righteyeY)
 
+        self.mouth_coords = [150, 240, 250, 240]
+        self.mouth_line = self.canvas.create_line(*self.mouth_coords, fill="black", width=2)
+
+
         # Initialize robot state
         self.robot_state = "idle"
 
@@ -57,6 +61,7 @@ class RobotFace(tk.Tk):
 
     def set_talking_state(self, event):
         self.canvas.config(bg="white")
+        self.reset_face()
         self.set_robot_state("talking")
 
     def set_idle_state(self, event):
@@ -80,13 +85,23 @@ class RobotFace(tk.Tk):
             self.move_right_eye_center()
         time.sleep(0.1)
 
+    def animate_mouth(self):
+        # Zig-zagging mouth animation
+        current_coords = self.mouth_coords
+        new_y1 = current_coords[1] + 5 * random.choice([-1, 1])
+        new_y2 = current_coords[3] + 5 * random.choice([-1, 1])
+        self.mouth_coords = [current_coords[0], new_y1, current_coords[2], new_y2]
+        self.canvas.coords(self.mouth_line, *self.mouth_coords)
+
+    def draw_semi_circle(self, x, y, radius, color):
+        semi_circle = self.canvas.create_arc(x - radius, y - radius, x + radius, y + radius, start=180, extent=180, fill=color, outline=color, width=2)
+        return semi_circle
+
     def talk_animation(self):
-        self.move_left_eye_up()
-        self.move_right_eye_up()
-        time.sleep(0.6)
-        self.move_left_eye_down()
-        self.move_right_eye_down()
-        time.sleep(0.6)
+        # self.animate_mouth()
+        semi_circle = self.draw_semi_circle((self.mouth_coords[0] + self.mouth_coords[2]) / 2, self.mouth_coords[1], (self.mouth_coords[2] - self.mouth_coords[0]) / 2, "black")
+        time.sleep(0.5)
+        self.canvas.delete(semi_circle)
 
     def move_animation(self):
         self.canvas.config(bg="red")  # Change background color to red
