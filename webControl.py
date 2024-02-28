@@ -17,9 +17,24 @@ def update():
     slider2 = data.get('slider2')
     slider3 = data.get('slider3')
 
+    firstValL = 6000
+    firstValR = 6000
+
+    if joystickX > 0:
+        firstValL = 6000 + (200 * joystickX)
+    if joystickX < 0:
+        firstValR = 6000 - (200 * joystickX)
+
+    secondValL = 6000 - (200 * joystickY)
+    secondValR = 6000 + (200 * joystickY)
+
+    leftVal = (firstValL + secondValL) / 2
+    rightVal = (firstValR + secondValR) / 2
+
     print("Joystick X: " + str(joystickX))
     print("Joystick Y: " + str(joystickY))
     print(slider1, slider2, slider3)
+    print(leftVal, rightVal)
 
     response_data = {'status': 'success'}
     return jsonify(response_data)
