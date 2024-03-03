@@ -4,9 +4,81 @@ import os
 
 app = Flask(__name__, template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'), static_folder='static')
 
+forward_backward = 0
+waist_value = 0
+head_left_right_value = 0
+head_up_down_value = 0
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/command', methods=['POST'])
+def command():
+    global forward_backward, waist_value, head_left_right_value, head_up_down_value
+
+    data = request.get_json()
+    command = data.get("command")
+
+    if command == 'forward':
+        forward_backward += 1
+    elif command ==  'backward':
+        forward_backward -= 1
+    elif command == 'left':
+        # handle left
+        # turn left here
+        pass
+    elif command == 'right':
+        # handle right
+        # turn right here
+        pass
+    elif command == 'stop':
+        # handle stop
+        # make stop function?
+        pass
+    elif command == 'waistRight':
+        waist_value += 1
+    elif command == 'waistLeft':
+        waist_value -= 1
+    elif command == 'headRight':
+        head_left_right_value += 1
+    elif command == 'headLeft':
+        head_left_right_value -= 1
+    elif command == 'headUp':
+        head_up_down_value += 1
+    elif command == 'headDown':
+        head_up_down_value -= 1
+
+    if forward_backward > 3:
+        forward_backward = 3
+    if forward_backward < -3:
+        forward_backward = -3
+    if waist_value > 5:
+        waist_value = 5
+    if waist_value < -5:
+        waist_value = -5
+    if head_left_right_value > 5:
+        head_left_right_value = 5
+    if head_left_right_value < -5:
+        head_left_right_value = -5
+    if head_up_down_value > 5:
+        head_up_down_value = 5
+    if head_up_down_value < -5:
+        head_up_down_value = -5
+
+    default = 6000
+    leftmotor = default + (300 * forward_backward)
+    rightmotor = default - (300 * forward_backward)
+    waist = default + (200 * waist_value)
+    head_vertical = default + (200 * head_up_down_value)
+    head_horizontal = default + (200 * head_left_right_value)
+
+    print(leftmotor, rightmotor, waist, head_vertical, head_horizontal)
+
+    # set all the amounts
+    response_data = {'status': 'success'}
+    return jsonify(response_data)
+
 
 @app.route('/update', methods=['POST'])
 def update():

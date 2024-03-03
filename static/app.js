@@ -7,20 +7,66 @@ document.addEventListener('DOMContentLoaded', function () {
     let isDragging = false;
 
     joystick.addEventListener('mousedown', (event) => {
-    event.preventDefault();
+        event.preventDefault();
 
-    // Calculate initial offset from the center
-    const containerRect = document.getElementById('joystick-container').getBoundingClientRect();
-    const centerX = containerRect.left + containerRect.width / 2;
-    const centerY = containerRect.top + containerRect.height / 2;
+        // Calculate initial offset from the center
+        const containerRect = document.getElementById('joystick-container').getBoundingClientRect();
+        const centerX = containerRect.left + containerRect.width / 2;
+        const centerY = containerRect.top + containerRect.height / 2;
 
-    const initialOffsetX = event.clientX - centerX;
-    const initialOffsetY = event.clientY - centerY;
+        const initialOffsetX = event.clientX - centerX;
+        const initialOffsetY = event.clientY - centerY;
 
-    isDragging = true;
-    updateJoystickValues();  // Update joystick values on click
+        isDragging = true;
+        updateJoystickValues();  // Update joystick values on click
 
-    document.addEventListener('mousemove', moveListener);
+
+        document.addEventListener('mousemove', moveListener);
+    });
+
+    document.addEventListener('keydown', function(event) {
+        const key = event.key.toLowerCase();
+        const commandMapping = {
+            'w': 'forward',
+            'a': 'left',
+            's': 'backward',
+            'd': 'right',
+            'q': 'stop',
+            'p': 'waistRight',
+            'o': 'waistLeft',
+            'l': 'headRight',
+            'k': 'headLeft',
+            'm': 'headUp',
+            'n': 'headDown'
+        };
+
+        if (commandMapping.hasOwnProperty(key)) {
+            const command = commandMapping[key];
+            sendCommandToFlask(command);
+        }
+    });
+
+    document.addEventListener('keyup', function(event) {
+       // handle key release if needed
+    });
+
+    function sendCommandToFlask(command) {
+        fetch('/command', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({command: command}),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
 
 function moveListener(event) {
     if (isDragging) {
@@ -118,4 +164,4 @@ function moveListener(event) {
 
     // Initial update when the page loads
     sendDataToFlask(0, 0, slider1.value, slider2.value, slider3.value);
-});
+
