@@ -1,6 +1,16 @@
 from flask import Flask, render_template, send_from_directory, jsonify, request, Blueprint, redirect
 import os
-# from rob import ROB
+from rob import ROB
+
+rob = ROB()
+rob.defaults()
+
+def setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal):
+    rob.setMotor(0, leftmotor)
+    rob.setMotor(1, rightmotor)
+    rob.setMotor(2, waist)
+    rob.setMotor(3, head_vertical)
+    rob.setMotor(4, head_horizontal)
 
 app = Flask(__name__, template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'), static_folder='static')
 
@@ -73,7 +83,7 @@ def command():
     head_vertical = default + (200 * head_up_down_value)
     head_horizontal = default + (200 * head_left_right_value)
 
-    print(leftmotor, rightmotor, waist, head_vertical, head_horizontal)
+    setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal)
 
     # set all the amounts
     response_data = {'status': 'success'}
@@ -107,6 +117,7 @@ def update():
     print("Joystick Y: " + str(joystickY))
     print(slider1, slider2, slider3)
     print(leftVal, rightVal)
+    setValues(leftVal, rightVal, 6000-slider1*20, 6000-slider2*20, 6000-slider3*20)
 
     response_data = {'status': 'success'}
     return jsonify(response_data)

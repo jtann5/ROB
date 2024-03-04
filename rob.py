@@ -5,8 +5,8 @@ import pygame
 import tempfile
 import time
 
-MOTORMAIN = 0
-MOTORTURN = 1
+LEFTMOTOR = 0
+RIGHTMOTOR = 1
 WAIST = 2
 HEADTILT = 3
 HEADTURN = 4
@@ -84,6 +84,9 @@ class ROB:
         time.sleep(1)
         self.controller.setTarget(RIGHTSHOULDER, 4000)
         self.controller.setTarget(RIGHTSHOULDER, 4000)
+
+    def setMotor(self, motor, value):
+        self.controller.setTarget(motor, value)
 
 rob = ROB()
 rob.say("Greetings, I am Rob, your friendly robotic assistant. Here to make your life easier and more efficient. Let's work together to tackle tasks and streamline your day.")
