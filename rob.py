@@ -87,7 +87,3 @@ class ROB:
 
     def setMotor(self, motor, value):
         self.controller.setTarget(motor, value)
-
-rob = ROB()
-rob.say("Greetings, I am Rob, your friendly robotic assistant. Here to make your life easier and more efficient. Let's work together to tackle tasks and streamline your day.")
-rob.gsay("Greetings, I am Rob, your friendly robotic assistant. Here to make your life easier and more efficient. Let's work together to tackle tasks and streamline your day.")
