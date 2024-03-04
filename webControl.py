@@ -117,7 +117,7 @@ def update():
     print("Joystick Y: " + str(joystickY))
     print(slider1, slider2, slider3)
     print(leftVal, rightVal)
-    setValues(leftVal, rightVal, 6000-slider1*20, 6000-slider2*20, 6000-slider3*20)
+    setValues(leftVal, rightVal, 6000-int(slider1)*200, 6000-int(slider2)*200, 6000-int(slider3)*200)
 
     response_data = {'status': 'success'}
     return jsonify(response_data)
