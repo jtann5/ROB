@@ -77,8 +77,8 @@ def command():
         head_up_down_value = -5
 
     default = 6000
-    leftmotor = default + (300 * forward_backward)
-    rightmotor = default - (300 * forward_backward)
+    rightmotor = default + (300 * forward_backward)
+    leftmotor = default - (300 * forward_backward)
     waist = default + (200 * waist_value)
     head_vertical = default + (200 * head_up_down_value)
     head_horizontal = default + (200 * head_left_right_value)
@@ -110,13 +110,9 @@ def update():
     secondValL = 6000 - (200 * joystickY)
     secondValR = 6000 + (200 * joystickY)
 
-    leftVal = (firstValL + secondValL) / 2
-    rightVal = (firstValR + secondValR) / 2
+    rightVal = (firstValL + secondValL) / 2
+    leftVal = (firstValR + secondValR) / 2
 
-    print("Joystick X: " + str(joystickX))
-    print("Joystick Y: " + str(joystickY))
-    print(slider1, slider2, slider3)
-    print(leftVal, rightVal)
     setValues(int(leftVal), int(rightVal), 6000-int(slider1)*200, 6000-int(slider2)*200, 6000-int(slider3)*200)
 
     response_data = {'status': 'success'}

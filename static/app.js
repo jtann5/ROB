@@ -120,12 +120,18 @@ function moveListener(event) {
 
     const resetJoystick = () => {
         const containerRect = document.getElementById('joystick-container').getBoundingClientRect();
-        joystick.style.left = containerRect.width / 2 - joystick.offsetWidth / 2 + 'px';
-        joystick.style.top = containerRect.height / 2 - joystick.offsetHeight / 2 + 'px';
+        //joystick.style.left = containerRect.width / 2 - joystick.offsetWidth / 2 + 'px';
+        //joystick.style.top = containerRect.height / 2 - joystick.offsetHeight / 2 + 'px';
+        const centerX = (joystick-container.clientWidth - joystick.clientWidth) / 2;
+        const centerY = (joystick-container.clientHeight - joystick.clientHeight) / 2;
 
+        joystick.style.left = '${centerX}px';
+        joystick.style.top = '${centerY}px';
         // Update sliders to default values
-        slider1.value = 0;
-        slider2.value = 0;
+        //slider1.value = 0;
+        //slider2.value = 0;
+
+        
 
         // Send data to Flask server
         sendDataToFlask(0, 0, slider1.value, slider2.value, slider3.value);
