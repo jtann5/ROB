@@ -7,7 +7,7 @@ class RobotFace(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
         self.title("Robot Face")
-        self.geometry("400x400")
+        self.geometry("800x480")
 
         self.canvas = tk.Canvas(self, width=400, height=400, bg="white")
         self.canvas.pack()
