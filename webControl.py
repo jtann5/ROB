@@ -4,6 +4,7 @@ from rob import ROB
 
 rob = ROB()
 rob.defaults()
+rob.face.mainloop()
 
 def setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal):
     rob.setMotor(0, leftmotor)

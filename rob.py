@@ -36,7 +36,7 @@ class ROB:
         pygame.mixer.init()
 
         self.face = face.RobotFace()
-        self.face.mainloop()
+        #self.face.mainloop()
 
     def defaults(self):
         for i in range(17):
