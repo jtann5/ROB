@@ -23,7 +23,7 @@ class RobotFace(tk.Tk):
         self.eye_left = self.create_cartoonish_eye(self.lefteyeX, self.lefteyeY)
         self.eye_right = self.create_cartoonish_eye(self.righteyeX, self.righteyeY)
 
-        self.mouth_coords = [150, 240, 250, 240]
+        self.mouth_coords = [350, 240, 450, 240]
         self.mouth_line = self.canvas.create_line(*self.mouth_coords, fill="black", width=2)
 
 
@@ -39,8 +39,8 @@ class RobotFace(tk.Tk):
         self.bind("<KeyPress-d>", self.set_idle_state)
 
     def create_cartoonish_eye(self, x, y):
-        eye_outside_offset = 80
-        pupil_size_offset = 30
+        eye_outside_offset = 160
+        pupil_size_offset = 60
         self.pupil_size_offset = pupil_size_offset
         self.eye_outside_offset = eye_outside_offset
         eye_outer = self.canvas.create_oval(x - eye_outside_offset, y - eye_outside_offset, x + eye_outside_offset, y + eye_outside_offset, fill="white", outline="black", width=2)
