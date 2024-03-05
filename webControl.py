@@ -4,7 +4,6 @@ from rob import ROB
 
 rob = ROB()
 rob.defaults()
-rob.face.mainloop()
 
 def setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal):
     rob.setMotor(0, leftmotor)
@@ -14,6 +13,7 @@ def setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal):
     rob.setMotor(4, head_horizontal)
 
 app = Flask(__name__, template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'), static_folder='static')
+rob.face.mainloop()
 
 forward_backward = 0
 waist_value = 0
