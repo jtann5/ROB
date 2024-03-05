@@ -206,4 +206,5 @@ class RobotFace(tk.Tk):
 
 if __name__ == "__main__":
     robot_face = RobotFace()
+    robot_face.animate_eyes()
     robot_face.mainloop()
