@@ -92,3 +92,4 @@ class ROB:
         self.controller.setTarget(motor, value)
 
 rob = ROB()
+rob.face.animate_eyes()
