@@ -1,6 +1,5 @@
 from flask import Flask, render_template, send_from_directory, jsonify, request, Blueprint, redirect
 import os
-import threading
 from rob import ROB
 
 rob = ROB()
@@ -123,9 +122,7 @@ def getWheelsValue(value):
     print("v", str(value))
     return str(value)
 
-def run_flask():
-    app.run(debug=True, host="0.0.0.0", port=5000)
-flask_thread = threading.Thread(target=run_flask)
-flask_thread.start()
+
+app.run(debug=True, host="0.0.0.0", port=5000)
 
 rob.face.mainloop()
