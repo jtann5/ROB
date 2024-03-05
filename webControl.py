@@ -75,7 +75,7 @@ def command():
         head_up_down_value = -5
 
     default = 6000
-    rightmotor = default + (300 * forward_backward)
+    rightmotor = default + (280 * forward_backward)
     leftmotor = default - (300 * forward_backward)
     waist = default + (200 * waist_value)
     head_vertical = default + (200 * head_up_down_value)
@@ -100,13 +100,14 @@ def update():
     firstValL = 6000
     firstValR = 6000
 
+    # swapped the firstValR and firstValL lines with each other
     if joystickX > 0:
-        firstValL = 6000 + (200 * joystickX)
-    if joystickX < 0:
         firstValR = 6000 - (200 * joystickX)
+    if joystickX < 0:
+        firstValL = 6000 + (200 * joystickX)
 
-    secondValL = 6000 - (200 * joystickY)
-    secondValR = 6000 + (200 * joystickY)
+    secondValR = 6000 - (200 * joystickY)
+    secondValL = 6000 + (200 * joystickY)
 
     rightVal = (firstValL + secondValL) / 2
     leftVal = (firstValR + secondValR) / 2
