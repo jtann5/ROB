@@ -35,6 +35,8 @@ class ROB:
 
         pygame.mixer.init()
 
+        self.face = face.RobotFace()
+
     def defaults(self):
         for i in range(17):
             self.controller.setTarget(i, 6000)
