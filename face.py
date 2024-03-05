@@ -14,9 +14,9 @@ class RobotFace(tk.Tk):
         self.canvas.pack()
 
         # Initialize eye coordinates
-        self.lefteyeX = 120
+        self.lefteyeX = 300
         self.lefteyeY = 130
-        self.righteyeX = 270
+        self.righteyeX = 500
         self.righteyeY = 130
         self.eye_movement_offset = 40
         self.eye_shift_offset = 10
