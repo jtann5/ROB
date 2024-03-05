@@ -203,6 +203,6 @@ class RobotFace(tk.Tk):
     def set_robot_state(self, new_state):
         self.robot_state = new_state
 
-if __name__ == "__main__":
-    robot_face = RobotFace()
+#if __name__ == "__main__":
+    #robot_face = RobotFace()
     ##robot_face.mainloop()
