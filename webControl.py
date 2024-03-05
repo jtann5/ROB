@@ -3,9 +3,6 @@ import os
 import threading
 from rob import ROB
 
-rob = ROB()
-rob.defaults()
-
 def setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal):
     rob.setMotor(0, leftmotor)
     rob.setMotor(1, rightmotor)
@@ -123,9 +120,14 @@ def getWheelsValue(value):
     print("v", str(value))
     return str(value)
 
-rob.face.mainloop()
-
 def run_flask():
     app.run(debug=True, host="0.0.0.0", port=5000)
-flask_thread = threading.Thread(target=run_flask)
-flask_thread.start()
+
+if __name__ == "__main__":
+    rob = ROB()
+    rob.defaults()
+
+    flask_thread = threading.Thread(target=run_flask)
+    flask_thread.start()
+    
+    rob.face.mainloop()
