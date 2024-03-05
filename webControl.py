@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_from_directory, jsonify, request, Blueprint, redirect
 import os
+import threading
 from rob import ROB
 
 rob = ROB()
@@ -13,7 +14,6 @@ def setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal):
     rob.setMotor(4, head_horizontal)
 
 app = Flask(__name__, template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'), static_folder='static')
-rob.face.mainloop()
 
 forward_backward = 0
 waist_value = 0
@@ -123,4 +123,9 @@ def getWheelsValue(value):
     print("v", str(value))
     return str(value)
 
-app.run(debug=True, host="0.0.0.0", port=5000)
+def run_flask():
+    app.run(debug=True, host="0.0.0.0", port=5000)
+flask_thread = threading.Thread(target=run_flask)
+flask_thread.start()
+
+rob.face.mainloop()
