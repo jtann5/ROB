@@ -8,8 +8,9 @@ class RobotFace(tk.Tk):
         tk.Tk.__init__(self)
         self.title("Robot Face")
         self.geometry("800x480")
+        self.attributes("-fullscreen", True)
 
-        self.canvas = tk.Canvas(self, width=400, height=400, bg="white")
+        self.canvas = tk.Canvas(self, width=800, height=480, bg="white")
         self.canvas.pack()
 
         # Initialize eye coordinates
