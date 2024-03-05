@@ -14,16 +14,16 @@ class RobotFace(tk.Tk):
         self.canvas.pack()
 
         # Initialize eye coordinates
-        self.lefteyeX = 300
-        self.lefteyeY = 130
-        self.righteyeX = 500
-        self.righteyeY = 130
+        self.lefteyeX = 220
+        self.lefteyeY = 180
+        self.righteyeX = 580
+        self.righteyeY = 180
         self.eye_movement_offset = 40
         self.eye_shift_offset = 10
         self.eye_left = self.create_cartoonish_eye(self.lefteyeX, self.lefteyeY)
         self.eye_right = self.create_cartoonish_eye(self.righteyeX, self.righteyeY)
 
-        self.mouth_coords = [350, 240, 450, 240]
+        self.mouth_coords = [280, 400, 520, 400]
         self.mouth_line = self.canvas.create_line(*self.mouth_coords, fill="black", width=2)
 
 
