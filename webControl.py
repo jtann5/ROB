@@ -1,6 +1,6 @@
 from flask import Flask, render_template, send_from_directory, jsonify, request, Blueprint, redirect
 import os
-import threading
+import multiprocessing
 from rob import ROB
 
 def setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal):
@@ -127,7 +127,9 @@ if __name__ == "__main__":
     rob = ROB()
     rob.defaults()
 
-    flask_thread = threading.Thread(target=run_flask)
-    flask_thread.start()
-    
+    flask_process = multiprocessing.Process(target=run_flask)
+    flask_process.start()
+
     rob.face.mainloop()
+
+    flask_process.join()
