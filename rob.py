@@ -90,3 +90,5 @@ class ROB:
 
     def setMotor(self, motor, value):
         self.controller.setTarget(motor, value)
+
+rob = ROB()
