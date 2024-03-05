@@ -36,6 +36,7 @@ class ROB:
         pygame.mixer.init()
 
         self.face = face.RobotFace()
+        self.face.mainloop()
 
     def defaults(self):
         for i in range(17):
@@ -92,4 +93,3 @@ class ROB:
         self.controller.setTarget(motor, value)
 
 rob = ROB()
-rob.face.animate_eyes()

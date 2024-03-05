@@ -32,8 +32,8 @@ class RobotFace(tk.Tk):
         self.robot_state = "idle"
 
         # Start a thread for animations
-        #self.animation_thread = threading.Thread(target=self.animate_eyes)
-        #self.animation_thread.start()
+        self.animation_thread = threading.Thread(target=self.animate_eyes)
+        self.animation_thread.start()
 
         self.bind("<KeyPress-a>", self.set_moving_state)
         self.bind("<KeyPress-s>", self.set_talking_state)
@@ -57,7 +57,6 @@ class RobotFace(tk.Tk):
             elif self.robot_state == "moving":
                 self.move_animation()
             time.sleep(0.1)  # Adjust the sleep duration for desired animation speed
-            self.after(100, self.animate_eyes)
 
     def set_moving_state(self, event):
         self.set_robot_state("moving")
@@ -206,5 +205,4 @@ class RobotFace(tk.Tk):
 
 if __name__ == "__main__":
     robot_face = RobotFace()
-    robot_face.animate_eyes()
-    robot_face.mainloop()
+    ##robot_face.mainloop()
