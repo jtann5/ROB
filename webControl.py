@@ -9,6 +9,7 @@ forward_backward = 0
 waist_value = 0
 head_left_right_value = 0
 head_up_down_value = 0
+left_right = 0
 
 @app.route('/')
 def index():
