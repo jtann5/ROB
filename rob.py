@@ -31,7 +31,7 @@ class FakeController():
 
 class ROB:
     def __init__(self):
-        self.controller = FakeController()
+        self.controller = Controller()
 
         self.voice = pyttsx3.init()
         self.voice.setProperty('volume', 1.0)
