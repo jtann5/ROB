@@ -61,8 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // IDK how do math
             leftMotorVal = 6000 + offsetY*13 - offsetX*10;
             rightMotorVal = 6000 - offsetY*13 - offsetX*10;
-            setMotor(0, leftMotorVal);
-            setMotor(1, rightMotorVal);
+            mainMotors(leftMotorVal, rightMotorVal);
         }
     }
 
@@ -78,8 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
         joystick.style.left = '50%';
 
         // Stop robot
-        setMotor(0, 6000);
-        setMotor(1, 6000);
+        mainMotors(6000, 6000);
     }
 
     // Add event listeners for mouse and touch events
@@ -155,6 +153,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+
+function mainMotors(motor0, motor1) {
+    var data = {
+        motor0: motor0,
+        motor1: motor1
+    };
+
+    fetch('/mainmotors', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data) // Convert data to JSON format
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Handle successful response
+        console.log('Motor values sent successfully');
+    })
+    .catch(error => {
+        // Handle errors
+        console.error('Error sending motor values:', error);
+    });
+}
 
 function setMotor(motor, value) {
     var data = {

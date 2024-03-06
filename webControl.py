@@ -15,6 +15,16 @@ left_right = 0
 def index():
     return render_template('index.html')
 
+@app.route('/mainmotors', methods=['POST'])
+def mainmotors():
+    data = request.get_json()
+    motor0 = int(data.get("motor0"))
+    motor1 = int(data.get("motor1"))
+    rob.setMotor(motor0, motor1)
+
+    response_data = {'status': 'success'}
+    return jsonify(response_data)
+
 @app.route('/setmotor', methods=['POST'])
 def setmotor():
     data = request.get_json()

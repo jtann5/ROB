@@ -1,10 +1,23 @@
-from maestro import Controller
 import pyttsx3
 from gtts import gTTS
 import pygame
 import tempfile
 import time
 import face
+
+import platform
+
+def is_raspberry_pi():
+    """Check if the current system is a Raspberry Pi."""
+    system_info = platform.uname()
+    return "raspberry" in system_info.machine.lower()
+
+if is_raspberry_pi():
+    from maestro import Controller
+else:
+    class Controller():
+        def setTarget(self, motor, value):
+            print("Set motor " + str(motor) + " to value " + str(value))
 
 LEFTMOTOR = 0
 RIGHTMOTOR = 1
@@ -23,10 +36,6 @@ LEFTELBOW = 13
 LEFTFOREARM = 14
 LEFTWRIST = 15
 LEFTCLAW = 16
-
-class FakeController():
-    def setTarget(self, motor, value):
-        print("Set motor " + str(motor) + " to value " + str(value))
 
 
 class ROB:
