@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const joystick = document.getElementById('joystick');
     const slider1 = document.getElementById('slider1');
+    const joystickContainter = document.getElementById('joystick-container');
     const slider2 = document.getElementById('slider2');
     const slider3 = document.getElementById('slider3');
 
@@ -103,7 +104,6 @@ function moveListener(event) {
             document.removeEventListener('mousemove', moveListener);
         }
     });
-});
 
 
 
@@ -170,4 +170,4 @@ function moveListener(event) {
 
     // Initial update when the page loads
     sendDataToFlask(0, 0, slider1.value, slider2.value, slider3.value);
-
+});

@@ -24,9 +24,14 @@ LEFTFOREARM = 14
 LEFTWRIST = 15
 LEFTCLAW = 16
 
+class FakeController():
+    def setTarget(self, motor, value):
+        print("Set motor " + str(motor) + " to value " + str(value))
+
+
 class ROB:
     def __init__(self):
-        self.controller = Controller()
+        self.controller = FakeController()
 
         self.voice = pyttsx3.init()
         self.voice.setProperty('volume', 1.0)
@@ -35,7 +40,7 @@ class ROB:
 
         pygame.mixer.init()
 
-        self.face = face.RobotFace()
+        #self.face = face.RobotFace()
         #self.face.mainloop()
 
     def defaults(self):
