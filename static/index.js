@@ -132,15 +132,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Text box event listeners
-    sayBox.addEventListener('keypress', function(event) {
+    sayBox.addEventListener('keyup', function(event) {
         if (event.key === 'Enter') {
             say(sayBox.value);
+        } else if (event.key === '\\') {
+            sayBox.value = "";
         }
     });
 
-    gsayBox.addEventListener('keypress', function(event) {
+    gsayBox.addEventListener('keyup', function(event) {
         if (event.key === 'Enter') {
             gsay(gsayBox.value);
+        } else if (event.key === '\\') {
+            gsayBox.value = "";
         }
     });
 
