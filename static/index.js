@@ -59,8 +59,10 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Offset X:', offsetX, 'Offset Y:', offsetY);
 
             // IDK how do math
-            setMotor(0, 6000);
-            setMotor(1, 6000);
+            leftMotorVal = 6000 - offsetY*13;
+            rightMotorVal = 6000 + offsetY*13;
+            setMotor(0, leftMotorVal);
+            setMotor(1, rightMotrVal);
         }
     }
 
