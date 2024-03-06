@@ -114,7 +114,7 @@ def command():
 
     default = 6000
     rightmotor = default + (280 * forward_backward) + (280 * left_right)
-    leftmotor = default - (300 * forward_backward) - (300 * left_right)
+    leftmotor = default - (300 * forward_backward) + (300 * left_right)
     waist = default + (200 * waist_value)
     head_vertical = default + (200 * head_up_down_value)
     head_horizontal = default + (200 * head_left_right_value)
