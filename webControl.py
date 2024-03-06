@@ -46,7 +46,7 @@ def gsay():
 
 @app.route('/command', methods=['POST'])
 def command():
-    global forward_backward, waist_value, head_left_right_value, head_up_down_value
+    global forward_backward, waist_value, head_left_right_value, head_up_down_value, left_right
 
     data = request.get_json()
     command = data.get("command")
@@ -58,17 +58,15 @@ def command():
     elif command ==  'backward':
         forward_backward -= 1
     elif command == 'left':
-        # handle left
-        # turn left here
-        pass
+        left_right += 1
     elif command == 'right':
-        # handle right
-        # turn right here
-        pass
+        left_right -= 1
     elif command == 'stop':
-        # handle stop
-        # make stop function?
-        pass
+        forward_backward = 0
+        waist_value = 0
+        head_left_right_value = 0
+        head_up_down_value = 0
+        left_right = 0
     elif command == 'waistRight':
         waist_value += 1
     elif command == 'waistLeft':
@@ -98,10 +96,14 @@ def command():
         head_up_down_value = 5
     if head_up_down_value < -5:
         head_up_down_value = -5
+    if left_right > 3:
+        forward_backward = 3
+    if left_right < -3:
+        forward_backward = -3
 
     default = 6000
-    rightmotor = default + (280 * forward_backward)
-    leftmotor = default - (300 * forward_backward)
+    rightmotor = default + (280 * forward_backward) + (280 * left_right)
+    leftmotor = default - (300 * forward_backward) - (300 * left_right)
     waist = default + (200 * waist_value)
     head_vertical = default + (200 * head_up_down_value)
     head_horizontal = default + (200 * head_left_right_value)
