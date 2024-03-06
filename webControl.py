@@ -113,40 +113,41 @@ def command():
     return jsonify(response_data)
 
 
-@app.route('/update', methods=['POST'])
-def update():
-    data = request.get_json()
-    joystickX = data.get("joystickX")
-    joystickY = data.get("joystickY")
-    slider1 = data.get('slider1')
-    slider2 = data.get('slider2')
-    slider3 = data.get('slider3')
+# @app.route('/update', methods=['POST'])
+# def update():
+#     data = request.get_json()
+#     joystickX = data.get("joystickX")
+#     joystickY = data.get("joystickY")
+#     slider1 = data.get('slider1')
+#     slider2 = data.get('slider2')
+#     slider3 = data.get('slider3')
 
-    firstValL = 6000
-    firstValR = 6000
+#     firstValL = 6000
+#     firstValR = 6000
 
-    # swapped the firstValR and firstValL lines with each other
-    if joystickX > 0:
-        firstValR = 6000 - (200 * joystickX)
-    if joystickX < 0:
-        firstValL = 6000 + (200 * joystickX)
+#     # swapped the firstValR and firstValL lines with each other
+#     if joystickX > 0:
+#         firstValR = 6000 - (200 * joystickX)
+#     if joystickX < 0:
+#         firstValL = 6000 + (200 * joystickX)
 
-    secondValR = 6000 - (200 * joystickY)
-    secondValL = 6000 + (200 * joystickY)
+#     secondValR = 6000 - (200 * joystickY)
+#     secondValL = 6000 + (200 * joystickY)
 
-    rightVal = (firstValL + secondValL) / 2
-    leftVal = (firstValR + secondValR) / 2
+#     rightVal = (firstValL + secondValL) / 2
+#     leftVal = (firstValR + secondValR) / 2
 
-    setValues(int(leftVal), int(rightVal), 6000-int(slider1)*200, 6000-int(slider2)*200, 6000-int(slider3)*200)
+#     setValues(int(leftVal), int(rightVal), 6000-int(slider1)*200, 6000-int(slider2)*200, 6000-int(slider3)*200)
 
-    response_data = {'status': 'success'}
-    return jsonify(response_data)
+#     response_data = {'status': 'success'}
+#     return jsonify(response_data)
 
-def getWheelsValue(value):
-    print("v", str(value))
-    return str(value)
+# def getWheelsValue(value):
+#     print("v", str(value))
+#     return str(value)
 
 rob = ROB()
+rob.defaults()
 
 def setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal):
     rob.setMotor(0, leftmotor)

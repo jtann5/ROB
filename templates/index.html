@@ -44,6 +44,13 @@
             margin-bottom: 10px;
         }
 
+        .slider {
+            width: 200px;
+        }
+
+        .textbox {
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -55,61 +62,60 @@
 
     <div id="slider-container">
         <label for="waist">Waist:</label>
-        <input type="range" id="waist" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="waist" min="-10" max="10" value="0">
         <br>
         <label for="headTilt">Head Tilt:</label>
-        <input type="range" id="headTilt" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="headTilt" min="-10" max="10" value="0">
         <br>
         <label for="headTurn">Head Turn:</label>
-        <input type="range" id="headTurn" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="headTurn" min="-10" max="10" value="0">
         <br>
         <h2>Right Side</h2>
         <label for="rightShoulder">Right Shoulder:</label>
-        <input type="range" id="rightShoulder" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="rightShoulder" min="-10" max="10" value="0">
         <br>
         <label for="rightBicep">Right Bicep:</label>
-        <input type="range" id="rightBicep" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="rightBicep" min="-10" max="10" value="0">
         <br>
         <label for="rightElbow">Right Elbow:</label>
-        <input type="range" id="rightElbow" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="rightElbow" min="-10" max="10" value="0">
         <br>
         <label for="rightForearm">Right Forearm:</label>
-        <input type="range" id="rightForearm" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="rightForearm" min="-10" max="10" value="0">
         <br>
         <label for="rightWrist">Right Wrist:</label>
-        <input type="range" id="rightWrist" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="rightWrist" min="-10" max="10" value="0">
         <br>
         <label for="rightClaw">Right Claw:</label>
-        <input type="range" id="rightClaw" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="rightClaw" min="-10" max="10" value="0">
         <br>
         <h2>Left Side</h2>
         <label for="leftShoulder">Left Shoulder:</label>
-        <input type="range" id="leftShoulder" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="leftShoulder" min="-10" max="10" value="0">
         <br>
         <label for="leftBicep">Left Bicep:</label>
-        <input type="range" id="leftBicep" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="leftBicep" min="-10" max="10" value="0">
         <br>
         <label for="leftElbow">Left Elbow:</label>
-        <input type="range" id="leftElbow" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="leftElbow" min="-10" max="10" value="0">
         <br>
         <label for="leftForearm">Left Forearm:</label>
-        <input type="range" id="leftForearm" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="leftForearm" min="-10" max="10" value="0">
         <br>
         <label for="leftWrist">Left Wrist:</label>
-        <input type="range" id="leftWrist" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="leftWrist" min="-10" max="10" value="0">
         <br>
         <label for="leftClaw">Left Claw:</label>
-        <input type="range" id="leftClaw" min="-10" max="10" value="0">
+        <input class="slider" type="range" id="leftClaw" min="-10" max="10" value="0">
     </div>
 
     <div>
         <h2>Normal Text to Speech</h2>
-        <input type="text" id="sayBox">
-        <br>
+        <input class="textbox" type="text" id="sayBox"><br>
         <button onclick="sayBox()">Submit</button>
         <button onclick="clearSayBox()">Clear</button><br>
         <h2>Google Text to Speech</h2>
-        <input type="text" id="gsayBox"><br>
+        <input class="textbox" type="text" id="gsayBox"><br>
         <button onclick="gsayBox()">Submit</button>
         <button onclick="clearGsayBox()">Clear</button>
     </div>

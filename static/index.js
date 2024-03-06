@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // IDK how do math
             setMotor(0, 6000);
-            setMotor(1, 6000)
+            setMotor(1, 6000);
         }
     }
 
@@ -74,6 +74,10 @@ document.addEventListener('DOMContentLoaded', function () {
         dragging = false;
         joystick.style.top = '50%';
         joystick.style.left = '50%';
+
+        // Stop robot
+        setMotor(0, 6000);
+        setMotor(1, 6000);
     }
 
     // Add event listeners for mouse and touch events
@@ -194,45 +198,49 @@ function sendCommandToFlask(command) {
 }
 
 function say(text) {
-    fetch('/say', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({text: text}) // Convert data to JSON format
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        // Handle successful response
-        console.log('Text sent successfully');
-    })
-    .catch(error => {
-        // Handle errors
-        console.error('Error sending motor values:', error);
-    });
+    if (text !== "") {
+        fetch('/say', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({text: text}) // Convert data to JSON format
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Handle successful response
+            console.log('Text sent successfully');
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error sending motor values:', error);
+        });
+    }
 }
 
 function gsay(text) {
-    fetch('/gsay', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({text: text}) // Convert data to JSON format
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        // Handle successful response
-        console.log('Text sent successfully');
-    })
-    .catch(error => {
-        // Handle errors
-        console.error('Error sending motor values:', error);
-    });
+    if (text !== "") {
+        fetch('/gsay', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({text: text}) // Convert data to JSON format
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Handle successful response
+            console.log('Text sent successfully');
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error sending motor values:', error);
+        });
+    }
 }
 
 function defaults() {

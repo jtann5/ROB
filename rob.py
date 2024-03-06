@@ -36,7 +36,7 @@ class ROB:
         self.voice = pyttsx3.init()
         self.voice.setProperty('volume', 1.0)
         self.voice.setProperty('rate', 150)
-        self.voice.setProperty('voice', 'english-us')
+        #self.voice.setProperty('voice', 'english-us')
 
         pygame.mixer.init()
 
@@ -44,10 +44,13 @@ class ROB:
         #self.face.mainloop()
 
     def defaults(self):
+        pygame.mixer.music.stop()
         for i in range(17):
             self.controller.setTarget(i, 6000)
 
     def say(self, text):
+        if (self.voice._inLoop):
+            self.voice.endLoop()
         self.voice.say(text)
         self.voice.runAndWait()
 
