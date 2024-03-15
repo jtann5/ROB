@@ -1,80 +1,90 @@
-import tkinter as tk
-import threading
 import time
 import random
+import os
 
-class RobotFace(tk.Tk):
-    def __init__(self):
-        tk.Tk.__init__(self)
-        self.title("Robot Face")
-        self.geometry("800x480")
-        self.overrideredirect(True)
-        self.attributes("-fullscreen", True)
+#pygame version
+import pygame
 
-        self.canvas = tk.Canvas(self, width=800, height=480, bg="white")
-        self.canvas.pack()
+class RobotFace:
+    def __init__(self, queue=None):
+        self.screen_width = 800
+        self.queue = queue
 
-        # Initialize eye coordinates
+        self.clock = pygame.time.Clock()
+        self.next_blink_time = pygame.time.get_ticks() + random.randint(2000, 7000)
+        self.end_blink_time = 0
+        self.blinking = False
+
         self.lefteyeX = 220
         self.lefteyeY = 180
         self.righteyeX = 580
         self.righteyeY = 180
-        self.eye_movement_offset = 40
-        self.eye_shift_offset = 10
-        self.eye_left = self.create_cartoonish_eye(self.lefteyeX, self.lefteyeY)
-        self.eye_right = self.create_cartoonish_eye(self.righteyeX, self.righteyeY)
+        self.lefteye_pupilX = self.lefteyeX
+        self.lefteye_pupilY = self.lefteyeY
+        self.righteye_pupilX = self.righteyeX
+        self.righteye_pupilY = self.righteyeY
 
-        self.mouth_coords = [280, 400, 520, 400]
-        self.mouth_line = self.canvas.create_line(*self.mouth_coords, fill="black", width=2)
+        self.eye_shift_offset = 40
+        self.eye_color = (0, 0, 0)
 
 
-        # Initialize robot state
+        self.mouth_size = 200
+        self.mouth_height = 350
+        self.mouthfirstcoord = (self.screen_width / 2) + (self.mouth_size / 2)
+        self.mouthsecondcoord = self.mouthfirstcoord - self.mouth_size
+        self.mouth_coords = [self.mouthsecondcoord, self.mouth_height, self.mouthfirstcoord, self.mouth_height]
+
+
         self.robot_state = "idle"
 
-        # Start a thread for animations
-        self.animation_thread = threading.Thread(target=self.animate_eyes)
-        self.animation_thread.start()
+    def initialize_pygame(self):
+        if not os.getenv('PYGAME_INITIALIZED'):
+            pygame.init()
+            os.environ['PYGAME_INITIALIZED'] = '1'
+        self.screen = pygame.display.set_mode((800, 480))
+        pygame.display.set_caption("ROBs Face")
 
-        self.bind("<KeyPress-a>", self.set_moving_state)
-        self.bind("<KeyPress-s>", self.set_talking_state)
-        self.bind("<KeyPress-d>", self.set_idle_state)
+    def draw_eye(self, x, y, pupilX, pupilY):
+        pygame.draw.circle(self.screen, (0, 0, 0), (x, y), 162) # eye outline
+        pygame.draw.circle(self.screen, (255, 255, 255), (x, y), 160) #white part
+        pygame.draw.circle(self.screen, self.eye_color, (pupilX, pupilY), 60) #pupil
 
-    def create_cartoonish_eye(self, x, y):
-        eye_outside_offset = 160
-        pupil_size_offset = 60
-        self.pupil_size_offset = pupil_size_offset
-        self.eye_outside_offset = eye_outside_offset
-        eye_outer = self.canvas.create_oval(x - eye_outside_offset, y - eye_outside_offset, x + eye_outside_offset, y + eye_outside_offset, fill="white", outline="black", width=2)
-        pupil = self.canvas.create_oval(x - pupil_size_offset, y - pupil_size_offset, x + pupil_size_offset, y + pupil_size_offset, fill="black")
-        return eye_outer, pupil
+    def blink(self):
+        current_time = pygame.time.get_ticks()
+        if current_time >= self.next_blink_time:
+            self.blinking = True  # start blinking
+            self.end_blink_time = current_time + 500  # schedule end of blink
+            self.next_blink_time = current_time + random.randint(2000, 7000)  # schedule next blink
+        elif current_time >= self.end_blink_time:
+            self.blinking = False  # stop blinking
 
     def animate_eyes(self):
         while True:
-            if self.robot_state == "idle":
-                self.blink_and_move_eyes()
-            elif self.robot_state == "talking":
-                self.talk_animation()
-            elif self.robot_state == "moving":
-                self.move_animation()
-            time.sleep(0.1)  # Adjust the sleep duration for desired animation speed
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
 
-    def set_moving_state(self, event):
-        self.set_robot_state("moving")
+            self.screen.fill((255, 255, 255))
+            if self.queue is not None:
+                if not self.queue.empty():
+                    new_state = self.queue.get()
+                    self.robot_state = new_state
 
-    def set_talking_state(self, event):
-        self.canvas.config(bg="white")
-        self.reset_face()
-        self.set_robot_state("talking")
+            if self.robot_state != None:
+                self.draw_mouth()
+                self.eye_color = (255, 255, 255) if self.blinking else (0, 0, 0)
+                self.draw_eye(self.lefteyeX, self.lefteyeY, self.lefteye_pupilX, self.lefteye_pupilY)
+                self.draw_eye(self.righteyeX, self.righteyeY, self.righteye_pupilX, self.righteye_pupilY)
+                self.blink()
+                temp = random.randint(0, 70)
+                if temp == 0:
+                    self.move_eyes()
 
-    def set_idle_state(self, event):
-        self.canvas.config(bg="white")
-        self.reset_face()
-        self.set_robot_state("idle")
+            pygame.display.update()
+            self.clock.tick(60)
 
-    def blink_and_move_eyes(self):
-        self.blink()
-        time.sleep(0.4)  # Small delay after blinking
-
+    def move_eyes(self):
         number = random.randint(0, 2)
         if number == 0:
             self.move_left_eye_right()
@@ -86,123 +96,55 @@ class RobotFace(tk.Tk):
             self.move_left_eye_center()
             self.move_right_eye_center()
         time.sleep(0.1)
-
-    def animate_mouth(self):
-        # Zig-zagging mouth animation
-        current_coords = self.mouth_coords
-        new_y1 = current_coords[1] + 5 * random.choice([-1, 1])
-        new_y2 = current_coords[3] + 5 * random.choice([-1, 1])
-        self.mouth_coords = [current_coords[0], new_y1, current_coords[2], new_y2]
-        self.canvas.coords(self.mouth_line, *self.mouth_coords)
-
-    def draw_semi_circle(self, x, y, radius, color):
-        semi_circle = self.canvas.create_arc(x - radius, y - radius, x + radius, y + radius, start=180, extent=180, fill=color, outline=color, width=2)
-        return semi_circle
-
-    def talk_animation(self):
-        # self.animate_mouth()
-        semi_circle = self.draw_semi_circle((self.mouth_coords[0] + self.mouth_coords[2]) / 2, self.mouth_coords[1], (self.mouth_coords[2] - self.mouth_coords[0]) / 2, "black")
-        time.sleep(0.5)
-        self.canvas.delete(semi_circle)
-
-    def move_animation(self):
-        self.canvas.config(bg="red")  # Change background color to red
-        self.angry_eyes()
-        time.sleep(.1)  # Adjust the duration for the movement animation
-
-    def angry_eyes(self):
-        # Move the eyes upward to give an angry appearance
-        number = random.randint(0, 2)
-        if number == 0:
-            self.move_left_eye_right()
-            self.move_right_eye_right()
-        elif number == 1:
-            self.move_left_eye_left()
-            self.move_right_eye_left()
-        elif number == 2:
-            self.move_left_eye_center()
-            self.move_right_eye_center()
-
-    def reset_face(self):
-        # Reset the background color and eye positions
-        self.canvas.config(bg="white")
-        self.canvas.coords(self.eye_left[1], self.lefteyeX - self.pupil_size_offset, self.lefteyeY - self.pupil_size_offset,
-                            self.lefteyeX + self.pupil_size_offset, self.lefteyeY + self.pupil_size_offset)
-        self.canvas.coords(self.eye_right[1], self.righteyeX - self.pupil_size_offset, self.righteyeY - self.pupil_size_offset,
-                            self.righteyeX + self.pupil_size_offset, self.righteyeY + self.pupil_size_offset)
-
-    def blink(self):
-        self.canvas.itemconfig(self.eye_left[1], state=tk.HIDDEN)
-        self.canvas.itemconfig(self.eye_right[1], state=tk.HIDDEN)
-        time.sleep(0.1)
-        self.canvas.itemconfig(self.eye_left[1], state=tk.NORMAL)
-        self.canvas.itemconfig(self.eye_right[1], state=tk.NORMAL)
-        time.sleep(random.uniform(2, 5))  # Randomize blinking intervals
-
-    # Left eyes
 
     def move_left_eye_right(self):
-        new_left_center = [self.lefteyeX + self.eye_movement_offset, self.lefteyeY]  # Adjust the desired center coordinates
-
-        self.move_eye(self.eye_left, new_left_center)
+        self.lefteye_pupilX = self.lefteyeX + self.eye_shift_offset
 
     def move_left_eye_left(self):
-        new_left_center = [self.lefteyeX - self.eye_movement_offset, self.lefteyeY]  # Adjust the desired center coordinates
-
-        self.move_eye(self.eye_left, new_left_center)
+        self.lefteye_pupilX = self.lefteyeX - self.eye_shift_offset
 
     def move_left_eye_center(self):
-        new_left_center = [self.lefteyeX, self.lefteyeY]
-
-        self.move_eye(self.eye_left, new_left_center)
+        self.lefteye_pupilX = self.lefteyeX
+        self.lefteye_pupilY = self.lefteyeY
 
     def move_left_eye_up(self):
-        new_left_center = [self.lefteyeX, self.lefteyeY - self.eye_movement_offset]
-
-        self.move_eye(self.eye_left, new_left_center)
+        self.lefteye_pupilY = self.lefteyeY - self.eye_shift_offset
 
     def move_left_eye_down(self):
-        new_left_center = [self.lefteyeX, self.lefteyeY + self.eye_movement_offset]
-
-        self.move_eye(self.eye_left, new_left_center)
-
-    # Right Eyes
+        self.lefteye_pupilY = self.lefteyeY + self.eye_shift_offset
 
     def move_right_eye_right(self):
-        new_right_center = [self.righteyeX + self.eye_movement_offset, self.righteyeY]  # Adjust the desired center coordinates
-
-        self.move_eye(self.eye_right, new_right_center)
+        self.righteye_pupilX = self.righteyeX + self.eye_shift_offset
 
     def move_right_eye_left(self):
-        new_right_center = [self.righteyeX - self.eye_movement_offset, self.righteyeY]  # Adjust the desired center coordinates
-
-        self.move_eye(self.eye_right, new_right_center)
+        self.righteye_pupilX = self.righteyeX - self.eye_shift_offset
 
     def move_right_eye_center(self):
-        new_right_center = [self.righteyeX, self.righteyeY]
-
-        self.move_eye(self.eye_right, new_right_center)
+        self.righteye_pupilX = self.righteyeX
+        self.righteye_pupilY = self.righteyeY
 
     def move_right_eye_up(self):
-        new_right_center = [self.righteyeX, self.righteyeY - self.eye_movement_offset]
-
-        self.move_eye(self.eye_right, new_right_center)
+        self.righteye_pupilY = self.righteyeY - self.eye_shift_offset
 
     def move_right_eye_down(self):
-        new_right_center = [self.righteyeX, self.righteyeY + self.eye_movement_offset]
+        self.righteye_pupilY = self.righteyeY + self.eye_shift_offset
 
-        self.move_eye(self.eye_right, new_right_center)
-
-
-
-    def move_eye(self, eye, new_center):
-        # Calculate the new bounding box coordinates based on the desired center
-        x1, y1, x2, y2 = new_center[0] - self.pupil_size_offset, new_center[1] - self.pupil_size_offset, new_center[0] + self.pupil_size_offset, new_center[1] + self.pupil_size_offset
-        self.canvas.coords(eye[1], x1, y1, x2, y2)
+    def draw_mouth(self):
+        if self.robot_state == 'talking':
+            if pygame.time.get_ticks() // 500 % 3 == 0:
+                pygame.draw.line(self.screen, (0, 0, 0), (self.mouth_coords[0], self.mouth_coords[1]), (self.mouth_coords[2], self.mouth_coords[3]), 2)
+            else:
+                mouth_surface = pygame.Surface((self.mouth_size, self.mouth_size), pygame.SRCALPHA)
+                pygame.draw.ellipse(mouth_surface, (0, 0, 0), pygame.Rect(0, 0, self.mouth_size, self.mouth_size))
+                self.screen.blit(mouth_surface, (self.mouthsecondcoord, self.mouth_height), pygame.Rect(0, self.mouth_size/2, self.mouth_size, self.mouth_size/2))
+        elif self.robot_state == 'moving':
+            pygame.draw.circle(self.screen, (0, 0, 0), (((self.mouthfirstcoord+(self.screen_width/2))/2), self.mouth_height + 20), self.mouth_size // 4)
+        else:
+            pygame.draw.line(self.screen, (0, 0, 0), (self.mouth_coords[0], self.mouth_coords[1]), (self.mouth_coords[2], self.mouth_coords[3]), 2)
 
     def set_robot_state(self, new_state):
         self.robot_state = new_state
 
-#if __name__ == "__main__":
-    #robot_face = RobotFace()
-    ##robot_face.mainloop()
+if __name__ == "__main__":
+    robot_face = RobotFace()
+    robot_face.animate_eyes()

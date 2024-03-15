@@ -3,7 +3,13 @@ from gtts import gTTS
 import pygame
 import tempfile
 import time
+from threading import Thread
+from multiprocessing import Process
 import face
+
+import os
+
+rob_instance = None
 
 import platform
 
@@ -39,18 +45,20 @@ LEFTCLAW = 16
 
 
 class ROB:
-    def __init__(self):
+    def __init__(self, queue=None):
         self.controller = Controller()
 
         self.voice = pyttsx3.init()
         self.voice.setProperty('volume', 1.0)
         self.voice.setProperty('rate', 150)
         #self.voice.setProperty('voice', 'english-us')
-
+        if not hasattr(self, 'face'):
+            self.face = face.RobotFace(queue)
         pygame.mixer.init()
+        # self.face.animate_eyes()
 
-        #self.face = face.RobotFace()
-        #self.face.mainloop()
+    def set_queue(self, queue):
+        self.queue = queue
 
     def defaults(self):
         pygame.mixer.music.stop()
@@ -108,3 +116,19 @@ class ROB:
 
     def setMotor(self, motor, value):
         self.controller.setTarget(motor, value)
+
+    def get_robot_face(self):
+        return self.face
+
+
+def get_rob_instance(queue=None):
+    global rob_instance
+    if rob_instance is None:
+        rob_instance = ROB(queue)
+    else:
+        rob_instance.queue = queue
+    return rob_instance
+
+
+if __name__ == "__main__":
+    rob = ROB()
