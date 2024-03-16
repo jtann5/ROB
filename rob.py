@@ -47,8 +47,8 @@ LEFTCLAW = 16
 class ROB:
     def __init__(self, queue=None):
         self.controller = Controller()
-
         self.voice = pyttsx3.init()
+        self.queue = queue
         self.voice.setProperty('volume', 1.0)
         self.voice.setProperty('rate', 150)
         #self.voice.setProperty('voice', 'english-us')
@@ -66,10 +66,14 @@ class ROB:
             self.controller.setTarget(i, 6000)
 
     def say(self, text):
+        if self.queue is not None:
+            self.queue.put("talking")
         if (self.voice._inLoop):
             self.voice.endLoop()
         self.voice.say(text)
         self.voice.runAndWait()
+        if self.queue is not None:
+            self.queue.put("idle")
 
     def gsay(self, text):
         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=True) as temp_file:
