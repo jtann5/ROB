@@ -1,0 +1,17 @@
+#comments are ignored
+~greetings: [hello howdy "hi there"]
+u: (~greetings): [hi hello "what up" sup]
+    u1:(you): good
+        u1:(and): [one two]
+u: (you): should not be here
+u: (test): two
+    u1: (third): ~greetings
+u: (my name is _): hello $name
+    u1: (I am _ years old): You are $age years old
+    u1: (do you remember my name) : Yes
+    #comments are ignored
+        u2: (what is it): $name
+            u3: (you are very smart): I know
+u: (what is my name) : your name is $name
+u: (how old am I) : you are $age
+u: (this is an error): error here

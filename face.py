@@ -138,7 +138,7 @@ class RobotFace:
                 pygame.draw.ellipse(mouth_surface, (0, 0, 0), pygame.Rect(0, 0, self.mouth_size, self.mouth_size))
                 self.screen.blit(mouth_surface, (self.mouthsecondcoord, self.mouth_height), pygame.Rect(0, self.mouth_size/2, self.mouth_size, self.mouth_size/2))
         elif self.robot_state == 'moving':
-            pygame.draw.circle(self.screen, (0, 0, 0), (((self.mouthfirstcoord+(self.screen_width/2))/2), self.mouth_height + 20), self.mouth_size // 4)
+            pygame.draw.circle(self.screen, (0, 0, 0), (int((self.mouthfirstcoord+(self.screen_width/2))/2), self.mouth_height + 20), int(self.mouth_size // 4))
         else:
             pygame.draw.line(self.screen, (0, 0, 0), (self.mouth_coords[0], self.mouth_coords[1]), (self.mouth_coords[2], self.mouth_coords[3]), 2)
 
