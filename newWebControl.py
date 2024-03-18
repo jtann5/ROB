@@ -8,6 +8,7 @@ from starlette.templating import Jinja2Templates
 from rob import get_rob_instance
 
 rob = get_rob_instance()
+rob.defaults()
 face = rob.face
 
 forward_backward = 0
