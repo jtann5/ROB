@@ -54,11 +54,11 @@ async def setmotor(request: Request):
 async def say(request: Request):
     data = await request.json()
     text = data.get("text")
-    app.queue.put("talking")
+    #app.queue.put("talking")
     rob.say(text)
     if (text == "rizz mode activated"):
         rob.rizz()
-    app.queue.put("idle")
+    #app.queue.put("idle")
 
     response_data = {'status': 'success'}
     return response_data
