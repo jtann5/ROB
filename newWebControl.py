@@ -31,7 +31,8 @@ async def mainmotors(request: Request):
     data = await request.json()
     motor0 = int(data.get("motor0"))
     motor1 = int(data.get("motor1"))
-    rob.setMotor(motor0, motor1)
+    rob.setMotor(0, motor0)
+    rob.setMotor(1, motor1)
 
     response_data = {'status': 'success'}
     return response_data
