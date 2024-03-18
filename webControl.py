@@ -41,6 +41,8 @@ def say():
     data = request.get_json()
     text = data.get("text")
     rob.say(text)
+    if (text == "rizz mode activated"):
+        rob.rizz()
 
     response_data = {'status': 'success'}
     return jsonify(response_data)
