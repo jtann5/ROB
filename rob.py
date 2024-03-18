@@ -16,6 +16,7 @@ import platform
 def is_raspberry_pi():
     """Check if the current system is a Raspberry Pi."""
     system_info = platform.uname()
+    print(system_info.machine)
     return "raspberry" in system_info.machine.lower()
 
 if is_raspberry_pi():
