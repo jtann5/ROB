@@ -58,14 +58,9 @@ document.addEventListener('DOMContentLoaded', function () {
             // Now you can use offsetX and offsetY as needed
             console.log('Offset X:', offsetX, 'Offset Y:', offsetY);
 
-            // Math for joystick
-            if (offsetY >= 0) {
-                leftMotorVal = 6000 + offsetY*13 - offsetX*10;
-                rightMotorVal = 6000 - offsetY*13 - offsetX*10;
-            } else {
-                leftMotorVal = 6000 + offsetY*13 + offsetX*10;
-                rightMotorVal = 6000 - offsetY*13 + offsetX*10;
-            }
+            // IDK how do math
+            leftMotorVal = 6000 + offsetY*13 - offsetX*10;
+            rightMotorVal = 6000 - offsetY*13 - offsetX*10;
             mainMotors(leftMotorVal, rightMotorVal);
         }
     }
