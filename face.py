@@ -7,7 +7,7 @@ import pygame
 
 class RobotFace:
     def __init__(self, queue=None):
-        self.screen_width = 800
+        self.screen_width = 1024
         self.queue = queue
 
         self.clock = pygame.time.Clock()
