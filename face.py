@@ -41,7 +41,7 @@ class RobotFace:
         if not os.getenv('PYGAME_INITIALIZED'):
             pygame.init()
             os.environ['PYGAME_INITIALIZED'] = '1'
-        self.screen = pygame.display.set_mode((800, 480))
+        self.screen = pygame.display.set_mode((1024, 600))
         pygame.display.set_caption("ROBs Face")
 
     def draw_eye(self, x, y, pupilX, pupilY):
