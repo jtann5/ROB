@@ -16,9 +16,9 @@ class RobotFace:
         self.blinking = False
 
         self.lefteyeX = 282
-        self.lefteyeY = 270
+        self.lefteyeY = 230
         self.righteyeX = 742
-        self.righteyeY = 270
+        self.righteyeY = 230
         self.lefteye_pupilX = self.lefteyeX
         self.lefteye_pupilY = self.lefteyeY
         self.righteye_pupilX = self.righteyeX
@@ -29,7 +29,7 @@ class RobotFace:
 
 
         self.mouth_size = 256
-        self.mouth_height = 525
+        self.mouth_height = 485
         self.mouthfirstcoord = (self.screen_width / 2) + (self.mouth_size / 2)
         self.mouthsecondcoord = self.mouthfirstcoord - self.mouth_size
         self.mouth_coords = [self.mouthsecondcoord, self.mouth_height, self.mouthfirstcoord, self.mouth_height]
@@ -45,9 +45,9 @@ class RobotFace:
         pygame.display.set_caption("ROBs Face")
 
     def draw_eye(self, x, y, pupilX, pupilY):
-        pygame.draw.circle(self.screen, (0, 0, 0), (x, y), 162) # eye outline
-        pygame.draw.circle(self.screen, (255, 255, 255), (x, y), 160) #white part
-        pygame.draw.circle(self.screen, self.eye_color, (pupilX, pupilY), 60) #pupil
+        pygame.draw.circle(self.screen, (0, 0, 0), (x, y), 202) # eye outline
+        pygame.draw.circle(self.screen, (255, 255, 255), (x, y), 200) #white part
+        pygame.draw.circle(self.screen, self.eye_color, (pupilX, pupilY), 70) #pupil
 
     def blink(self):
         current_time = pygame.time.get_ticks()
