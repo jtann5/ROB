@@ -15,7 +15,10 @@ import platform
 
 def is_raspberry_pi():
     """Check if the current system is a Raspberry Pi."""
-    return os.uname()[1] == 'raspberrypi'
+    try:
+        return os.uname()[1] == 'raspberrypi'
+    except AttributeError:
+        return False
 
 if is_raspberry_pi():
     from maestro import Controller
