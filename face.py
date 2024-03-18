@@ -29,7 +29,7 @@ class RobotFace:
 
 
         self.mouth_size = 256
-        self.mouth_height = 465
+        self.mouth_height = 450
         self.mouthfirstcoord = (self.screen_width / 2) + (self.mouth_size / 2)
         self.mouthsecondcoord = self.mouthfirstcoord - self.mouth_size
         self.mouth_coords = [self.mouthsecondcoord, self.mouth_height, self.mouthfirstcoord, self.mouth_height]
@@ -41,7 +41,7 @@ class RobotFace:
         if not os.getenv('PYGAME_INITIALIZED'):
             pygame.init()
             os.environ['PYGAME_INITIALIZED'] = '1'
-        self.screen = pygame.display.set_mode((1024, 600))
+        self.screen = pygame.display.set_mode((1024, 600), pygame.FULLSCREEN)
         pygame.display.set_caption("ROBs Face")
 
     def draw_eye(self, x, y, pupilX, pupilY):
