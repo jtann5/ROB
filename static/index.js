@@ -60,11 +60,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Math for joystick
             if (offsetY >= 0) {
-                leftMotorVal = 6000 + offsetY*13 - offsetX*10;
-                rightMotorVal = 6000 - offsetY*13 - offsetX*10;
-            } else {
                 leftMotorVal = 6000 + offsetY*13 + offsetX*10;
                 rightMotorVal = 6000 - offsetY*13 + offsetX*10;
+                console.log("Up")
+            } else {
+                leftMotorVal = 6000 + offsetY*13 - offsetX*10;
+                rightMotorVal = 6000 - offsetY*13 - offsetX*10;
+                console.log("Down")
             }
             mainMotors(leftMotorVal, rightMotorVal);
         }
