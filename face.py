@@ -29,7 +29,7 @@ class RobotFace:
 
 
         self.mouth_size = 256
-        self.mouth_height = 485
+        self.mouth_height = 465
         self.mouthfirstcoord = (self.screen_width / 2) + (self.mouth_size / 2)
         self.mouthsecondcoord = self.mouthfirstcoord - self.mouth_size
         self.mouth_coords = [self.mouthsecondcoord, self.mouth_height, self.mouthfirstcoord, self.mouth_height]
