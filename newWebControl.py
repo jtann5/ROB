@@ -55,7 +55,7 @@ async def say(request: Request, background_tasks: BackgroundTasks):
     data = await request.json()
     text = data.get("text")
     app.queue.put("talking")
-    background_tasks.add_task(rob.say, text)
+    background_tasks.add_task(rob.says, text)
     if (text == "rizz mode activated"):
         rob.rizz()
     app.queue.put("idle")
