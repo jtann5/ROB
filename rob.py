@@ -12,6 +12,8 @@ import os
 
 rob_instance = None
 
+lock = False
+
 import platform
 
 def is_raspberry_pi():
@@ -69,18 +71,11 @@ class ROB:
             self.controller.setTarget(i, 6000)
 
     def say(self, text):
-        try:
-            if self.queue is not None:
-                self.queue.put("talking")
-            #if (self.voice._inLoop):
-            #    self.voice.endLoop()
-            #self.voice.say(text)
-            #self.voice.runAndWait()
-            subprocess.call(['espeak', text])
-            if self.queue is not None:
-                self.queue.put("idle")
-        except Exception as e:
-            print(e)
+        global lock
+        if not lock:
+            lock = True
+            thread = Thread(target=sayThread, args=(self, text,))
+            thread.start()
 
     def gsay(self, text):
         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=True) as temp_file:
@@ -139,6 +134,18 @@ def get_rob_instance(queue=None):
     else:
         rob_instance.queue = queue
     return rob_instance
+
+def sayThread(self, text):
+        if self.queue is not None:
+            self.queue.put("talking")
+        if (self.voice._inLoop):
+            self.voice.endLoop()
+        self.voice.say(text)
+        self.voice.runAndWait()
+        #subprocess.call(['espeak', text])
+        if self.queue is not None:
+            self.queue.put("idle")
+        lock = False
 
 
 if __name__ == "__main__":
