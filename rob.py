@@ -68,7 +68,7 @@ class ROB:
         for i in range(17):
             self.controller.setTarget(i, 6000)
 
-    def sayThread(self, text):
+    def say(self, text):
         if self.queue is not None:
             self.queue.put("talking")
         if (self.voice._inLoop):
