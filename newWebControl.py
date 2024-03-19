@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request, HTTPException, BackgroundTasks
 from fastapi.responses import JSONResponse
 from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
@@ -51,11 +51,11 @@ async def setmotor(request: Request):
 
 
 @app.post('/say')
-async def say(request: Request):
+async def say(request: Request, background_tasks: BackgroundTasks):
     data = await request.json()
     text = data.get("text")
     app.queue.put("talking")
-    rob.say(text)
+    background_tasks.add_task(rob.say, text)
     if (text == "rizz mode activated"):
         rob.rizz()
     app.queue.put("idle")
