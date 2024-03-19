@@ -3,6 +3,7 @@ from gtts import gTTS
 import pygame
 import tempfile
 import time
+import subprocess
 from threading import Thread
 from multiprocessing import Process
 import face
@@ -71,10 +72,11 @@ class ROB:
         try:
             if self.queue is not None:
                 self.queue.put("talking")
-            if (self.voice._inLoop):
-                self.voice.endLoop()
-            self.voice.say(text)
-            self.voice.runAndWait()
+            #if (self.voice._inLoop):
+            #    self.voice.endLoop()
+            #self.voice.say(text)
+            #self.voice.runAndWait()
+            subprocess.call(['espeak', text])
             if self.queue is not None:
                 self.queue.put("idle")
         except Exception as e:
