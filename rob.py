@@ -136,6 +136,7 @@ def get_rob_instance(queue=None):
     return rob_instance
 
 def sayThread(self, text):
+        global lock
         if self.queue is not None:
             self.queue.put("talking")
         if (self.voice._inLoop):
