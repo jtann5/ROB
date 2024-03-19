@@ -142,6 +142,7 @@ def sayThread(self, text):
             self.voice.endLoop()
         self.voice.say(text)
         self.voice.runAndWait()
+        print("speak")
         #subprocess.call(['espeak', text])
         if self.queue is not None:
             self.queue.put("idle")
