@@ -71,9 +71,9 @@ class ROB:
             self.controller.setTarget(i, 6000)
 
     def say(self, text):
-        print("speak")
         global lock
         if not lock:
+            print("speak")
             lock = True
             thread = Thread(target=sayThread, args=(self, text,))
             thread.start()
