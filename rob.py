@@ -73,7 +73,6 @@ class ROB:
     def say(self, text):
         global lock
         if not lock:
-            print("speak")
             lock = True
             thread = Thread(target=sayThread, args=(self, text,))
             thread.start()
@@ -137,6 +136,7 @@ def get_rob_instance(queue=None):
     return rob_instance
 
 def sayThread(self, text):
+        print("speak")
         global lock
         if self.queue is not None:
             self.queue.put("talking")
@@ -144,7 +144,6 @@ def sayThread(self, text):
             self.voice.endLoop()
         self.voice.say(text)
         self.voice.runAndWait()
-        print("speak")
         #subprocess.call(['espeak', text])
         if self.queue is not None:
             self.queue.put("idle")
