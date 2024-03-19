@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Offset X:', offsetX, 'Offset Y:', offsetY);
 
             // Math for joystick
-            if (offsetY >= 0) {
+            if (offsetY >= 50) {
                 leftMotorVal = 6000 + offsetY*13 - offsetX*10;
                 rightMotorVal = 6000 - offsetY*13 - offsetX*10;
             } else {
