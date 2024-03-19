@@ -6,9 +6,8 @@ import os
 import pygame
 
 class RobotFace:
-    def __init__(self, queue=None):
+    def __init__(self):
         self.screen_width = 1024
-        self.queue = queue
 
         self.clock = pygame.time.Clock()
         self.next_blink_time = pygame.time.get_ticks() + random.randint(2000, 7000)
@@ -41,7 +40,7 @@ class RobotFace:
         if not os.getenv('PYGAME_INITIALIZED'):
             pygame.init()
             os.environ['PYGAME_INITIALIZED'] = '1'
-        self.screen = pygame.display.set_mode((1024, 600), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((1024, 600))
         pygame.display.set_caption("ROBs Face")
 
     def draw_eye(self, x, y, pupilX, pupilY):
@@ -54,22 +53,19 @@ class RobotFace:
         if current_time >= self.next_blink_time:
             self.blinking = True  # start blinking
             self.end_blink_time = current_time + 500  # schedule end of blink
-            self.next_blink_time = current_time + random.randint(2000, 7000)  # schedule next blink
+            self.next_blink_time = current_time + random.randint(1000, 5000)  # schedule next blink
         elif current_time >= self.end_blink_time:
             self.blinking = False  # stop blinking
 
     def animate_eyes(self):
         while True:
+            # print("Animating Eyes....")
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
 
             self.screen.fill((255, 255, 255))
-            if self.queue is not None:
-                if not self.queue.empty():
-                    new_state = self.queue.get()
-                    self.robot_state = new_state
 
             if self.robot_state != None:
                 self.draw_mouth()
@@ -77,11 +73,12 @@ class RobotFace:
                 self.draw_eye(self.lefteyeX, self.lefteyeY, self.lefteye_pupilX, self.lefteye_pupilY)
                 self.draw_eye(self.righteyeX, self.righteyeY, self.righteye_pupilX, self.righteye_pupilY)
                 self.blink()
-                temp = random.randint(0, 70)
+                temp = random.randint(0, 50)
                 if temp == 0:
                     self.move_eyes()
 
             pygame.display.update()
+            pygame.time.delay(300)
             self.clock.tick(60)
 
     def move_eyes(self):
@@ -95,7 +92,6 @@ class RobotFace:
         elif number == 2:
             self.move_left_eye_center()
             self.move_right_eye_center()
-        time.sleep(0.1)
 
     def move_left_eye_right(self):
         self.lefteye_pupilX = self.lefteyeX + self.eye_shift_offset
@@ -131,7 +127,7 @@ class RobotFace:
 
     def draw_mouth(self):
         if self.robot_state == 'talking':
-            if pygame.time.get_ticks() // 500 % 3 == 0:
+            if pygame.time.get_ticks() // 300 % 3 == 0:
                 pygame.draw.line(self.screen, (0, 0, 0), (self.mouth_coords[0], self.mouth_coords[1]), (self.mouth_coords[2], self.mouth_coords[3]), 2)
             else:
                 mouth_surface = pygame.Surface((self.mouth_size, self.mouth_size), pygame.SRCALPHA)
@@ -145,6 +141,6 @@ class RobotFace:
     def set_robot_state(self, new_state):
         self.robot_state = new_state
 
-if __name__ == "__main__":
-    robot_face = RobotFace()
-    robot_face.animate_eyes()
+#if __name__ == "__main__":
+    #robot_face = RobotFace()
+    #robot_face.animate_eyes()

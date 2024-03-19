@@ -2,7 +2,7 @@ import sys
 import socket
 import pickle
 import time
-import rob
+from rob import ROB
 
 client_script = [
     "Hi, you look familiar.",
@@ -17,7 +17,7 @@ has_token = False
 
 
 def main():
-    pc_instance = rob.get_rob_instance()
+    pc_instance = ROB()
     global has_token
     sleep_time = 1
     port = 8000

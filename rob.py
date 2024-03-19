@@ -3,14 +3,10 @@ from gtts import gTTS
 import pygame
 import tempfile
 import time
-import subprocess
-from threading import Thread
-from multiprocessing import Process
-import face
-
+from face import RobotFace
 import os
+import threading
 
-rob_instance = None
 
 import platform
 
@@ -48,20 +44,16 @@ LEFTCLAW = 16
 
 
 class ROB:
-    def __init__(self, queue=None):
+    def __init__(self):
         self.controller = Controller()
         self.voice = pyttsx3.init()
-        self.queue = queue
         self.voice.setProperty('volume', 1.0)
         self.voice.setProperty('rate', 150)
-        #self.voice.setProperty('voice', 'english-us')
-        if not hasattr(self, 'face'):
-            self.face = face.RobotFace(queue)
+        self.voice.setProperty('voice', 'english-us')
+        self.speaking_process = None
         pygame.mixer.init()
+        self.face = RobotFace()
         # self.face.animate_eyes()
-
-    def set_queue(self, queue):
-        self.queue = queue
 
     def defaults(self):
         pygame.mixer.music.stop()
@@ -69,15 +61,13 @@ class ROB:
             self.controller.setTarget(i, 6000)
 
     def say(self, text):
-        if self.queue is not None:
-            self.queue.put("talking")
+        self.face.set_robot_state("talking")
         if (self.voice._inLoop):
             self.voice.endLoop()
         self.voice.say(text)
         self.voice.runAndWait()
         #subprocess.call(['espeak', text])
-        if self.queue is not None:
-            self.queue.put("idle")
+        self.face.set_robot_state("idle")
 
     def gsay(self, text):
         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=True) as temp_file:
@@ -125,17 +115,13 @@ class ROB:
     def setMotor(self, motor, value):
         self.controller.setTarget(motor, value)
 
-    def get_robot_face(self):
-        return self.face
+    def start_face(self):
+        rob.face.initialize_pygame()
+        rob.face.animate_eyes()
 
+rob = ROB()
 
-def get_rob_instance(queue=None):
-    global rob_instance
-    if rob_instance is None:
-        rob_instance = ROB(queue)
-    else:
-        rob_instance.queue = queue
-    return rob_instance
 
 if __name__ == "__main__":
     rob = ROB()
+

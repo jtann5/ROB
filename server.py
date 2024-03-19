@@ -1,9 +1,9 @@
-
 import sys
 import socket
 import pickle
 import time
-from rob import get_rob_instance
+import threading
+from rob import rob
 
 server_script = [
     "Hi",
@@ -17,8 +17,7 @@ server_script = [
 
 has_token = True
 
-def main(queue):
-    rob = get_rob_instance(queue)
+def main():
     global has_token
     sleep_time = 1
     port = 8000
@@ -26,7 +25,7 @@ def main(queue):
 
     serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serverSocket.bind((host, port))
-
+    print("Server started")
     serverSocket.listen(1)
     connection, addr = serverSocket.accept()
 
@@ -63,7 +62,7 @@ def main(queue):
                     has_token = True
                 elif "eof" == data:
                     client_eof = True
-                    
+
             if server_eof and client_eof:
                 rec = False
                 break
@@ -76,4 +75,7 @@ def main(queue):
         serverSocket.close()
 
 if __name__ == "__main__":
+    face_thread = threading.Thread(target=rob.start_face)
+    face_thread.start()
     main()
+    face_thread.join()

@@ -1,45 +1,57 @@
 import threading
-import time
-from multiprocessing import Process, Manager
-import queue
-import rob
+import asyncio
+from rob import rob
+from webControl import run_flask
+import multiprocessing
+import server
 
-print("what about here?")
-def start_server(queue):
-    # Import the webcontrol app here, after the queue has been initialized
-    from newWebControl import app
-    app.queue = queue  # Set the queue attribute of the app
+async def start_server():
+    await run_flask()
 
-    import uvicorn
-    # Start the FastAPI server in a separate thread
-    uvicorn.run(app, host='0.0.0.0', port=9000)
-    time.sleep(2)
-
-def start_socket(queue):
-    import server
-    server.main(queue)
-
-def start_face(rob_instance):
-    face = rob_instance.get_robot_face()
-    print("testing something")
-    face.initialize_pygame()
-    face.animate_eyes()
-    print("testing if that something somethinged")
-    return rob_instance
+def start_socket():
+    server.main()
 
 if __name__ == "__main__":
-    with Manager() as manager:
-        queue = manager.Queue()
-        rob_instance = rob.get_rob_instance(queue)
-        rob_instance.set_queue(queue)
+    # Start the face thread
+    face_thread = threading.Thread(target=rob.start_face)
+    face_thread.start()
 
-        server_process = Process(target=start_server, args=(queue,))
-        server_process.start()
+    # Start the server socket process
+    #socket_process = multiprocessing.Process(target=start_socket)
+    # socket_process.start()
 
-        socket_process = Process(target=start_socket, args=(queue,))
-        socket_process.start()
+    # Start the Flask server asynchronously
+    asyncio.run(start_server())
 
-        start_face(rob_instance)
+    # Wait for the face thread and server socket process to finish
+    face_thread.join()
+    # socket_process.join()
 
-        socket_process.join()
-        server_process.join()
+
+
+
+'''
+import threading
+import asyncio
+from rob import rob
+from webControl import run_flask
+
+async def start_server():
+    await run_flask()
+
+def start_socket():
+    import server
+    server.main()
+
+
+if __name__ == "__main__":
+    face_thread = threading.Thread(target=rob.start_face)
+    face_thread.start()
+    #socket_thread = threading.Thread(target=start_socket)
+    #socket_thread.start()
+
+    asyncio.run(start_server())
+    # rob.say("I love code")
+    #socket_thread.join()
+    face_thread.join()
+'''
