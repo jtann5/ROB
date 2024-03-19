@@ -71,6 +71,7 @@ class ROB:
             self.controller.setTarget(i, 6000)
 
     def say(self, text):
+        print("speak")
         global lock
         if not lock:
             lock = True
