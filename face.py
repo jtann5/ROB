@@ -127,7 +127,7 @@ class RobotFace:
 
     def draw_mouth(self):
         if self.robot_state == 'talking':
-            if pygame.time.get_ticks() // 300 % 3 == 0:
+            if pygame.time.get_ticks() // 500 % 3 == 0:
                 pygame.draw.line(self.screen, (0, 0, 0), (self.mouth_coords[0], self.mouth_coords[1]), (self.mouth_coords[2], self.mouth_coords[3]), 2)
             else:
                 mouth_surface = pygame.Surface((self.mouth_size, self.mouth_size), pygame.SRCALPHA)

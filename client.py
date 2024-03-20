@@ -21,7 +21,7 @@ def main():
     global has_token
     sleep_time = 1
     port = 8000
-    host = '172.20.10.3'
+    host = '192.168.19.1'
 
     clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     clientSocket.connect((host, port))
@@ -37,8 +37,8 @@ def main():
             if has_token == True:
                 # rob.say(server_script[index])
                 if index <= len(client_script)-1:
-                    if ("eof" == client_script[index]) or (len(client_script) == index-1):
-                        clientSocket.send("eof".encode())
+                    if ("EOF" == client_script[index]) or (len(client_script) == index-1):
+                        clientSocket.send("EOF".encode())
                         has_token = False
                         client_eof = True
                     else:
@@ -47,16 +47,16 @@ def main():
                         time.sleep(0.5)
                         index += 1
                         if server_eof == False:
-                            clientSocket.send("token".encode())
+                            clientSocket.send("your turn".encode())
                             has_token = False
                         else:
                             clientSocket.send("ack".encode())
                             has_token = True
             else:
                 data = clientSocket.recv(1024).decode()
-                if "token" == data:
+                if "your turn" == data:
                     has_token = True
-                elif "eof" == data:
+                elif "EOF" == data:
                     server_eof = True
 
             if client_eof and server_eof:

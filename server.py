@@ -12,7 +12,7 @@ server_script = [
     "Me too, wow that is wild. What is your name?",
     "Your not going to believe this, but my name is Tango also.",
     "Looking around this room I'd say pretty high.",
-    "eof",
+    "EOF",
 ]
 
 has_token = True
@@ -40,8 +40,8 @@ def main():
                 has_token = True
             if has_token == True:
                 if index <= len(server_script)-1:
-                    if ("eof" == server_script[index]):
-                        connection.send("eof".encode())
+                    if ("EOF" == server_script[index]):
+                        connection.send("EOF".encode())
                         server_eof = True
                         has_token = False
                     else:
@@ -52,16 +52,16 @@ def main():
                         time.sleep(0.5)
                         index += 1
                         if client_eof == False:
-                            connection.send("token".encode())
+                            connection.send("your turn".encode())
                             has_token = False
                         else:
                             connection.send("ack".encode())
                             has_token = True
             else:
                 data = connection.recv(1024).decode()
-                if "token" == data:
+                if "your turn" == data:
                     has_token = True
-                elif "eof" == data:
+                elif "EOF" == data:
                     client_eof = True
 
             if server_eof and client_eof:
