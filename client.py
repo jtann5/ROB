@@ -10,7 +10,7 @@ client_script = [
     "Me too, I am from the room we are in currently in Bozeman, Montana",
     "Tango",
     "What are the odds. Two robots run into each other from the same state, and the same town, and the same room, with the same name?",
-    "eof",
+    "EOF",
 ]
 
 has_token = False
