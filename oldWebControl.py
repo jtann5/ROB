@@ -1,15 +1,9 @@
+from flask import Flask, render_template, send_from_directory, jsonify, request, Blueprint, redirect
 import os
-from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import JSONResponse
-from starlette.responses import HTMLResponse
-from starlette.staticfiles import StaticFiles
-from starlette.templating import Jinja2Templates
+import multiprocessing
+from rob import ROB
 
-from rob import get_rob_instance
-
-rob = get_rob_instance()
-rob.defaults()
-face = rob.face
+app = Flask(__name__, template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'), static_folder='static')
 
 forward_backward = 0
 waist_value = 0
@@ -17,71 +11,61 @@ head_left_right_value = 0
 head_up_down_value = 0
 left_right = 0
 
-app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"))
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-templates = Jinja2Templates(directory="templates")
-
-@app.get('/', response_class=HTMLResponse)
-async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
-
-@app.post('/mainmotors')
-async def mainmotors(request: Request):
-    data = await request.json()
+@app.route('/mainmotors', methods=['POST'])
+def mainmotors():
+    data = request.get_json()
     motor0 = int(data.get("motor0"))
     motor1 = int(data.get("motor1"))
     rob.setMotor(0, motor0)
     rob.setMotor(1, motor1)
 
     response_data = {'status': 'success'}
-    return response_data
+    return jsonify(response_data)
 
-
-@app.post('/setmotor')
-async def setmotor(request: Request):
-    data = await request.json()
+@app.route('/setmotor', methods=['POST'])
+def setmotor():
+    data = request.get_json()
     motor = int(data.get("motor"))
     value = int(data.get("value"))
     rob.setMotor(motor, value)
 
     response_data = {'status': 'success'}
-    return response_data
+    return jsonify(response_data)
 
-
-@app.post('/say')
-async def say(request: Request):
-    data = await request.json()
+@app.route('/say', methods=['POST'])
+def say():
+    data = request.get_json()
     text = data.get("text")
     rob.say(text)
 
     response_data = {'status': 'success'}
-    return response_data
+    return jsonify(response_data)
 
-
-@app.post('/gsay')
-async def gsay(request: Request):
-    data = await request.json()
+@app.route('/gsay', methods=['POST'])
+def gsay():
+    data = request.get_json()
     text = data.get("text")
     rob.gsay(text)
 
     response_data = {'status': 'success'}
-    return response_data
+    return jsonify(response_data)
 
-
-@app.post('/command')
-async def command(request: Request):
+@app.route('/command', methods=['POST'])
+def command():
     global forward_backward, waist_value, head_left_right_value, head_up_down_value, left_right
 
-    data = await request.json()
+    data = request.get_json()
     command = data.get("command")
 
     if command == 'defaults':
         rob.defaults()
     elif command == 'forward':
         forward_backward += 1
-    elif command == 'backward':
+    elif command ==  'backward':
         forward_backward -= 1
     elif command == 'left':
         left_right += 1
@@ -133,15 +117,15 @@ async def command(request: Request):
     waist = default + (200 * waist_value)
     head_vertical = default + (200 * head_up_down_value)
     head_horizontal = default + (200 * head_left_right_value)
-    if (face.robot_state != "moving") and (rightmotor != 6000) and (leftmotor != 6000):
-        app.queue.put("moving")
-    elif (rightmotor == 6000) and (leftmotor == 6000):
-        app.queue.put("idle")
+
     setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal)
 
     # set all the amounts
     response_data = {'status': 'success'}
-    return response_data
+    return jsonify(response_data)
+
+rob = ROB()
+rob.defaults()
 
 def setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal):
     rob.setMotor(0, leftmotor)
@@ -149,9 +133,32 @@ def setValues(leftmotor, rightmotor, waist, head_vertical, head_horizontal):
     rob.setMotor(2, waist)
     rob.setMotor(3, head_vertical)
     rob.setMotor(4, head_horizontal)
+    
+def run_flask():
+    app.run(debug=True, host="0.0.0.0", port=9000)
 
+def run_face():
+    rob.defaults()
 
-if __name__ == '__main__':
-    import uvicorn
-    uvicorn.run(app, host='0.0.0.0', port=9000)
+    rob.face.mainloop()
 
+run_flask()
+
+# if __name__ == "__main__":
+#     rob = ROB()
+#     rob.defaults()
+
+#     flask_process = multiprocessing.Process(target=run_flask)
+#     flask_process.start()
+
+#     rob.face.mainloop()
+
+#     flask_process.join()
+    
+# if __name__ == "__main__":
+#     face_process = multiprocessing.Process(target=run_face)
+#     face_process.start()
+
+#     run_flask()
+
+#     face_process.join()

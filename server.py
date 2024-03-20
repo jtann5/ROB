@@ -21,7 +21,8 @@ def main():
     global has_token
     sleep_time = 1
     port = 8000
-    host = '172.20.10.3'
+    print("IP address: " + socket.gethostbyname(socket.gethostname()))
+    host = socket.gethostbyname(socket.gethostname()) #'172.20.10.3'
 
     serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serverSocket.bind((host, port))

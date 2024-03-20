@@ -7,11 +7,7 @@ from face import RobotFace
 import os
 import threading
 
-
-import platform
-
 def is_raspberry_pi():
-    """Check if the current system is a Raspberry Pi."""
     try:
         return os.uname()[1] == 'raspberrypi'
     except AttributeError:
@@ -78,39 +74,6 @@ class ROB:
             pygame.mixer.music.play()
             while pygame.mixer.music.get_busy():
                 continue
-
-    def rizz(self):
-        pygame.mixer.music.load("rizz.mp3")
-        pygame.mixer.music.play()
-        self.controller.setTarget(HEADTILT, 4000)
-        self.controller.setTarget(HEADTURN, 7500)
-        time.sleep(5)
-        self.controller.setTarget(HEADTURN, 6000)
-        self.controller.setTarget(HEADTILT, 6000)
-        time.sleep(3)
-        self.controller.setTarget(LEFTBICEP, 3500)
-        self.controller.setTarget(RIGHTBICEP, 8500)
-        time.sleep(1)
-        self.controller.setTarget(LEFTBICEP, 6000)
-        self.controller.setTarget(RIGHTBICEP, 6000)
-        time.sleep(1)
-        self.controller.setTarget(RIGHTSHOULDER, 4000)
-        self.controller.setTarget(RIGHTELBOW, 8000)
-        self.controller.setTarget(LEFTSHOULDER, 4000)
-        self.controller.setTarget(LEFTELBOW, 8000)
-        while pygame.mixer.music.get_busy():
-            continue
-
-    def fight(self):
-        self.controller.setTarget(RIGHTSHOULDER, 4000)
-        self.controller.setTarget(LEFTSHOULDER, 4000)
-
-        time.sleep(1)
-        self.controller.setTarget(RIGHTSHOULDER, 4000)
-        self.controller.setTarget(RIGHTSHOULDER, 4000)
-        time.sleep(1)
-        self.controller.setTarget(RIGHTSHOULDER, 4000)
-        self.controller.setTarget(RIGHTSHOULDER, 4000)
 
     def setMotor(self, motor, value):
         self.controller.setTarget(motor, value)
