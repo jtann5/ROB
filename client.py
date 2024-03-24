@@ -21,7 +21,7 @@ def main():
     global has_token
     sleep_time = 1
     port = 8000
-    host = '192.168.19.1'
+    host = '172.20.10.3'
 
     clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     clientSocket.connect((host, port))
