@@ -15,4 +15,3 @@ u: (my name is _): hello $name
 u: (what is my name) : your name is $name
 u: (how old am I) : you are $age
 u: (this is an error): error here
-u: (third): tste
