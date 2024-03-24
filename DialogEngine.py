@@ -268,7 +268,7 @@ class DialogEngine:
                 rule_output = random.choice(self.treelevel.subrules[input].output)
                 for var in self.variableMap:
                     if rule_output.__contains__(var):
-                        rule_output.replace(var, self.variableMap[var])
+                        rule_output = rule_output.replace(var, self.variableMap[var])
                 self.treelevel = self.treelevel.subrules[input]
                 if rule_output.startswith('~'):
                     for option in self.predefinedvarMap:
@@ -308,9 +308,13 @@ class DialogEngine:
                     #print(self.variableMap)
                     var = self.variableMap[var_name]
                     output += outputval.replace(var_name, var)
-                rule_name = self.analyzeVarHelper(d.rootUserRules[item].subrules, input)
-                if rule_name is not None:
-                    print(rule_name)
+                    self.treelevel = d.rootUserRules[item]
+                else:
+                    rule_name = self.analyzeVarHelper(d.rootUserRules[item].subrules, input)
+                    if rule_name is not None:
+                        output += rule_name
+            if output == "":
+                output += "No rules found for that prompt"
 
         output += " "
         return output
@@ -320,10 +324,21 @@ class DialogEngine:
             name = item.replace("_", "(.*)")
             match = re.match(name, input)
             if match:
-                return item
-            rule_name = self.analyzeVarHelper(value[item].subrules, input)
-            if rule_name is not None:
-                return rule_name
+                var_name = ""
+                outputval = random.choice(value[item].output)
+                match2 = re.search(r'\$[a-zA-Z_][a-zA-Z0-9_]*', outputval)
+                if match2:
+                    var_name = match2.group()
+                matched_value = match.group(1)
+                self.variableMap[var_name] = matched_value
+                # print(self.variableMap)
+                var = self.variableMap[var_name]
+                self.tree_level = value[item].subrules
+                return outputval.replace(var_name, var)
+            else:
+                rule_name = self.analyzeVarHelper(value[item].subrules, input)
+                if rule_name is not None:
+                    print(rule_name)
         return None
 
 
