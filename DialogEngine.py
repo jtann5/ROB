@@ -191,6 +191,7 @@ class DialogEngine:
         except EOFError as e:
             print(e)
 
+
     def getResponse(self):
         pass
 
@@ -251,6 +252,8 @@ class DialogEngine:
     def analyze(self, input):
         testBool = True
         output = ""
+        if input.__contains__("_"):
+            input.replace("_", "\w+")
         if testBool:
             for option in self.predefinedvarMap:
                 for item in self.predefinedvarMap[option]:
@@ -263,6 +266,9 @@ class DialogEngine:
         if (self.treelevel is not None) and (testBool != True):
             if input in self.treelevel.subrules:
                 rule_output = random.choice(self.treelevel.subrules[input].output)
+                for var in self.variableMap:
+                    if rule_output.__contains__(var):
+                        rule_output.replace(var, self.variableMap[var])
                 self.treelevel = self.treelevel.subrules[input]
                 if rule_output.startswith('~'):
                     for option in self.predefinedvarMap:
@@ -274,6 +280,9 @@ class DialogEngine:
                 testBool = True
         if (input in self.rootUserRules) and (testBool != True):
             rule_output = random.choice(self.rootUserRules[input].output)
+            for var in self.variableMap:
+                if rule_output.__contains__(var):
+                    rule_output = rule_output.replace(var, self.variableMap[var])
             self.treelevel = self.rootUserRules[input]
             if rule_output.startswith('~'):
                 for option in self.predefinedvarMap:
@@ -285,29 +294,37 @@ class DialogEngine:
             testBool = True
 
         if not testBool:
-            output += "I dont know that"
+            for item in d.rootUserRules:
+                name = item.replace("_", "(.*)")
+                match = re.match(name, input)
+                if match:
+                    var_name = ""
+                    outputval = random.choice(d.rootUserRules[item].output)
+                    match2 = re.search(r'\$[a-zA-Z_][a-zA-Z0-9_]*', outputval)
+                    if match2:
+                        var_name = match2.group()
+                    matched_value = match.group(1)
+                    self.variableMap[var_name] = matched_value
+                    #print(self.variableMap)
+                    var = self.variableMap[var_name]
+                    output += outputval.replace(var_name, var)
+                rule_name = self.analyzeVarHelper(d.rootUserRules[item].subrules, input)
+                if rule_name is not None:
+                    print(rule_name)
+
         output += " "
         return output
 
-
-'''
-        for item in self.predefinedvarMap:
-            if input == item:
-                output += self.predefinedvarMap[item]
-        for item in d.rootUserRules:
-            if input == item:
-                output = d.rootUserRules[item].output
-            else:
-                self.analyzehelper(d.rootUserRules[item].subrules, self.analyzerlevel)
-        for value in valuelist:
-            if self.predefinedvarMap[value] is not None:
-                output += self.predefinedvarMap[value]
-            elif self.rootUserRules[valuelist[0]] is not None:
-                output += self.rootUserRules[value]
-            else:
-                pass
-        return output'''
-
+    def analyzeVarHelper(self, value, input):
+        for item in value:
+            name = item.replace("_", "(.*)")
+            match = re.match(name, input)
+            if match:
+                return item
+            rule_name = self.analyzeVarHelper(value[item].subrules, input)
+            if rule_name is not None:
+                return rule_name
+        return None
 
 
 def printchild(list):
@@ -356,17 +373,5 @@ if __name__ == "__main__":
         x = input("Human: ")
         if x == "bye":
             break
-        output = d.analyze(x)
+        output = d.analyze(x.strip())
         print("Robot: " + output)
-    '''
-    for item in d.rootUserRules:
-        print(item, d.rootUserRules[item].subrules)
-        for item2 in d.rootUserRules[item].subrules:
-            print("           " + item2, d.rootUserRules[item].subrules[item2])
-            for item3 in d.rootUserRules[item].subrules[item2].subrules:
-                print("                    " + item3, d.rootUserRules[item].subrules[item2].subrules[item3])
-                for item4 in d.rootUserRules[item].subrules[item2].subrules[item3].subrules:
-                    print("                                 " + item4, d.rootUserRules[item].subrules[item2].subrules[item3].subrules[item4])
-    # d.print()
-    
-    '''
