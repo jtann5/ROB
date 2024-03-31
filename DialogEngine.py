@@ -304,12 +304,12 @@ class DialogEngine:
             testBool = True
 
         if not testBool:
-            for item in d.rootUserRules:
+            for item in self.rootUserRules:
                 name = item.replace("_", "(.*)")
                 match = re.match(name, input)
                 if match:
                     var_name = ""
-                    outputval = random.choice(d.rootUserRules[item].output)
+                    outputval = random.choice(self.rootUserRules[item].output)
                     match2 = re.search(r'\$[a-zA-Z_][a-zA-Z0-9_]*', outputval)
                     if match2:
                         var_name = match2.group()
@@ -318,9 +318,9 @@ class DialogEngine:
                         #print(self.variableMap)
                         var = self.variableMap[var_name]
                         output += outputval.replace(var_name, var)
-                        self.treelevel = d.rootUserRules[item]
+                        self.treelevel = self.rootUserRules[item]
                 else:
-                    rule_name = self.analyzeVarHelper(d.rootUserRules[item].subrules, input)
+                    rule_name = self.analyzeVarHelper(self.rootUserRules[item].subrules, input)
                     if rule_name is not None:
                         output += rule_name
             if output == "":
@@ -381,6 +381,9 @@ def outputvariablehelper(list, indent):
         str = " " * temp_indent
         print(str + item, list[item].output)
         outputvariablehelper(list[item].subrules, indent+1)
+
+
+
 
 if __name__ == "__main__":
     d = DialogEngine()
