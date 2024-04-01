@@ -6,6 +6,7 @@ from threading import Thread
 listening = True
 
 def run_speaking():
+    global listening
     d = DialogEngine()
     d.setFile('dialogInput.txt')
     d.openFile()
