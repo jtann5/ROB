@@ -14,7 +14,7 @@ def run_speaking():
         with sr.Microphone() as source:
             r = sr.Recognizer()
             r.adjust_for_ambient_noise(source)
-            r.dynamic_energy_threshold = 8000
+            r.dynamic_energy_threshold = 5000
 
             try:
                 print("listening")
@@ -22,20 +22,12 @@ def run_speaking():
                 print("got audio")
                 word = r.recognize_google(audio)
                 print(word)
-                run = True
                 if word.strip() == "bye":
-                    run = False
-                    break
-                while run:
+                    listening = False
+                else:
                     output = d.analyze(word.strip())
                     rob.say(output)
                     print(output)
-                    print("listening")
-                    audio = r.listen(source)
-                    print("got audio")
-                    word = r.recognize_google(audio)
-                    if word.strip() != "bye":
-                        run = False
             except sr.UnknownValueError:
                 print("Don't know that word")
 
