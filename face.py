@@ -26,7 +26,7 @@ class RobotFace:
 
         self.listening_dot_radius = 10
         self.listening_dot_color = (255,0,0)
-        self.listening_dot_position = (self.listening_dot_radius, self.screen_height - self.listening_dot_radius)
+        self.listening_dot_position = (self.listening_dot_radius, self.screen_height/2)
 
         self.eye_shift_offset = 40
         self.eye_color = (0, 0, 0)
