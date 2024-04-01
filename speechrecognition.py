@@ -32,6 +32,7 @@ def run_speaking():
                     rob.say(output)
                     print(output)
             except sr.UnknownValueError:
+                rob.say("Do not know that word human!")
                 print("Don't know that word")
 
 
