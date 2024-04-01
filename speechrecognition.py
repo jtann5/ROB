@@ -12,7 +12,7 @@ def run_speaking():
     d.openFile()
 
     while listening:
-        with sr.Microphone() as source:
+        with sr.Microphone(device_index=1) as source:
             r = sr.Recognizer()
             r.adjust_for_ambient_noise(source)
             r.dynamic_energy_threshold = 5000
