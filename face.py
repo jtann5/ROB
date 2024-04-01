@@ -8,6 +8,7 @@ import pygame
 class RobotFace:
     def __init__(self):
         self.screen_width = 1024
+        self.screen_height = 600
 
         self.clock = pygame.time.Clock()
         self.next_blink_time = pygame.time.get_ticks() + random.randint(2000, 7000)
@@ -22,6 +23,10 @@ class RobotFace:
         self.lefteye_pupilY = self.lefteyeY
         self.righteye_pupilX = self.righteyeX
         self.righteye_pupilY = self.righteyeY
+
+        self.listening_dot_radius = 10
+        self.listening_dot_color = (255,0,0)
+        self.listening_dot_position = (self.listening_dot_radius, self.screen_height - self.listening_dot_radius)
 
         self.eye_shift_offset = 40
         self.eye_color = (0, 0, 0)
@@ -47,6 +52,10 @@ class RobotFace:
         pygame.draw.circle(self.screen, (0, 0, 0), (x, y), 202) # eye outline
         pygame.draw.circle(self.screen, (255, 255, 255), (x, y), 200) #white part
         pygame.draw.circle(self.screen, self.eye_color, (pupilX, pupilY), 70) #pupil
+
+    def draw_listening_dot(self):
+        if self.robot_state == "listening":
+            pygame.draw.circle(self.screen, self.listening_dot_color, self.listening_dot_position, self.listening_dot_radius)
 
     def blink(self):
         current_time = pygame.time.get_ticks()
@@ -76,6 +85,7 @@ class RobotFace:
                 temp = random.randint(0, 50)
                 if temp == 0:
                     self.move_eyes()
+                self.draw_listening_dot()
 
             pygame.display.update()
             pygame.time.delay(300)

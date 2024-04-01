@@ -19,7 +19,9 @@ def run_speaking():
 
             try:
                 print("listening")
+                rob.face.set_robot_state('listening')
                 audio = r.listen(source, timeout=None)
+                rob.face.set_robot_state('idle')
                 print("got audio")
                 word = r.recognize_google(audio)
                 print(word)
