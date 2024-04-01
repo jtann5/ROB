@@ -324,7 +324,7 @@ class DialogEngine:
                     if rule_name is not None:
                         output += rule_name
             if output == "":
-                output += "No rules found for that prompt"
+                output += "I don't understand!"
 
         output += " "
         return output
@@ -339,12 +339,13 @@ class DialogEngine:
                 match2 = re.search(r'\$[a-zA-Z_][a-zA-Z0-9_]*', outputval)
                 if match2:
                     var_name = match2.group()
-                    matched_value = match.group(1)
-                    self.variableMap[var_name] = matched_value
-                    # print(self.variableMap)
-                    var = self.variableMap[var_name]
-                    self.tree_level = value[item].subrules
-                    return outputval.replace(var_name, var)
+                    if match.lastindex is not None:
+                        matched_value = match.group(1)
+                        self.variableMap[var_name] = matched_value
+                        # print(self.variableMap)
+                        var = self.variableMap[var_name]
+                        self.tree_level = value[item].subrules
+                        return outputval.replace(var_name, var)
             else:
                 rule_name = self.analyzeVarHelper(value[item].subrules, input)
                 if rule_name is not None:
