@@ -1,14 +1,11 @@
-from DialogEngine import DialogEngine
-from robNoFace import rob
+from AIEngine import AIEngine
+from rob import rob
 from threading import Thread
 
 def run_speaking():
-    d = DialogEngine()
-    d.setFile('dialogInput.txt')
-    d.openFile()
-    running = True
+    d = AIEngine()
 
-    while running:
+    while True:
         print("Enter text: ")
         word = input(">>> ")
         if word.strip() == "bye":

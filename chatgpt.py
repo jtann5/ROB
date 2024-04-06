@@ -1,8 +1,8 @@
 from openai import OpenAI
 import time
 
-api_key = "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"
-client = OpenAI(api_key=api_key)
+# You need to export environment variable OPENAI_API_KEY
+client = OpenAI()
   
 assistant = client.beta.assistants.create(
   name="Math Tutor",
