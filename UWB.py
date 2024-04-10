@@ -9,10 +9,11 @@ while True:
     #print(response.decode().strip())  # Decode bytes to string and remove newline characters
     arr = response.decode().strip().split(',')
     float_array = [float(x) for x in arr[1:4]] 
-    print("A0: " + float_array[0] + "m")
-    print("A1: " + float_array[1] + "m")
-    print("A2: " + float_array[2] + "m")
-    print("A3: " + float_array[3] + "m")
+    print("A0: " + str(float_array[0]) + "m")
+    print("A1: " + str(float_array[1]) + "m")
+    print("A2: " + str(float_array[2]) + "m")
+    print("A3: " + str(float_array[3]) + "m")
+    print("Quad: " + str(float_array.index(min(float_array))))
     ser.close()
     if x > 100:
         break
