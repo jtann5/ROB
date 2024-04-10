@@ -11,7 +11,7 @@ while True:
         break
     else:
         x+=1
-        time.sleep(1)
+        time.sleep(2)
 
 # Close serial connection
 ser.close()
