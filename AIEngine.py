@@ -38,14 +38,6 @@ class AIEngine():
     elif val == 4:
       self.ASSISTANT_ID = HAL_ID
       print("HAL selected")
-    if self.client:
-            # Clean up existing resources
-            if self.thread:
-                self.thread.delete()
-            self.client.close()
-        # Reinitialize client and thread
-    self.client = OpenAI()
-    self.thread = self.client.beta.threads.create()
 
   def analyze(self, text):
     if text.lower() == 'change':
