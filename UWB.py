@@ -8,10 +8,11 @@ while True:
     response = ser.readline()  # example $KT7,0.45,3.43,4.70,3.36,LO=[no solution]
     #print(response.decode().strip())  # Decode bytes to string and remove newline characters
     arr = response.decode().strip().split(',')
-    print("A0: " + arr[1] + "m")
-    print("A1: " + arr[2] + "m")
-    print("A2: " + arr[3] + "m")
-    print("A3: " + arr[4] + "m")
+    float_array = [float(x) for x in arr[1:4]] 
+    print("A0: " + float_array[0] + "m")
+    print("A1: " + float_array[1] + "m")
+    print("A2: " + float_array[2] + "m")
+    print("A3: " + float_array[3] + "m")
     ser.close()
     if x > 100:
         break
