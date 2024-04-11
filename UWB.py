@@ -49,10 +49,17 @@ def calcPosition(coords):
     secondClosestAnchor = coords.index(min(coords))
     coords[closestAnchor] = original_val
 
-    x_coord = ((distance ** 2) - (closestAnchor ** 2) + (secondClosestAnchor ** 2)) / (2 * distance)
+    x_coord = ((distance ** 2) - (secondClosestAnchor ** 2) + (closestAnchor ** 2)) / (2 * distance)
     y_coord = math.sqrt(abs((closestAnchor ** 2) - (x_coord ** 2)))
-
-    return x_coord, y_coord
+    if closestAnchor != 3:
+        if closestAnchor == 0:
+            return x_coord, 3-y_coord
+        elif closestAnchor == 1:
+            return 3-x_coord, 3-y_coord
+        else:
+            return 3-x_coord, y_coord
+    else:
+        return x_coord, y_coord
 
 def vectorDetector(initalx, initaly, finalx, finaly):
     return finalx - initalx, finaly - initaly
