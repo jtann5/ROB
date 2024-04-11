@@ -1,5 +1,48 @@
 import serial
+from rob import rob
 
+# rob.defaults()
+# run get position
+# rob.setMotor(4, 6000) # turn head one way
+# run get position
+# rob.setMotor(4, 4000) # turn head opposite way
+# run get position
+# get the vector for rob
+# dot product robs orientation with the Anchor Rob vector for angle
+# turn until the dot product is close enough (need to figure that number out)
+
+def readSerial():
+    ser = serial.Serial('/dev/ttyUSB0', 115200)
+    ser.readline()  # example mc 00 000001ab 00000d7f 0000124c 00000d31 2996 97 000f9bda t7:0 1a38
+    response = ser.readline()  # example $KT7,0.45,3.43,4.70,3.36,LO=[no solution]
+    while response.decode().strip().split(',')[0] != "$KT7":
+        response = ser.readline()
+    print(response)
+    # print(response.decode().strip())  # Decode bytes to string and remove newline characters
+    arr = response.decode().strip().split(',')
+    float_array = [float(x) for x in arr[1:5]]
+    print("A0: " + str(float_array[0]) + "m")
+    print("A1: " + str(float_array[1]) + "m")
+    print("A2: " + str(float_array[2]) + "m")
+    print("A3: " + str(float_array[3]) + "m")
+    print("Quad: " + str(float_array.index(min(float_array))))
+    print("")
+    ser.close()
+    return float_array
+
+if __name__ == "__main__":
+    rob.defaults()
+    print("ROBS COORDINATES")
+    rob_coords = readSerial()
+    print("ROB P1")
+    rob.setMotor(4, 6000)
+    rob1 = readSerial()
+    print("ROB P2")
+    rob.setMotor(4, 4000)
+    rob2 = readSerial()
+
+
+'''
 while True:
     ser = serial.Serial('/dev/ttyUSB0', 115200)
     ser.readline() # example mc 00 000001ab 00000d7f 0000124c 00000d31 2996 97 000f9bda t7:0 1a38
@@ -20,4 +63,4 @@ while True:
         
     if input().lower() == "exit":
         break
-
+'''
