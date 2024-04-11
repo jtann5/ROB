@@ -83,7 +83,7 @@ def vectorDetector(initalx, initaly, finalx, finaly):
     return finalx - initalx, finaly - initaly
 
 def dotProduct(vector1x, vector1y, vector2x, vector2y):
-    return vector1x * vector2x + vector1y * vector2y
+    return 10*(vector1x * vector2x + vector1y * vector2y)
 
 def getRobProduct(type):
     rob.defaults()
