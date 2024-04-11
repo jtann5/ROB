@@ -50,8 +50,6 @@ def calcPosition(coords):
     coords[closestAnchor] = original_val
 
     x_coord = ((distance ** 2) - (secondClosestAnchor ** 2) + (closestAnchor ** 2)) / (2 * distance)
-    if anchors[closestAnchor][0] > 0:
-        x_coord = anchors[closestAnchor][0] - x_coord
     y_coord = math.sqrt(abs((closestAnchor ** 2) - (x_coord ** 2)))
 
     return x_coord, y_coord
@@ -145,21 +143,25 @@ if __name__ == "__main__":
 
     while ((not heading.robposx < 0) or (not heading.robposx > 3) or (not heading.robposy < 0) or (not heading.robposy > 3)):
         heading.printValues()
+        time.sleep(5)
         if heading.robProduct < 0:
-            rob.setMotor(0, 5000)
-            rob.setMotor(1, 7000)
-            time.sleep(0.75)
-            rob.setMotor(0, 6000)
-            rob.setMotor(1, 6000)
-            time.sleep(1)
-            getRobProduct(heading)
+            #rob.setMotor(0, 5000)
+            #rob.setMotor(1, 7000)
+            #time.sleep(0.75)
+            #rob.setMotor(0, 6000)
+            #rob.setMotor(1, 6000)
+            #time.sleep(1)
+            #getRobProduct(heading)
+            pass
         else:
-            rob.setMotor(0, 5000)
-            rob.setMotor(1, 5000)
-            time.sleep(0.75)
-            rob.setMotor(0, 6000)
-            rob.setMotor(1, 6000)
-            getRobProduct(heading)
+            #rob.setMotor(0, 5000)
+            #rob.setMotor(1, 5000)
+            #time.sleep(0.75)
+            #rob.setMotor(0, 6000)
+            #rob.setMotor(1, 6000)
+            #getRobProduct(heading)
+            pass
+        getRobProduct(heading)
     rob.defaults()
     rob.say('Exited')
 
