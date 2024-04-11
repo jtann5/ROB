@@ -134,7 +134,7 @@ if __name__ == "__main__":
         if heading.robProduct < 0:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 7000)
-            time.sleep(0.5)
+            time.sleep(0.75)
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
             time.sleep(1)
@@ -142,7 +142,7 @@ if __name__ == "__main__":
         else:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 5000)
-            time.sleep(0.2)
+            time.sleep(0.75)
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
             getRobProduct(heading)
