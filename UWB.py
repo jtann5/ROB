@@ -169,8 +169,12 @@ if __name__ == "__main__":
 
     while ((not heading.robposx < 0 and not heading.robposx > 3) or (not heading.robposy < 0 and not heading.robposy > 3)):
         heading.printValues()
+        if heading.robposx < 0 or heading.robposx > 3:
+            break
+        if heading.robposy < 0 or heading.robposy > 3:
+            break
         #time.sleep(5)
-        if heading.robProduct < 1:
+        if heading.robProduct < -1:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 7000)
             time.sleep(0.75)
