@@ -43,21 +43,22 @@ def readSerial():
     return float_array
 
 def calcPosition(distances):
-    # Calculate the differences in distances between pairs of anchors
-    d01 = distances[0] - distances[1]  # Distance between anchor0 and anchor1
-    d12 = distances[1] - distances[2]  # Distance between anchor1 and anchor2
-    d23 = distances[2] - distances[3]  # Distance between anchor2 and anchor3
-    d30 = distances[3] - distances[0]  # Distance between anchor3 and anchor0
+    sum_x = 0
+    sum_y = 0
 
-    # Calculate the angles between the differences in distances
-    angle01 = math.atan2(anchor1[1] - anchor0[1], anchor1[0] - anchor0[0])  # Angle from anchor0 to anchor1
-    angle12 = math.atan2(anchor2[1] - anchor1[1], anchor2[0] - anchor1[0])  # Angle from anchor1 to anchor2
-    angle23 = math.atan2(anchor3[1] - anchor2[1], anchor3[0] - anchor2[0])  # Angle from anchor2 to anchor3
-    angle30 = math.atan2(anchor0[1] - anchor3[1], anchor0[0] - anchor3[0])  # Angle from anchor3 to anchor0
+    # Iterate over each anchor and distance
+    for anchor, distance in zip(anchors, distances):
+        # Calculate the x and y components based on the distance and anchor position
+        delta_x = distance * (anchor[0] - 1.5) / 3
+        delta_y = distance * (anchor[1] - 1.5) / 3
 
-    # Calculate the coordinates of the device
-    x = (d01 * math.cos(angle01) + d12 * math.cos(angle12)) / 2
-    y = (d12 * math.sin(angle12) + d23 * math.sin(angle23)) / 2
+        # Add the components to the sums
+        sum_x += delta_x
+        sum_y += delta_y
+
+    # Calculate the final x and y coordinates
+    x = 1.5 + sum_x
+    y = 1.5 + sum_y
 
     return x, y
 
