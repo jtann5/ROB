@@ -42,24 +42,24 @@ def readSerial():
     ser.close()
     return float_array
 
-def calcPosition(coords):
-    closestAnchor = coords.index(min(coords))
-    original_val = coords[closestAnchor]
-    coords[closestAnchor] = 100
-    secondClosestAnchor = coords.index(min(coords))
-    coords[closestAnchor] = original_val
+def calcPosition(distances):
+    # Calculate the differences in distances between pairs of anchors
+    d01 = distances[0] - distances[1]  # Distance between anchor0 and anchor1
+    d12 = distances[1] - distances[2]  # Distance between anchor1 and anchor2
+    d23 = distances[2] - distances[3]  # Distance between anchor2 and anchor3
+    d30 = distances[3] - distances[0]  # Distance between anchor3 and anchor0
 
-    x_coord = ((distance ** 2) - (secondClosestAnchor ** 2) + (closestAnchor ** 2)) / (2 * distance)
-    y_coord = math.sqrt(abs((closestAnchor ** 2) - (x_coord ** 2)))
-    if closestAnchor != 3:
-        if closestAnchor == 0:
-            return x_coord, 3-y_coord
-        elif closestAnchor == 1:
-            return 3-x_coord, 3-y_coord
-        else:
-            return 3-x_coord, y_coord
-    else:
-        return x_coord, y_coord
+    # Calculate the angles between the differences in distances
+    angle01 = math.atan2(anchor1[1] - anchor0[1], anchor1[0] - anchor0[0])  # Angle from anchor0 to anchor1
+    angle12 = math.atan2(anchor2[1] - anchor1[1], anchor2[0] - anchor1[0])  # Angle from anchor1 to anchor2
+    angle23 = math.atan2(anchor3[1] - anchor2[1], anchor3[0] - anchor2[0])  # Angle from anchor2 to anchor3
+    angle30 = math.atan2(anchor0[1] - anchor3[1], anchor0[0] - anchor3[0])  # Angle from anchor3 to anchor0
+
+    # Calculate the coordinates of the device
+    x = (d01 * math.cos(angle01) + d12 * math.cos(angle12)) / 2
+    y = (d12 * math.sin(angle12) + d23 * math.sin(angle23)) / 2
+
+    return x, y
 
 def vectorDetector(initalx, initaly, finalx, finaly):
     return finalx - initalx, finaly - initaly
@@ -70,14 +70,14 @@ def dotProduct(vector1x, vector1y, vector2x, vector2y):
 def getRobProduct(type):
     rob.defaults()
     time.sleep(1)
-    print("ROBS COORDINATES")
+    #print("ROBS COORDINATES")
     rob_coords = readSerial()
     time.sleep(1)
-    print("ROB P1")
+    #print("ROB P1")
     rob.setMotor(4, 8000)
     time.sleep(1)
     rob1 = readSerial()
-    print("ROB P2")
+    #print("ROB P2")
     time.sleep(1)
     rob.setMotor(4, 4000)
     time.sleep(1)
@@ -139,9 +139,9 @@ class Headings:
     def printValues(self):
         print("X: {:.4f}".format(self.robposx))
         print("Y: {:.4f}".format(self.robposy))
-        print("Anchor Vector <{:.4f}, {:.4f}>".format(self.anchorVectorX, self.anchorVectorY))
-        print("Rob Vector <{:.4f}, {:.4f}>".format(self.robVectorX, self.robVectorY))
-        print("ROB Product {:.4f}".format(self.robProduct))
+        #print("Anchor Vector <{:.4f}, {:.4f}>".format(self.anchorVectorX, self.anchorVectorY))
+        #print("Rob Vector <{:.4f}, {:.4f}>".format(self.robVectorX, self.robVectorY))
+        #print("ROB Product {:.4f}".format(self.robProduct))
 
 
 if __name__ == "__main__":
