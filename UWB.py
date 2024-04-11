@@ -130,7 +130,7 @@ def getRobProduct(type):
     robVectorX, robVectorY = vectorDetector(roborienx1, roborieny1, roborienx2, roborieny2)
     type.robVectorX = robVectorX
     type.robVectorY = robVectorY
-    type.previousRobProduct = type.robProduct
+
     robProduct = dotProduct(heading.anchorVectorX, heading.anchorVectorY, robVectorX, robVectorY)
     type.robProduct = robProduct
 
@@ -150,9 +150,8 @@ class Headings:
         self.roborieny2 = 0
         self.robVectorX = 0
         self.robVectorY = 0
-        self.robProduct = 100
+        self.robProduct = 0
         self.said = False
-        self.previousRobProduct = 0
 
     def printValues(self):
         print("X: {:.4f}".format(self.robposx))
@@ -182,30 +181,22 @@ if __name__ == "__main__":
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
             break
-        if (heading.robProduct > heading.previousRobProduct) and heading.robProduct > -0.28:
-            rob.setMotor(0, 7000)
+        #time.sleep(5)
+        if heading.robProduct < -0.28:
+            rob.setMotor(0, 5000)
             rob.setMotor(1, 7000)
-            time.sleep(1.5)
+            time.sleep(1.25)
+            rob.setMotor(0, 6000)
+            rob.setMotor(1, 6000)
+            time.sleep(1)
+            getRobProduct(heading)
+        else:
+            rob.setMotor(0, 5000)
+            rob.setMotor(1, 5000)
+            time.sleep(0.75)
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
             getRobProduct(heading)
-        else:
-            #time.sleep(5)
-            if heading.robProduct < -0.28:
-                rob.setMotor(0, 5000)
-                rob.setMotor(1, 7000)
-                time.sleep(1.25)
-                rob.setMotor(0, 6000)
-                rob.setMotor(1, 6000)
-                time.sleep(1)
-                getRobProduct(heading)
-            else:
-                rob.setMotor(0, 5000)
-                rob.setMotor(1, 5000)
-                time.sleep(0.75)
-                rob.setMotor(0, 6000)
-                rob.setMotor(1, 6000)
-                getRobProduct(heading)
     rob.defaults()
     rob.say('Exited')
 
