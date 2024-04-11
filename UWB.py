@@ -50,8 +50,8 @@ def calcPosition(coords):
     coords[closestAnchor] = original_val
 
     x_coord = ((distance ** 2) - (secondClosestAnchor ** 2) + (closestAnchor ** 2)) / (2 * distance)
-    if anchors[closestAnchor[0]][0] > 0:
-        x_coord = anchors[closestAnchor[0]][0] - x_coord
+    if anchors[closestAnchor][0] > 0:
+        x_coord = anchors[closestAnchor][0] - x_coord
     y_coord = math.sqrt(abs((closestAnchor ** 2) - (x_coord ** 2)))
 
     return x_coord, y_coord
