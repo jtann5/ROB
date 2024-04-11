@@ -150,7 +150,7 @@ class Headings:
         self.roborieny2 = 0
         self.robVectorX = 0
         self.robVectorY = 0
-        self.robProduct = 0
+        self.robProduct = 100
         self.said = False
         self.previousRobProduct = 0
 
