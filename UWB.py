@@ -1,4 +1,5 @@
 import math
+import numpy as np
 import time
 import serial
 from rob import rob
@@ -20,7 +21,7 @@ anchor1 = [3, 3]
 anchor2 = [3, 0]
 anchor3 = [0, 0]
 
-anchors = [anchor0, anchor1, anchor3, anchor2]
+anchors = [anchor0, anchor1, anchor2, anchor3]
 
 
 def readSerial():
@@ -42,25 +43,41 @@ def readSerial():
     ser.close()
     return float_array
 
-def calcPosition(distances):
-    sum_x = 0
-    sum_y = 0
+def calcPosition(anchors, distances):
+    # Convert input lists to NumPy arrays for easier computation
+    anchors = np.array(anchors)
+    distances = np.array(distances)
 
-    # Iterate over each anchor and distance
-    for anchor, distance in zip(anchors, distances):
-        # Calculate the x and y components based on the distance and anchor position
-        delta_x = distance * (anchor[0] - 1.5) / 3
-        delta_y = distance * (anchor[1] - 1.5) / 3
+    # Number of dimensions (2 for 2D space, 3 for 3D space)
+    num_dimensions = anchors.shape[1]
 
-        # Add the components to the sums
-        sum_x += delta_x
-        sum_y += delta_y
+    # Ensure at least as many anchors as dimensions
+    if len(anchors) < num_dimensions:
+        raise ValueError("Number of anchors must be at least as many as dimensions")
 
-    # Calculate the final x and y coordinates
-    x = 1.5 + sum_x
-    y = 1.5 + sum_y
+    # Number of anchors
+    num_anchors = len(anchors)
 
-    return x, y
+    # Calculate distances squared
+    distances_squared = distances ** 2
+
+    # Initialize A matrix and b vector
+    A = np.zeros((num_anchors - 1, num_dimensions))
+    b = np.zeros((num_anchors - 1,))
+
+    # Iterate over pairs of anchors
+    for i in range(num_anchors - 1):
+        A[i] = 2 * (anchors[i] - anchors[-1])
+        b[i] = np.linalg.norm(anchors[i]) ** 2 - np.linalg.norm(anchors[-1]) ** 2 - distances_squared[i] + \
+               distances_squared[-1]
+
+    # Calculate least squares solution
+    position = np.linalg.lstsq(A, b, rcond=None)[0]
+
+    # Add the position of the reference anchor
+    position += anchors[-1]
+
+    return position
 
 def vectorDetector(initalx, initaly, finalx, finaly):
     return finalx - initalx, finaly - initaly
@@ -85,10 +102,11 @@ def getRobProduct(type):
     rob2 = readSerial()
     #time.sleep(1)
     rob.defaults()
-
-    robposx, robposy = calcPosition(rob_coords)
-    type.robposx = robposx
-    type.robposy = robposy
+    global anchors
+    position = calcPosition(anchors, rob_coords)
+    print(position)
+    type.robposx = position[0]
+    type.robposy = position[1]
     closestAnchor = rob_coords.index(min(rob_coords))
     if not type.said:
         rob.say("Quadrant " + str(closestAnchor))
@@ -99,13 +117,13 @@ def getRobProduct(type):
     type.initialx = initialx
     type.initialy = initialy
     if not type.gotAnchorVector:
-        anchorVectorX, anchorVectorY = vectorDetector(initialx, initialy, robposx, robposy)
+        anchorVectorX, anchorVectorY = vectorDetector(initialx, initialy, type.robposx, type.robposy)
         type.anchorVectorX = anchorVectorX
         type.anchorVectorY = anchorVectorY
         type.gotAnchorVector = True
 
-    roborienx1, roborieny1 = calcPosition(rob1)
-    roborienx2, roborieny2 = calcPosition(rob2)
+    roborienx1, roborieny1 = calcPosition(anchors, rob1)
+    roborienx2, roborieny2 = calcPosition(anchors, rob2)
     type.roborienx1 = roborienx1
     type.roborieny1 = roborieny1
     type.roborienx2 = roborienx2
