@@ -33,12 +33,12 @@ def readSerial():
     # print(response.decode().strip())  # Decode bytes to string and remove newline characters
     arr = response.decode().strip().split(',')
     float_array = [float(x) for x in arr[1:5]]
-    print("A0: " + str(float_array[0]) + "m")
-    print("A1: " + str(float_array[1]) + "m")
-    print("A2: " + str(float_array[2]) + "m")
-    print("A3: " + str(float_array[3]) + "m")
-    print("Quad: " + str(float_array.index(min(float_array))))
-    print("")
+    #print("A0: " + str(float_array[0]) + "m")
+    #print("A1: " + str(float_array[1]) + "m")
+    #print("A2: " + str(float_array[2]) + "m")
+    #print("A3: " + str(float_array[3]) + "m")
+    #print("Quad: " + str(float_array.index(min(float_array))))
+    #print("")
     ser.close()
     return float_array
 
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     getRobProduct(heading)
 
     while ((not heading.robposx < 0) or (not heading.robposx > 3) or (not heading.robposy < 0) or (not heading.robposy > 3)):
-        print(">>>>>>> " + str(heading.robProduct))
+        print(">>> " + str(heading.robProduct))
         if heading.robProduct < 0:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 7000)
