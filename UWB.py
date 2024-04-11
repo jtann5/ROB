@@ -172,14 +172,14 @@ if __name__ == "__main__":
         if heading.robposx < 0 or heading.robposx > 3:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 7000)
-            time.sleep(1)
+            time.sleep(0.5)
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
             break
         if heading.robposy < 0 or heading.robposy > 3:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 7000)
-            time.sleep(1)
+            time.sleep(0.5)
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
             break
