@@ -20,7 +20,7 @@ anchor1 = [3, 3]
 anchor2 = [3, 0]
 anchor3 = [0, 0]
 
-anchors = [anchor0, anchor1, anchor2, anchor3]
+anchors = [anchor0, anchor1, anchor3, anchor2]
 
 
 def readSerial():
