@@ -134,7 +134,7 @@ class Headings:
         print("Y: {:.4f}".format(self.robposy))
         print("Anchor Vector <{:.4f}, {:.4f}>".format(self.anchorVectorX, self.anchorVectorY))
         print("Rob Vector <{:.4f}, {:.4f}>".format(self.robVectorX, self.robVectorY))
-        print("ROB Product {.4f}".format(self.robProduct))
+        print("ROB Product {:.4f}".format(self.robProduct))
 
 
 if __name__ == "__main__":
