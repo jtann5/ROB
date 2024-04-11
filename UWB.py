@@ -62,6 +62,7 @@ def dotProduct(vector1x, vector1y, vector2x, vector2y):
 
 def getRobProduct(type):
     rob.defaults()
+    time.sleep(1)
     print("ROBS COORDINATES")
     rob_coords = readSerial()
     time.sleep(1)
@@ -130,7 +131,7 @@ if __name__ == "__main__":
     getRobProduct(heading)
 
     while ((not heading.robposx < 0) or (not heading.robposx > 3) or (not heading.robposy < 0) or (not heading.robposy > 3)):
-        print(">>> " + str(heading.robProduct))
+        print(">>> {:.5f}".format(heading.robProduct))
         if heading.robProduct < 0:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 7000)
