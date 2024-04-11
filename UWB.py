@@ -185,7 +185,7 @@ if __name__ == "__main__":
             rob.setMotor(1, 6000)
             break
         #time.sleep(5)
-        if heading.robProduct < -0.036:
+        if heading.robProduct < 0:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 7000)
             time.sleep(1.25)
