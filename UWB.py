@@ -65,17 +65,23 @@ def getRobProduct(type):
     print("ROBS COORDINATES")
     rob_coords = readSerial()
     print("ROB P1")
+    time.sleep(1000)
     rob.setMotor(4, 6000)
     rob1 = readSerial()
     print("ROB P2")
+    time.sleep(1000)
     rob.setMotor(4, 4000)
     rob2 = readSerial()
+    time.sleep(1000)
     rob.defaults()
 
     robposx, robposy = calcPosition(rob_coords)
     type.robposx = robposx
     type.robposy = robposy
     closestAnchor = rob_coords.index(min(rob_coords))
+    if not type.said:
+        rob.say("Quadrant " + str(closestAnchor))
+        type.said = True
     type.closestAnchor = closestAnchor
     initialx = anchors[closestAnchor][0]
     initialy = anchors[closestAnchor][1]
@@ -115,6 +121,7 @@ class Headings:
         self.robVectorX = 0
         self.robVectorY = 0
         self.robProduct = 0
+        self.said = False
 
 if __name__ == "__main__":
     heading = Headings()
@@ -126,12 +133,14 @@ if __name__ == "__main__":
             rob.setMotor(1, 7000)
             time.sleep(100)
             rob.defaults()
+            time.sleep(1000)
             getRobProduct(heading)
         else:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 5000)
             time.sleep(100)
             rob.defaults()
+            time.sleep(1000)
             getRobProduct(heading)
     rob.defaults()
     rob.say('Exited')
