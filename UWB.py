@@ -127,21 +127,7 @@ if __name__ == "__main__":
     heading = Headings()
     getRobProduct(heading)
 
-    while ((not heading.robposx < 0) or (not heading.robposx > 3) or (not heading.robposy < 0) or (not heading.robposy > 3)):
-        if heading.robProduct < 0:
-            rob.setMotor(0, 5000)
-            rob.setMotor(1, 7000)
-            time.sleep(100)
-            rob.defaults()
-            time.sleep(1000)
-            getRobProduct(heading)
-        else:
-            rob.setMotor(0, 5000)
-            rob.setMotor(1, 5000)
-            time.sleep(100)
-            rob.defaults()
-            time.sleep(1000)
-            getRobProduct(heading)
+    
     rob.defaults()
     rob.say('Exited')
 
