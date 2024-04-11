@@ -92,7 +92,7 @@ def getRobProduct(type):
     rob_coords = readSerial()
     time.sleep(1)
     #print("ROB P1")
-    rob.setMotor(2, 5000)
+    rob.setMotor(2, 6500)
     rob.setMotor(4, 8000)
     time.sleep(1)
     rob1 = readSerial()
