@@ -1,6 +1,5 @@
 import math
 import time
-
 import serial
 from rob import rob
 
@@ -77,17 +76,28 @@ def getRobProduct(type):
     type.robposx = robposx
     type.robposy = robposy
     closestAnchor = rob_coords.index(min(rob_coords))
+    type.closestAnchor = closestAnchor
     initialx = anchors[closestAnchor][0]
     initialy = anchors[closestAnchor][1]
+    type.initialx = initialx
+    type.initialy = initialy
     anchorVectorX, anchorVectorY = vectorDetector(initialx, initialy, robposx, robposy)
+    type.anchorVectorX = anchorVectorX
+    type.anchorVectorY = anchorVectorY
 
     roborienx1, roborieny1 = calcPosition(rob1)
     roborienx2, roborieny2 = calcPosition(rob2)
+    type.roborienx1 = roborienx1
+    type.roborieny1 = roborieny1
+    type.roborienx2 = roborienx2
+    type.roborieny2 = roborieny2
     robVectorX, robVectorY = vectorDetector(roborienx1, roborieny1, roborienx2, roborieny2)
+    type.robVectorX = robVectorX
+    type.robVectorY = robVectorY
 
     robProduct = dotProduct(anchorVectorX, anchorVectorY, robVectorX, robVectorY)
+    type.robProduct = robProduct
 
-    return robProduct
 
 class Headings:
     def __init__(self):
