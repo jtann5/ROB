@@ -1,3 +1,6 @@
+import math
+import time
+
 import serial
 from rob import rob
 
@@ -10,6 +13,16 @@ from rob import rob
 # get the vector for rob
 # dot product robs orientation with the Anchor Rob vector for angle
 # turn until the dot product is close enough (need to figure that number out)
+
+distance = 3
+
+anchor0 = [0, 3]
+anchor1 = [3, 3]
+anchor2 = [3, 0]
+anchor3 = [0, 0]
+
+anchors = [anchor0, anchor1, anchor2, anchor3]
+
 
 def readSerial():
     ser = serial.Serial('/dev/ttyUSB0', 115200)
@@ -30,7 +43,25 @@ def readSerial():
     ser.close()
     return float_array
 
-if __name__ == "__main__":
+def calcPosition(coords):
+    closestAnchor = coords.index(min(coords))
+    original_val = coords[closestAnchor]
+    coords[closestAnchor] = 100
+    secondClosestAnchor = coords.index(min(coords))
+    coords[closestAnchor] = original_val
+
+    x_coord = ((distance ** 2) - (secondClosestAnchor ** 2) + (closestAnchor ** 2)) / (2 * distance)
+    y_coord = math.sqrt((closestAnchor ** 2) - (x_coord ** 2))
+
+    return x_coord, y_coord
+
+def vectorDetector(initalx, initaly, finalx, finaly):
+    return finalx - initalx, finaly - initaly
+
+def dotProduct(vector1x, vector1y, vector2x, vector2y):
+    return vector1x * vector2x + vector1y * vector2y
+
+def getRobProduct(type):
     rob.defaults()
     print("ROBS COORDINATES")
     rob_coords = readSerial()
@@ -40,7 +71,60 @@ if __name__ == "__main__":
     print("ROB P2")
     rob.setMotor(4, 4000)
     rob2 = readSerial()
+    rob.defaults()
 
+    robposx, robposy = calcPosition(rob_coords)
+    type.robposx = robposx
+    type.robposy = robposy
+    closestAnchor = rob_coords.index(min(rob_coords))
+    initialx = anchors[closestAnchor][0]
+    initialy = anchors[closestAnchor][1]
+    anchorVectorX, anchorVectorY = vectorDetector(initialx, initialy, robposx, robposy)
+
+    roborienx1, roborieny1 = calcPosition(rob1)
+    roborienx2, roborieny2 = calcPosition(rob2)
+    robVectorX, robVectorY = vectorDetector(roborienx1, roborieny1, roborienx2, roborieny2)
+
+    robProduct = dotProduct(anchorVectorX, anchorVectorY, robVectorX, robVectorY)
+
+    return robProduct
+
+class Headings:
+    def __init__(self):
+        self.robposx = 0
+        self.robposy = 0
+        self.closestAnchor = 0
+        self.initialx = 0
+        self.initialy = 0
+        self.anchorVectorX = 0
+        self.anchorVectorY = 0
+        self.roborienx1 = 0
+        self.roborieny1 = 0
+        self.roborienx2 = 0
+        self.roborieny2 = 0
+        self.robVectorX = 0
+        self.robVectorY = 0
+        self.robProduct = 0
+
+if __name__ == "__main__":
+    heading = Headings()
+    getRobProduct(heading)
+
+    while ((not heading.robposx < 0) or (not heading.robposx > 3) or (not heading.robposy < 0) or (not heading.robposy > 3)):
+        if heading.robProduct < 0:
+            rob.setMotor(0, 5000)
+            rob.setMotor(1, 7000)
+            time.sleep(100)
+            rob.defaults()
+            getRobProduct(heading)
+        else:
+            rob.setMotor(0, 5000)
+            rob.setMotor(1, 5000)
+            time.sleep(100)
+            rob.defaults()
+            getRobProduct(heading)
+    rob.defaults()
+    rob.say('Exited')
 
 '''
 while True:
