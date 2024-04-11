@@ -170,10 +170,11 @@ if __name__ == "__main__":
         heading.printValues()
         if (heading.robProduct > heading.previousRobProduct) and heading.robProduct > -0.28:
             rob.setMotor(0, 7000)
-            rob.setMotor(1, 5000)
+            rob.setMotor(1, 7000)
             time.sleep(1.5)
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
+            getRobProduct(heading)
         else:
             if heading.robposx < 0 or heading.robposx > 3:
                 rob.setMotor(0, 5000)
