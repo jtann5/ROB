@@ -94,6 +94,7 @@ def getRobProduct(type):
         anchorVectorX, anchorVectorY = vectorDetector(initialx, initialy, robposx, robposy)
         type.anchorVectorX = anchorVectorX
         type.anchorVectorY = anchorVectorY
+        type.gotAnchorVector = True
 
     roborienx1, roborieny1 = calcPosition(rob1)
     roborienx2, roborieny2 = calcPosition(rob2)
@@ -126,13 +127,22 @@ class Headings:
         self.robVectorY = 0
         self.robProduct = 0
         self.said = False
+        self.gotAnchorVector = False
+
+    def printValues(self):
+        print("X: {:.4f}".format(self.robposx))
+        print("Y: {:.4f}".format(self.robposy))
+        print("Anchor Vector <{:.4f}, {:.4f}>".format(self.anchorVectorX, self.anchorVectorY))
+        print("Rob Vector <{:.4f}, {:.4f}>".format(self.robVectorX, self.robVectorY))
+        print("ROB Product {.4f}".format(self.robProduct))
+
 
 if __name__ == "__main__":
     heading = Headings()
     getRobProduct(heading)
 
     while ((not heading.robposx < 0) or (not heading.robposx > 3) or (not heading.robposy < 0) or (not heading.robposy > 3)):
-        print(">>> {:.5f}".format(heading.robProduct))
+        heading.printValues()
         if heading.robProduct < 0:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 7000)
