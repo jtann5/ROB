@@ -64,17 +64,17 @@ def getRobProduct(type):
     rob.defaults()
     print("ROBS COORDINATES")
     rob_coords = readSerial()
-    time.sleep(1)
+    time.sleep(0.2)
     print("ROB P1")
     rob.setMotor(4, 8000)
-    time.sleep(0.5)
+    time.sleep(0.2)
     rob1 = readSerial()
     print("ROB P2")
-    time.sleep(1)
+    time.sleep(0.2)
     rob.setMotor(4, 4000)
-    time.sleep(0.5)
+    time.sleep(0.2)
     rob2 = readSerial()
-    time.sleep(1)
+    time.sleep(0.2)
     rob.defaults()
 
     robposx, robposy = calcPosition(rob_coords)
@@ -130,6 +130,7 @@ if __name__ == "__main__":
     getRobProduct(heading)
 
     while ((not heading.robposx < 0) or (not heading.robposx > 3) or (not heading.robposy < 0) or (not heading.robposy > 3)):
+        print(">>>>>>> " + str(heading.robProduct))
         if heading.robProduct < 0:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 7000)
@@ -141,7 +142,7 @@ if __name__ == "__main__":
         else:
             rob.setMotor(0, 5000)
             rob.setMotor(1, 5000)
-            time.sleep(0.5)
+            time.sleep(0.2)
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
             getRobProduct(heading)
