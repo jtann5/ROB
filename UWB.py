@@ -117,11 +117,9 @@ def getRobProduct(type):
     initialy = anchors[closestAnchor][1]
     type.initialx = initialx
     type.initialy = initialy
-    if not type.gotAnchorVector:
-        anchorVectorX, anchorVectorY = vectorDetector(initialx, initialy, type.robposx, type.robposy)
-        type.anchorVectorX = anchorVectorX
-        type.anchorVectorY = anchorVectorY
-        type.gotAnchorVector = True
+    anchorVectorX, anchorVectorY = vectorDetector(initialx, initialy, type.robposx, type.robposy)
+    type.anchorVectorX = anchorVectorX
+    type.anchorVectorY = anchorVectorY
 
     roborienx1, roborieny1 = calcPosition(anchors, rob1)
     roborienx2, roborieny2 = calcPosition(anchors, rob2)
@@ -154,7 +152,6 @@ class Headings:
         self.robVectorY = 0
         self.robProduct = 0
         self.said = False
-        self.gotAnchorVector = False
 
     def printValues(self):
         print("X: {:.4f}".format(self.robposx))
