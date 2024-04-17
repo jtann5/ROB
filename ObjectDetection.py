@@ -28,13 +28,11 @@ def get_distance():
         if (time.time() - timeout) > 3: # Timeout after 1 second
             print("Timeout occurred while waiting for echo signal")
             return None
-    print("Here")
     pulse_start = time.time()
     while GPIO.input(ECHO_PIN) == 1:
         if (time.time() - timeout) >  3: # Timeout after 1 second
             print("Timeout occurred while receiving echo signal")
             return None
-    print("AAA")
     pulse_end = time.time()
 
     pulse_duration = pulse_end - pulse_start
@@ -47,5 +45,5 @@ def get_distance():
 
 
 while True:
-    print(get_distance())
+    print(get_distance(), "cm")
     time.sleep(1)
