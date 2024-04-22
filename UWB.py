@@ -238,7 +238,7 @@ if __name__ == "__main__":
         if heading.robProduct < -0.28:
             time_v = 0
             distance = get_distance()
-            while(distance > 70 and time_v < 125):
+            while(distance > 70 and time_v < 100):
                 rob.setMotor(0, 5000)
                 rob.setMotor(1, 7000)
                 time.sleep(0.01)
