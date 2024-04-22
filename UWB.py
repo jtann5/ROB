@@ -16,6 +16,8 @@ import time
 # dot product robs orientation with the Anchor Rob vector for angle
 # turn until the dot product is close enough (need to figure that number out)
 
+GPIO.setmode(GPIO.BCM)
+
 TRIG_PIN = 23
 ECHO_PIN = 24
 
