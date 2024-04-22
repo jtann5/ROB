@@ -3,6 +3,8 @@ import numpy as np
 import time
 import serial
 from rob import rob
+import RPi.GPIO as GPIO
+import time
 
 # rob.defaults()
 # run get position
@@ -14,6 +16,12 @@ from rob import rob
 # dot product robs orientation with the Anchor Rob vector for angle
 # turn until the dot product is close enough (need to figure that number out)
 
+TRIG_PIN = 23
+ECHO_PIN = 24
+
+GPIO.setup(TRIG_PIN, GPIO.OUT)
+GPIO.setup(ECHO_PIN, GPIO.IN)
+
 distance = 3
 
 anchor0 = [0, 3]
@@ -22,6 +30,37 @@ anchor2 = [3, 0]
 anchor3 = [0, 0]
 
 anchors = [anchor0, anchor1, anchor2, anchor3]
+
+def get_distance():
+    # Set TRIG to LOW for a short time to ensure clean signal
+    GPIO.output(TRIG_PIN, False)
+    time.sleep(0.1)
+
+    # Send a 10us pulse to trigger
+    GPIO.output(TRIG_PIN, True)
+    time.sleep(0.00001)
+    GPIO.output(TRIG_PIN, False)
+
+    # Measure the time it takes for the echo to return
+    timeout = time.time()
+    while GPIO.input(ECHO_PIN) == 0:
+        if (time.time() - timeout) > 3: # Timeout after 1 second
+            print("Timeout occurred while waiting for echo signal")
+            return None
+    pulse_start = time.time()
+    while GPIO.input(ECHO_PIN) == 1:
+        if (time.time() - timeout) >  3: # Timeout after 1 second
+            print("Timeout occurred while receiving echo signal")
+            return None
+    pulse_end = time.time()
+
+    pulse_duration = pulse_end - pulse_start
+
+    # Speed of sound is 343m/s. The distance is half of the total time multiplied by the speed of sound
+    distance = pulse_duration * 17150
+    distance = round(distance, 2)
+
+    return distance
 
 
 def readSerial():
@@ -168,24 +207,41 @@ if __name__ == "__main__":
     while ((not heading.robposx < 0 and not heading.robposx > 3) or (not heading.robposy < 0 and not heading.robposy > 3)):
         heading.printValues()
         if heading.robposx < 0 or heading.robposx > 3:
-            rob.setMotor(0, 5000)
-            rob.setMotor(1, 7000)
-            time.sleep(0.5)
+            time_v = 0
+            distance = get_distance()
+            while (distance > 70 and time_v < 50):
+                rob.setMotor(0, 5000)
+                rob.setMotor(1, 7000)
+                time.sleep(0.01)
+                distance = get_distance()
+                time_v += 1
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
+            time.sleep(1)
             break
         if heading.robposy < 0 or heading.robposy > 3:
-            rob.setMotor(0, 5000)
-            rob.setMotor(1, 7000)
-            time.sleep(0.5)
+            time_v = 0
+            distance = get_distance()
+            while (distance > 70 and time_v < 50):
+                rob.setMotor(0, 5000)
+                rob.setMotor(1, 7000)
+                time.sleep(0.01)
+                distance = get_distance()
+                time_v += 1
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
+            time.sleep(1)
             break
         #time.sleep(5)
         if heading.robProduct < -0.28:
-            rob.setMotor(0, 5000)
-            rob.setMotor(1, 7000)
-            time.sleep(1.25)
+            time_v = 0
+            distance = get_distance()
+            while(distance > 70 and time_v < 125):
+                rob.setMotor(0, 5000)
+                rob.setMotor(1, 7000)
+                time.sleep(0.01)
+                distance = get_distance()
+                time_v += 1
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
             time.sleep(1)
@@ -200,25 +256,3 @@ if __name__ == "__main__":
     rob.defaults()
     rob.say('Exited')
 
-'''
-while True:
-    ser = serial.Serial('/dev/ttyUSB0', 115200)
-    ser.readline() # example mc 00 000001ab 00000d7f 0000124c 00000d31 2996 97 000f9bda t7:0 1a38
-    response = ser.readline()  # example $KT7,0.45,3.43,4.70,3.36,LO=[no solution]
-    while response.decode().strip().split(',')[0] != "$KT7":
-        response = ser.readline()
-    print(response)
-    #print(response.decode().strip())  # Decode bytes to string and remove newline characters
-    arr = response.decode().strip().split(',')
-    float_array = [float(x) for x in arr[1:5]] 
-    print("A0: " + str(float_array[0]) + "m")
-    print("A1: " + str(float_array[1]) + "m")
-    print("A2: " + str(float_array[2]) + "m")
-    print("A3: " + str(float_array[3]) + "m")
-    print("Quad: " + str(float_array.index(min(float_array))))
-    print("")
-    ser.close()
-        
-    if input().lower() == "exit":
-        break
-'''
