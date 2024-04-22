@@ -216,7 +216,7 @@ if __name__ == "__main__":
                 rob.setMotor(1, 7000)
                 time.sleep(0.01)
                 distance = get_distance()
-                time_v += 1
+                time_v += 2
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
             time.sleep(1)
@@ -229,7 +229,7 @@ if __name__ == "__main__":
                 rob.setMotor(1, 7000)
                 time.sleep(0.01)
                 distance = get_distance()
-                time_v += 1
+                time_v += 2
             rob.setMotor(0, 6000)
             rob.setMotor(1, 6000)
             time.sleep(1)
