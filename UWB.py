@@ -211,7 +211,7 @@ if __name__ == "__main__":
         if heading.robposx < 0 or heading.robposx > 3:
             time_v = 0
             distance = get_distance()
-            while (distance > 70 and time_v < 50):
+            while (distance > 70 and time_v < 20):
                 rob.setMotor(0, 5000)
                 rob.setMotor(1, 7000)
                 time.sleep(0.01)
@@ -224,7 +224,7 @@ if __name__ == "__main__":
         if heading.robposy < 0 or heading.robposy > 3:
             time_v = 0
             distance = get_distance()
-            while (distance > 70 and time_v < 50):
+            while (distance > 70 and time_v < 20):
                 rob.setMotor(0, 5000)
                 rob.setMotor(1, 7000)
                 time.sleep(0.01)
@@ -238,7 +238,7 @@ if __name__ == "__main__":
         if heading.robProduct < -0.28:
             time_v = 0
             distance = get_distance()
-            while(distance > 70 and time_v < 100):
+            while(distance > 70 and time_v < 25):
                 rob.setMotor(0, 5000)
                 rob.setMotor(1, 7000)
                 time.sleep(0.01)
