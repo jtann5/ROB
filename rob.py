@@ -88,41 +88,65 @@ class ROB:
 
     # Arm Gestures
     def raiseLeftArm(self):
+        # shoulder down to the minimum
+        # elbow to the max
         pass
 
     def raiseRightArm(self):
+        # should up to the max
+        # elbow to the max
         pass
 
     def claspHands(self):
         # puts hands close together but out in front
+        # left should min
+        # right shoulder max
+        # left bicep max
+        # right bicep min
         pass
 
-    def closedHandsOutward(self):
-        #imitates hands in a fist just straight forward with elbows bent
-        pass
 
     def lectureFinger(self):
         # one arm elbow is bent and the robot moves the elbow up and down as if it is lecturing you
+        # right shoulder goes slightly down like 10%
+        # right elbow goes down blow default
         pass
 
     def handWaive(self):
         #robot waves
+        # right shoulder up
+        # right bicep left and right
+        # right elbow up
         pass
 
     def pointingToHand(self):
         # robot takes one hand and points towards the other hand to convey something
+        # left elbow up and down
+        # left shoulder %60 to the min
+        # left bicep to the max
+        # right should 20% up
+        # right bicep down
+        # right elbow 20% down
         pass
 
-    def fixHair(self):
-        # robot uses an arm to fix its hair
-        pass
 
     def bigPicture(self):
         #arms are together and get bigger to convey a bigger picture
+        # left shoulder min
+        # right shoulder max
+        # left bicep max to min
+        # right bicep min to max
         pass
 
     def sitdownGesture(self):
         # arms are slightly wider and motion to sit down by going up and down or sort of settle down gesture?
+        #
+        pass
+
+    def sweeping(self):
+        # one hand
+        #right shoulder max up
+        #right bicep from mix to max
         pass
 
     # Face Gestures
