@@ -3,7 +3,6 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 from rob import rob
 
-
 class BlockInstruction:
     def __init__(self):
         self.distance = 0
@@ -225,7 +224,7 @@ class Application(tk.Frame):
                 apply_button = tk.Button(self.settings_window, text="Apply", command=self.apply_headturn_settings_default)
                 apply_button.pack()
             elif icon_description[icon_num].__eq__("bodyturn"):
-                initialValue = default_BlockInstructions[icon_num].waist.value
+                initialValue = default_BlockInstructions[icon_num].waist_value
                 self.waist_slider = tk.Scale(self.settings_window, from_=4000, to=8000, orient="horizontal")
                 self.waist_slider.set(initialValue)
                 self.waist_slider.pack()
