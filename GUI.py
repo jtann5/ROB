@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 from rob import rob
+import time
 
 class BlockInstruction:
     def __init__(self):
@@ -183,6 +184,7 @@ class Application(tk.Frame):
                 icon_instructions[i].talk()
             else:
                 print("Invalid")
+            time.sleep(2)
         rob.defaults()
 
     def icon_command(self, i):
