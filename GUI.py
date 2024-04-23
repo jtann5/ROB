@@ -249,7 +249,7 @@ class Application(tk.Frame):
 
     def apply_waist_settings_default(self):
         waist_value = self.waist_slider.get()
-        default_BlockInstructions[4].set_waist(waist_value)
+        default_BlockInstructions[4].set_bodyturn(waist_value)
         self.settings_window.destroy()
 
     def clear_command(self):
