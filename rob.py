@@ -75,6 +75,10 @@ class ROB:
     def setMotor(self, motor, value):
         self.controller.setTarget(motor, value)
 
+    def setMotorTime(self, motor, value, time):
+        print(self.controller.getPosition(motor))
+        
+
     def start_face(self):
         rob.face.initialize_pygame()
         rob.face.animate_eyes()
