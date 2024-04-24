@@ -86,7 +86,7 @@ def readSerial():
         print("FLOAT ARR: " + str(float_array))
         return float_array
     except:
-        readSerial()
+        return readSerial()
 
 def calcPosition(anchors, distances):
     # Convert input lists to NumPy arrays for easier computation
