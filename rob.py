@@ -101,9 +101,15 @@ class ROB:
 
     # Arm Gestures
     def raiseLeftArm(self):
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(11, 4000, 1))
+        thread2 = threading.Thread(target=rob.setMotorTime, args=(13, 8000, 1))
+        thread1.start()
+        thread2.start()
+        thread1.join()
+        thread2.join()
         # shoulder down to the minimum
         # elbow to the max
-        pass
+        print("IT WORKS")
 
     def raiseRightArm(self):
         # should up to the max
@@ -195,7 +201,6 @@ rob = ROB()
 if __name__ == "__main__":
     rob = ROB()
     rob.defaults()
-    time.sleep(1)
-    rob.setMotorTime(4, 4000, 1)
-    rob.setMotorTime(4, 8000, 3)
+    rob.raiseLeftArm()
+
 
