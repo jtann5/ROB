@@ -212,21 +212,21 @@ class Application(tk.Frame):
                 ## TODO robotturn
                 pass
             elif icon_description[icon_num].__eq__("headtilt"):
-                initialValue = default_BlockInstructions[icon_num].head_pan_value
+                initialValue = default_BlockInstructions[0].head_pan_value
                 self.headtilt_slider = tk.Scale(self.settings_window, from_=4000, to=8000, orient="horizontal")
                 self.headtilt_slider.set(initialValue)
                 self.headtilt_slider.pack()
                 apply_button = tk.Button(self.settings_window, text="Apply", command=self.apply_headtilt_settings_default)
                 apply_button.pack()
             elif icon_description[icon_num].__eq__("headturn"):
-                initialValue = default_BlockInstructions[icon_num].head_pan_value
+                initialValue = default_BlockInstructions[0].head_pan_value
                 self.headturn_slider = tk.Scale(self.settings_window, from_=4000, to=8000, orient="horizontal")
                 self.headturn_slider.set(initialValue)
                 self.headturn_slider.pack()
                 apply_button = tk.Button(self.settings_window, text="Apply", command=self.apply_headturn_settings_default)
                 apply_button.pack()
             elif icon_description[icon_num].__eq__("bodyturn"):
-                initialValue = default_BlockInstructions[icon_num].waist_value
+                initialValue = default_BlockInstructions[0].waist_value
                 self.waist_slider = tk.Scale(self.settings_window, from_=4000, to=8000, orient="horizontal")
                 self.waist_slider.set(initialValue)
                 self.waist_slider.pack()
