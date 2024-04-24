@@ -213,6 +213,8 @@ if __name__ == "__main__":
     rob.defaults()
     rob.raiseLeftArm()
     time.sleep(1)
+    for i in range(15):
+        rob.setMotor(i+2, 4000)
     rob.smoothDefaults()
 
 
