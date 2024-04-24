@@ -185,4 +185,6 @@ rob = ROB()
 
 if __name__ == "__main__":
     rob = ROB()
+    rob.defaults()
+    print(rob.getPosition(4))
 
