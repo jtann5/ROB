@@ -63,9 +63,11 @@ class BlockInstruction:
         self.input = input
 
     def talk(self):
+        ## TODO RIGHT HERE
         print("rob is talking")
 
     def humanspeech(self):
+        ## TODO RIGHT HERE
         print("I am listening")
 
     def bodyturn(self):
@@ -84,9 +86,11 @@ class BlockInstruction:
         rob.setMotor(3, self.head_tilt_value)
 
     def robotturn(self):
+        ## TODO RIGHT HERE
         print("rob is turning")
 
     def movement(self):
+        ## TODO RIGHT HERE
         # this is where we send that stuff to rob
         print("There is movement")
 
