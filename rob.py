@@ -53,6 +53,17 @@ class ROB:
         for i in range(17):
             self.setMotor(i, 6000)
 
+    def smoothDefaults(self):
+        pygame.mixer.music.stop()
+        threads = []
+        for i in range(17):
+            thread = threading.Thread(target=rob.setMotorTime, args=(i, 6000, 1))
+            threads.append(thread)
+            thread.start()
+
+        for thread in threads:
+            thread.join()
+
     def say(self, text):
         self.face.set_robot_state("talking")
         voice = pyttsx3.init()
@@ -101,15 +112,14 @@ class ROB:
 
     # Arm Gestures
     def raiseLeftArm(self):
+        # shoulder down to the minimum
+        # elbow to the max
         thread1 = threading.Thread(target=rob.setMotorTime, args=(11, 4000, 1))
         thread2 = threading.Thread(target=rob.setMotorTime, args=(13, 8000, 1))
         thread1.start()
         thread2.start()
         thread1.join()
         thread2.join()
-        # shoulder down to the minimum
-        # elbow to the max
-        print("IT WORKS")
 
     def raiseRightArm(self):
         # should up to the max
@@ -202,5 +212,7 @@ if __name__ == "__main__":
     rob = ROB()
     rob.defaults()
     rob.raiseLeftArm()
+    time.sleep(1)
+    rob.smoothDefaults()
 
 
