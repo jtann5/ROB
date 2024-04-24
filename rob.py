@@ -86,7 +86,9 @@ class ROB:
         for i in range(steps):
             self.setMotor(motor, (curr_value+(amount*i)))
             time.sleep(resolution)
+            print(i, " ", (curr_value+(amount*i)))
         self.setMotor(motor, value)
+        print("Finish: ", value)
         
 
     def start_face(self):
