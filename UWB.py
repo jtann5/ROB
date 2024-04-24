@@ -83,6 +83,7 @@ def readSerial():
         #print("Quad: " + str(float_array.index(min(float_array))))
         #print("")
         ser.close()
+        print("FLOAT ARR: " + str(float_array))
         return float_array
     except:
         readSerial()
