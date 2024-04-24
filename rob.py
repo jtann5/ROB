@@ -90,7 +90,7 @@ class ROB:
             remainder_per_step = remainder / steps
             amount += remainder_per_step
 
-        for i in range(steps):
+        for i in range(int(steps)):
             # Ensure motor values are integers (or whatever data type is appropriate for your motors)
             self.setMotor(motor, int(curr_value + (amount * i)))
             time.sleep(resolution)
