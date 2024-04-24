@@ -250,6 +250,8 @@ class Application(tk.Frame):
                 self.index_value += 1
                 icon_instructions.append(copy.deepcopy(default_BlockInstructions[0]))
                 print(execution_instructions)
+                self.execution_label.config(text="No function executing", bg="red")
+                self.total_execution_label.config(text="Program changed and not running", bg="red")
                 if self.index_value > 8:
                     self.index_value = 8
                 break
