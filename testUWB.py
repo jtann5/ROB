@@ -8,16 +8,6 @@ def readSerial():
         response = ser.readline()
     print(response)
     # print(response.decode().strip())  # Decode bytes to string and remove newline characters
-    arr = response.decode().strip().split(',')
-    float_array = [float(x) for x in arr[1:5]]
-    #print("A0: " + str(float_array[0]) + "m")
-    #print("A1: " + str(float_array[1]) + "m")
-    #print("A2: " + str(float_array[2]) + "m")
-    #print("A3: " + str(float_array[3]) + "m")
-    #print("Quad: " + str(float_array.index(min(float_array))))
-    #print("")
-    ser.close()
-    return float_array
 
 while True:
     readSerial()
