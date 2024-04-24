@@ -45,6 +45,7 @@ class ROB:
         self.speaking_process = None
         pygame.mixer.init()
         self.face = RobotFace()
+        self.motor_values = [None] * 17
         # self.face.animate_eyes()
 
     def defaults(self):
@@ -74,6 +75,7 @@ class ROB:
 
     def setMotor(self, motor, value):
         self.controller.setTarget(motor, value)
+        self.motor_values[motor] = value
 
     def setMotorTime(self, motor, value, time):
         print(self.controller.getPosition(motor))
@@ -186,5 +188,5 @@ rob = ROB()
 if __name__ == "__main__":
     rob = ROB()
     rob.defaults()
-    print(rob.getPosition(4))
+    print(rob.motor_values[4])
 
