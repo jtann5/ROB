@@ -194,7 +194,7 @@ class Application(tk.Frame):
             if not square.cget("image"):  # Check if the square is empty
                 square.config(image=self.icon_images[i], width=80, height=80)
                 execution_instructions.append(icon_description[i])
-                icon_instructions.append(default_BlockInstructions[i])
+                icon_instructions.append(default_BlockInstructions[0])
                 print(execution_instructions)
                 break
 
