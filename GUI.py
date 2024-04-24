@@ -172,9 +172,15 @@ class Application(tk.Frame):
 
         self.squares = []
         for i in range(8):
-            square = tk.Label(self.square_frame, bg="white", width=13, height=6)
+            square = tk.Label(self.square_frame, bg="white", width=11, height=5)
             square.pack(side="left", padx=5, pady=5)
             self.squares.append(square)
+
+        self.execution_label = tk.Label(self.master, text="No function executing", bg="red", fg="white")
+        self.execution_label.pack(side="top", fill="x", pady=5)
+
+        self.total_execution_label = tk.Label(self.master, text="Program not executing", bg="red", fg="white")
+        self.total_execution_label.pack(side="top", fill="x")
 
         button_frame = tk.Frame(self.master)
         button_frame.pack(side="bottom", padx=10, pady=10, anchor="se")
@@ -195,9 +201,10 @@ class Application(tk.Frame):
 
     def run_command(self):
         # this is where I go through the stuff and execute things
+        self.total_execution_label.config(text="Program Executing", bg="blue")
         for i in range(len(execution_instructions)):
-            square = self.squares[i - 1]
-            square.config(bg="green")
+            self.execution_label.config(text=f"Executing: {execution_instructions[i]}", bg="blue")
+
             if execution_instructions[i] == "movement":
                 icon_instructions[i].movement()
             elif execution_instructions[i] == "robotturn":
@@ -214,8 +221,10 @@ class Application(tk.Frame):
                 icon_instructions[i].talk()
             else:
                 print("Invalid")
-            square.config(bg="white")
+            self.execution_label.config(text=f"{execution_instructions[i]} completed", bg="green")
+            self.master.update()
             time.sleep(2)
+        self.total_execution_label.config(text="Finished Executing", bg="green")
         rob.defaults()
 
     def icon_command(self, i):
@@ -529,6 +538,8 @@ class Application(tk.Frame):
             if index < self.index_value:
                 icon_instructions[index].reset()
         self.index_value = 0
+        self.execution_label.config(text="No function executing", bg="red")
+        self.total_execution_label.config(text="Program changed and not running", bg="red")
 
     def clear_previous(self):
         print("Cleared last command")
@@ -540,6 +551,8 @@ class Application(tk.Frame):
             self.index_value -= 1
             print(execution_instructions)
             square.unbind("<Button-1>")
+            self.execution_label.config(text="No function executing", bg="red")
+            self.total_execution_label.config(text="Program changed and not running", bg="red")
         else:
             print("Nothing to pop!")
 
