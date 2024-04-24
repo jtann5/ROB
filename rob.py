@@ -79,33 +79,10 @@ class ROB:
 
     def setMotorTime(self, motor, value, seconds):
         resolution = 0.001
-        curr_value = self.motor_value[motor]  # get the current value
-        steps = int(seconds / resolution)  # number of steps
-        amount = (value - curr_value) / steps  # amount for each step
-
-        # Calculate the remainder and adjust the amount accordingly
-        remainder = (value - curr_value) % steps
-        if remainder != 0:
-            # Distribute the remainder across the steps
-            remainder_per_step = remainder / steps
-            amount += remainder_per_step
-
-        for i in range(int(steps)):
-            # Ensure motor values are integers (or whatever data type is appropriate for your motors)
-            self.setMotor(motor, int(curr_value + (amount * i)))
-            time.sleep(resolution)
-            print(i, " ", int(curr_value + (amount * i)))
-
-        # Set the final motor value
-        self.setMotor(motor, value)
-        print("Finish: ", value)
-
-    def setMotorTime(self, motor, value, seconds):
-        resolution = 0.001
         curr_value = self.motor_value[motor] # get the current value
         steps = seconds/resolution # number of steps
         amount = (value - curr_value)/steps # amount for each step
-        for i in range(steps):
+        for i in range(int(steps)):
             self.setMotor(motor, int(curr_value+(amount*i)))
             time.sleep(resolution)
             print(i, " ", int(curr_value+(amount*i)))
