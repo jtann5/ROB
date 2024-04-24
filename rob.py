@@ -51,7 +51,7 @@ class ROB:
     def defaults(self):
         pygame.mixer.music.stop()
         for i in range(17):
-            self.controller.setTarget(i, 6000)
+            self.setMotor(i, 6000)
 
     def say(self, text):
         self.face.set_robot_state("talking")
@@ -189,5 +189,5 @@ rob = ROB()
 if __name__ == "__main__":
     rob = ROB()
     rob.defaults()
-    print(rob.motor_values[4])
+    print(rob.motor_value[4])
 
