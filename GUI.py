@@ -108,7 +108,7 @@ class Application(tk.Frame):
         # Create the 7 icons on the right side of the screen
         self.icon_frame = tk.Frame(self.master)
         self.icon_frame.pack(side="left", fill="y")
-
+        default_BlockInstructions.append(BlockInstruction())
         for i in range(7):
             # Load the icon image
             image = Image.open(f"icon{i + 1}.png")
@@ -131,7 +131,6 @@ class Application(tk.Frame):
 
             options_label = tk.Label(self.icon_frame, image=options_photo, width=20, height=20)
             options_label.image = options_photo
-            default_BlockInstructions.append(BlockInstruction())
 
             # Calculate the coordinates to position the options icon label at the top-right corner of the icon label
             icon_width = image_dim[0] + 15
@@ -242,17 +241,17 @@ class Application(tk.Frame):
 
     def apply_headtilt_settings_default(self):
         headtilt_value = self.headtilt_slider.get()
-        default_BlockInstructions[2].set_headtilt(headtilt_value)
+        default_BlockInstructions[0].set_headtilt(headtilt_value)
         self.settings_window.destroy()
 
     def apply_headturn_settings_default(self):
         headturn_value = self.headturn_slider.get()
-        default_BlockInstructions[3].set_headturn(headturn_value)
+        default_BlockInstructions[0].set_headturn(headturn_value)
         self.settings_window.destroy()
 
     def apply_waist_settings_default(self):
         waist_value = self.waist_slider.get()
-        default_BlockInstructions[4].set_bodyturn(waist_value)
+        default_BlockInstructions[0].set_bodyturn(waist_value)
         self.settings_window.destroy()
 
     def clear_command(self):
