@@ -48,16 +48,17 @@ class BlockInstruction:
 
     def bodyturn(self):
         # send value to rob
+        print(f"waist is moving {self.waist_value}")
         rob.setMotor(2, self.waist_value)
 
     def headturn(self):
         # send pan value to rob
-        print("rob's head is turning")
+        print(f"rob's head is turning {self.head_pan_value}")
         rob.setMotor(4, self.head_pan_value)
 
     def headtilt(self):
         # send tilt to rob
-        print("rob's head is tilting")
+        print(f"rob's head is tilting {self.head_tilt_value}")
         rob.setMotor(3, self.head_tilt_value)
 
     def robotturn(self):
