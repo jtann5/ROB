@@ -84,7 +84,7 @@ class ROB:
         amount = int((value - curr_value)/steps) # amount for each step
         mod = (value - curr_value)%steps # the remainder
         for i in range(steps):
-            self.setMotor(motor, curr_value+(amount*i))
+            self.setMotor(motor, (curr_value+(amount*i)))
         self.setMotor(motor, value)
         
 
@@ -195,5 +195,5 @@ rob = ROB()
 if __name__ == "__main__":
     rob = ROB()
     rob.defaults()
-    rob.setMotor(4, 7500, 1)
+    rob.setMotorTime(4, 7500, 1)
 
