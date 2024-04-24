@@ -1,4 +1,5 @@
 import serial
+import time
 
 def readSerial():
     ser = serial.Serial('/dev/ttyUSB0', 115200)
@@ -11,3 +12,4 @@ def readSerial():
 
 while True:
     readSerial()
+    time.sleep(0.5)
