@@ -76,10 +76,16 @@ class ROB:
     def setMotor(self, motor, value):
         self.controller.setTarget(motor, value)
         self.motor_value[motor] = value
-        print(self.motor_value[motor])
 
     def setMotorTime(self, motor, value, time):
-        print(self.controller.getPosition(motor))
+        resolution = 0.01
+        curr_value = self.motor_value[motor] # get the current value
+        steps = time/resolution # number of steps
+        amount = int((value - curr_value)/steps) # amount for each step
+        mod = (value - curr_value)%steps # the remainder
+        for i in range(steps):
+            self.setMotor(motor, curr_value+(amount*i))
+        self.setMotor(motor, value)
         
 
     def start_face(self):
@@ -189,5 +195,5 @@ rob = ROB()
 if __name__ == "__main__":
     rob = ROB()
     rob.defaults()
-    print(rob.motor_value[4])
+    rob.setMotor(4, 7500, 1)
 
