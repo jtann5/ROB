@@ -80,7 +80,7 @@ class ROB:
     def setMotorTime(self, motor, value, time):
         resolution = 0.01
         curr_value = self.motor_value[motor] # get the current value
-        steps = time/resolution # number of steps
+        steps = int(time/resolution) # number of steps
         amount = int((value - curr_value)/steps) # amount for each step
         mod = (value - curr_value)%steps # the remainder
         for i in range(steps):
