@@ -24,22 +24,22 @@ class BlockInstruction:
         self.talking = False
         self.input = "Im ROB"
 
-    def reset(self):
-        self.distance = 0
-        self.speed = 0
-        self.angle = 0
-        self.direction = "forward"
-        self.turn_direction = "right"
-        self.turn_time = 0
-        self.left = 6000
-        self.right = 6000
+    def reset(self, defaultBlock):
+        self.distance = defaultBlock.distance
+        self.speed = defaultBlock.speed
+        self.angle = defaultBlock.angle
+        self.direction = defaultBlock.direction
+        self.turn_direction = defaultBlock.turn_direction
+        self.turn_time = defaultBlock.turn_time
+        self.left = defaultBlock.left
+        self.right = defaultBlock.right
 
-        self.waist_value = 6000
-        self.head_pan_value = 6000
-        self.head_tilt_value = 6000
+        self.waist_value = defaultBlock.waist_value
+        self.head_pan_value = defaultBlock.head_pan_value
+        self.head_tilt_value = defaultBlock.head_tilt_value
 
-        self.talking = False
-        self.input = "Im ROB"
+        self.talking = defaultBlock.talking
+        self.input = defaultBlock.input
 
     def set_movement(self, speed, distance, direction):
         self.speed = speed
@@ -207,7 +207,7 @@ class Application(tk.Frame):
         # this is where I go through the stuff and execute things
         self.total_execution_label.config(text="Program Executing", bg="blue")
         for i in range(len(execution_instructions)):
-            self.execution_label.config(text=f"Executing: {execution_instructions[i]}", bg="blue")
+            self.execution_label.config(text=f"Executing: {execution_instructions[i]} Process #{i}", bg="blue")
 
             if execution_instructions[i] == "movement":
                 icon_instructions[i].movement()
@@ -225,7 +225,7 @@ class Application(tk.Frame):
                 icon_instructions[i].talk()
             else:
                 print("Invalid")
-            self.execution_label.config(text=f"{execution_instructions[i]} completed", bg="green")
+            self.execution_label.config(text=f"Process #{i+1}: {execution_instructions[i]} completed", bg="green")
             self.master.update()
             time.sleep(2)
         self.total_execution_label.config(text="Finished Executing", bg="green")
@@ -542,7 +542,7 @@ class Application(tk.Frame):
             square.config(image='', width=11, height=5)
             square.unbind("<Button-1>")
             if index < self.index_value:
-                icon_instructions[index].reset()
+                icon_instructions[index].reset(default_BlockInstructions[0])
         self.index_value = 0
         self.execution_label.config(text="No function executing", bg="red")
         self.total_execution_label.config(text="Program changed and not running", bg="red")
@@ -552,7 +552,7 @@ class Application(tk.Frame):
         if len(execution_instructions) > 0:
             square = self.squares[self.index_value-1]
             square.config(image='', width=11, height=5)
-            icon_instructions[self.index_value-1].reset()
+            icon_instructions[self.index_value-1].reset(default_BlockInstructions[0])
             execution_instructions.pop()
             self.index_value -= 1
             print(execution_instructions)
