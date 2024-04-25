@@ -176,7 +176,19 @@ class ROB:
         # right shoulder up
         # right bicep left and right
         # right elbow up
-        pass
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 8000, 1))
+        thread1.start()
+        thread2 = threading.Thread(target=rob.setMotorTime, args=(7, 8000, 1))
+        thread2.start()
+        for i in range(3):
+            thread3 = threading.Thread(target=rob.setMotorTime, args=(6, 4000, 0.5))
+            thread3.start()
+            thread3.join()
+            thread3 = threading.Thread(target=rob.setMotorTime, args=(6, 8000, 0.5))
+            thread3.start()
+            thread3.join()
+        thread1.join()
+        thread2.join()
 
     def pointingToHand(self):
         # robot takes one hand and points towards the other hand to convey something
@@ -251,5 +263,8 @@ if __name__ == "__main__":
     time.sleep(1)
     rob.smoothDefaults()
     rob.lectureFinger()
+    time.sleep(1)
+    rob.smoothDefaults()
+    rob.handWaive()
 
 
