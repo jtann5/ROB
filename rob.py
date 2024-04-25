@@ -160,7 +160,7 @@ class ROB:
         # one arm elbow is bent and the robot moves the elbow up and down as if it is lecturing you
         # right shoulder goes slightly down like 10%
         # right elbow goes down blow default
-        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 7500, 1))
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 8000, 0.5))
         thread1.start()
         thread1.join()
         for i in range(3):
@@ -176,9 +176,9 @@ class ROB:
         # right shoulder up
         # right bicep left and right
         # right elbow up
-        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 8000, 1))
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 8000, 0.5))
         thread1.start()
-        thread2 = threading.Thread(target=rob.setMotorTime, args=(7, 8000, 1))
+        thread2 = threading.Thread(target=rob.setMotorTime, args=(7, 8000, 0.5))
         thread2.start()
         thread1.join()
         thread2.join()
