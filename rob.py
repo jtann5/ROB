@@ -48,6 +48,7 @@ class ROB:
         self.face = RobotFace()
         self.motor_value = [None] * 17
         self.speech_lock = False
+        self.movements = []
         # self.face.animate_eyes()
 
     def defaults(self):
@@ -55,11 +56,11 @@ class ROB:
         for i in range(17):
             self.setMotor(i, 6000)
 
-    def smoothDefaults(self, time=0.3):
+    def smoothDefaults(self):
         pygame.mixer.music.stop()
         threads = []
         for i in range(17):
-            thread = threading.Thread(target=rob.setMotorTime, args=(i, 6000, time))
+            thread = threading.Thread(target=rob.setMotorTime, args=(i, 6000, 0.3))
             threads.append(thread)
             thread.start()
 
@@ -75,7 +76,6 @@ class ROB:
     def randomMovement(self):
         random_movement = random.choice(self.movements)
         random_movement()
-        self.smoothDefaults()
 
 
     def say(self, text):
@@ -121,7 +121,7 @@ class ROB:
     def alexMode(self):
         for i in range(15):
             self.setMotor(i+2, 4000)
-        self.smoothDefaults(1)
+        self.smoothDefaults()
 
 
     # For Project 10 Dynamic Personality Engine
