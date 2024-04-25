@@ -47,6 +47,7 @@ class ROB:
         pygame.mixer.init()
         self.face = RobotFace()
         self.motor_value = [None] * 17
+        self.speech_lock = False
         # self.face.animate_eyes()
 
     def defaults(self):
@@ -54,16 +55,28 @@ class ROB:
         for i in range(17):
             self.setMotor(i, 6000)
 
-    def smoothDefaults(self):
+    def smoothDefaults(self, time=0.3):
         pygame.mixer.music.stop()
         threads = []
         for i in range(17):
-            thread = threading.Thread(target=rob.setMotorTime, args=(i, 6000, 0.3))
+            thread = threading.Thread(target=rob.setMotorTime, args=(i, 6000, time))
             threads.append(thread)
             thread.start()
 
         for thread in threads:
             thread.join()
+    
+    def sayThread(self, text):
+        if not self.speech_lock:
+            self.speech_lock = True
+            thread = threading.Thread(target=rob.say, args=(text))
+            thread.start()
+
+    def randomMovement(self):
+        random_movement = random.choice(self.movements)
+        random_movement()
+        self.smoothDefaults()
+
 
     def say(self, text):
         self.face.set_robot_state("talking")
@@ -74,6 +87,7 @@ class ROB:
         voice.say(text)
         voice.runAndWait()
         self.face.set_robot_state("idle")
+        self.speech_lock = False
 
     def gsay(self, text):
         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=True) as temp_file:
@@ -107,7 +121,7 @@ class ROB:
     def alexMode(self):
         for i in range(15):
             self.setMotor(i+2, 4000)
-        self.smoothDefaults()
+        self.smoothDefaults(1)
 
 
     # For Project 10 Dynamic Personality Engine
