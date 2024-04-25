@@ -129,7 +129,12 @@ class ROB:
     def raiseRightArm(self):
         # should up to the max
         # elbow to the max
-        pass
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 8000, 1))
+        thread2 = threading.Thread(target=rob.setMotorTime, args=(7, 8000, 1))
+        thread1.start()
+        thread2.start()
+        thread1.join()
+        thread2.join()
 
     def claspHands(self):
         # puts hands close together but out in front
@@ -137,14 +142,34 @@ class ROB:
         # right shoulder max
         # left bicep max
         # right bicep min
-        pass
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 4000, 1))
+        thread2 = threading.Thread(target=rob.setMotorTime, args=(11, 8000, 1))
+        thread3 = threading.Thread(target=rob.setMotorTime, args=(6, 8000, 1))
+        thread4 = threading.Thread(target=rob.setMotorTime, args=(12, 4000, 1))
+        thread1.start()
+        thread2.start()
+        thread3.start()
+        thread4.start()
+        thread1.join()
+        thread2.join()
+        thread3.join()
+        thread4.join()
 
 
     def lectureFinger(self):
         # one arm elbow is bent and the robot moves the elbow up and down as if it is lecturing you
         # right shoulder goes slightly down like 10%
         # right elbow goes down blow default
-        pass
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 5600, 1))
+        thread1.start()
+        for i in range(3):
+            thread2 = threading.Thread(target=rob.setMotorTime, args=(7, 4000, 0.5))
+            thread2.start()
+            thread2.join()
+            thread2 = threading.Thread(target=rob.setMotorTime, args=(7, 6000, 0.5))
+            thread2.start()
+            thread2.join()
+        thread1.join()
 
     def handWaive(self):
         #robot waves
@@ -218,7 +243,13 @@ if __name__ == "__main__":
     rob.defaults()
     rob.raiseLeftArm()
     time.sleep(1)
-    for i in range(3):
-        rob.alexMode()
+    rob.smoothDefaults()
+    rob.raiseRightArm()
+    time.sleep(1)
+    rob.smoothDefaults()
+    rob.claspHands()
+    time.sleep(1)
+    rob.smoothDefaults()
+    rob.lectureFinger()
 
 
