@@ -207,7 +207,24 @@ class ROB:
         # right shoulder max
         # left bicep max to min
         # right bicep min to max
-        pass
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 8000, 0.5))
+        thread2 = threading.Thread(target=rob.setMotorTime, args=(11, 4000, 0.5))
+        thread1.start()
+        thread2.start()
+        thread3.join()
+        thread4.join()
+        thread3 = threading.Thread(target=rob.setMotorTime, args=(6, 4000, 0.5))
+        thread4 = threading.Thread(target=rob.setMotorTime, args=(12, 8000, 0.5))
+        thread3.start()
+        thread4.start()
+        thread1.join()
+        thread2.join()
+        thread5 = threading.Thread(target=rob.setMotorTime, args=(6, 8000, 1))
+        thread6 = threading.Thread(target=rob.setMotorTime, args=(12, 4000, 1))
+        thread5.start()
+        thread6.start()
+        thread5.join()
+        thread6.join()   
 
     def sitdownGesture(self):
         # arms are slightly wider and motion to sit down by going up and down or sort of settle down gesture?
@@ -266,5 +283,8 @@ if __name__ == "__main__":
     time.sleep(1)
     rob.smoothDefaults()
     rob.handWaive()
+    time.sleep(1)
+    rob.smoothDefaults()
+    rob.bigPicture()
 
 
