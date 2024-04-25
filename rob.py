@@ -57,7 +57,7 @@ class ROB:
         pygame.mixer.music.stop()
         threads = []
         for i in range(17):
-            thread = threading.Thread(target=rob.setMotorTime, args=(i, 6000, 0.5))
+            thread = threading.Thread(target=rob.setMotorTime, args=(i, 6000, 0.3))
             threads.append(thread)
             thread.start()
 
@@ -240,25 +240,33 @@ class ROB:
     # Face Gestures
     def nodding(self):
         # robot face goes up and down to indicate yes
-        pass
+        for i in range(3):
+            self.setMotorTime(3, 4000, 0.5)
+            self.setMotorTime(3, 8000, 0.5)
 
     def shakinghead(self):
         # robot face goes left and right to indicate no
-        pass
+        for i in range(3):
+            thread1 = threading.Thread(target=rob.setMotorTime, args=(4, 4000, 0.5))
+            thread1.start()
+            thread1.join()
+            thread1 = threading.Thread(target=rob.setMotorTime, args=(4, 8000, 0.5))
+            thread1.start()
+            thread1.join()
 
     def lookleft(self):
         # robot face looks left needs to be smooth cant just go to value
-        pass
+        self.setMotorTime(4, 8000, 0.5)
 
     def lookright(self):
         # robot face looks right needs to be smooth cant just go to value
-        pass
+        self.setMotorTime(4, 4000, 0.5)
 
     def lookup(self):
-        pass
+        self.setMotorTime(3, 8000, 0.5)
 
     def lookdown(self):
-        pass
+        self.setMotorTime(3, 4000, 0.5)
 
     def lookintotheabyss(self):
         pass
@@ -286,5 +294,11 @@ if __name__ == "__main__":
     time.sleep(1)
     rob.smoothDefaults()
     rob.bigPicture()
+    time.sleep(1)
+    rob.smoothDefaults()
+    rob.nodding()
+    time.sleep(1)
+    rob.smoothDefaults()
+    rob.shakinghead()
 
 
