@@ -162,6 +162,7 @@ class ROB:
         # right elbow goes down blow default
         thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 7500, 1))
         thread1.start()
+        thread1.join()
         for i in range(3):
             thread2 = threading.Thread(target=rob.setMotorTime, args=(7, 4000, 0.5))
             thread2.start()
@@ -169,7 +170,6 @@ class ROB:
             thread2 = threading.Thread(target=rob.setMotorTime, args=(7, 6000, 0.5))
             thread2.start()
             thread2.join()
-        thread1.join()
 
     def handWaive(self):
         #robot waves
@@ -180,6 +180,8 @@ class ROB:
         thread1.start()
         thread2 = threading.Thread(target=rob.setMotorTime, args=(7, 8000, 1))
         thread2.start()
+        thread1.join()
+        thread2.join()
         for i in range(3):
             thread3 = threading.Thread(target=rob.setMotorTime, args=(6, 4000, 0.5))
             thread3.start()
@@ -187,8 +189,6 @@ class ROB:
             thread3 = threading.Thread(target=rob.setMotorTime, args=(6, 8000, 0.5))
             thread3.start()
             thread3.join()
-        thread1.join()
-        thread2.join()
 
     def pointingToHand(self):
         # robot takes one hand and points towards the other hand to convey something
