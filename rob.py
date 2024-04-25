@@ -142,10 +142,10 @@ class ROB:
         # right shoulder max
         # left bicep max
         # right bicep min
-        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 4000, 1))
-        thread2 = threading.Thread(target=rob.setMotorTime, args=(11, 8000, 1))
-        thread3 = threading.Thread(target=rob.setMotorTime, args=(6, 8000, 1))
-        thread4 = threading.Thread(target=rob.setMotorTime, args=(12, 4000, 1))
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 8000, 1))
+        thread2 = threading.Thread(target=rob.setMotorTime, args=(11, 4000, 1))
+        thread3 = threading.Thread(target=rob.setMotorTime, args=(6, 4000, 1))
+        thread4 = threading.Thread(target=rob.setMotorTime, args=(12, 8000, 1))
         thread1.start()
         thread2.start()
         thread3.start()
@@ -160,7 +160,7 @@ class ROB:
         # one arm elbow is bent and the robot moves the elbow up and down as if it is lecturing you
         # right shoulder goes slightly down like 10%
         # right elbow goes down blow default
-        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 5600, 1))
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 7500, 1))
         thread1.start()
         for i in range(3):
             thread2 = threading.Thread(target=rob.setMotorTime, args=(7, 4000, 0.5))
