@@ -260,7 +260,7 @@ class ROB:
         thread2.start()
         thread1.join()
         thread2.join()
-        self.setMotorTime(6, 4000, 1)
+        self.setMotorTime(6, 8000, 1)
 
     # Face Gestures
     def nodding(self):
