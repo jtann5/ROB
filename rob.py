@@ -6,6 +6,7 @@ import time
 from face import RobotFace
 import os
 import threading
+import random
 
 def is_raspberry_pi():
     try:
@@ -198,7 +199,25 @@ class ROB:
         # right should 20% up
         # right bicep down
         # right elbow 20% down
-        pass
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 6400, 0.5))
+        thread2 = threading.Thread(target=rob.setMotorTime, args=(11, 4800, 0.5))
+        thread3 = threading.Thread(target=rob.setMotorTime, args=(6, 4000, 0.5))
+        thread4 = threading.Thread(target=rob.setMotorTime, args=(12, 8000, 0.5))
+        thread5 = threading.Thread(target=rob.setMotorTime, args=(7, 5600, 0.5))
+        thread1.start()
+        thread2.start()
+        thread3.start()
+        thread4.start()
+        thread5.start()
+        thread1.join()
+        thread2.join()
+        thread3.join()
+        thread4.join()
+        thread5.join()
+        for i in range(3):
+            self.setMotorTime(13, 4000, 0.5)
+            self.setMotorTime(13, 8000, 0.5)
+
 
 
     def bigPicture(self):
@@ -269,7 +288,9 @@ class ROB:
         self.setMotorTime(3, 4000, 0.5)
 
     def lookintotheabyss(self):
-        pass
+        val = random.randint(0, 4000)
+        self.setMotorTime(4, 4000+val, 0.5)
+        time.sleep(0.5)
 
 
 rob = ROB()
@@ -291,6 +312,9 @@ if __name__ == "__main__":
     time.sleep(1)
     rob.smoothDefaults()
     rob.handWaive()
+    time.sleep(1)
+    rob.smoothDefaults()
+    rob.pointingToHand()
     time.sleep(1)
     rob.smoothDefaults()
     rob.bigPicture()
