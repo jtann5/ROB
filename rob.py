@@ -254,7 +254,13 @@ class ROB:
         # one hand
         #right shoulder max up
         #right bicep from mix to max
-        pass
+        thread1 = threading.Thread(target=rob.setMotorTime, args=(5, 8000, 0.5))
+        thread2 = threading.Thread(target=rob.setMotorTime, args=(6, 4000, 0.5))
+        thread1.start()
+        thread2.start()
+        thread1.join()
+        thread2.join()
+        self.setMotorTime(6, 4000, 1)
 
     # Face Gestures
     def nodding(self):
@@ -262,16 +268,14 @@ class ROB:
         for i in range(3):
             self.setMotorTime(3, 4000, 0.5)
             self.setMotorTime(3, 8000, 0.5)
+        self.setMotorTime(3, 6000, 0.25)
 
     def shakinghead(self):
         # robot face goes left and right to indicate no
         for i in range(3):
-            thread1 = threading.Thread(target=rob.setMotorTime, args=(4, 4000, 0.5))
-            thread1.start()
-            thread1.join()
-            thread1 = threading.Thread(target=rob.setMotorTime, args=(4, 8000, 0.5))
-            thread1.start()
-            thread1.join()
+            self.setMotorTime(4, 4000, 0.5)
+            self.setMotorTime(4, 8000, 0.5)
+        self.setMotorTime(4, 6000, 0.25)
 
     def lookleft(self):
         # robot face looks left needs to be smooth cant just go to value
@@ -299,7 +303,7 @@ rob = ROB()
 if __name__ == "__main__":
     rob = ROB()
     rob.defaults()
-    rob.raiseLeftArm()
+    rob.sweeping()
     time.sleep(1)
     rob.smoothDefaults()
     rob.raiseRightArm()
