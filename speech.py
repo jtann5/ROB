@@ -1,6 +1,6 @@
 from openai import OpenAI
 from rob import rob
-from multiprocessing import Process
+from threading import Thread
 import time
 
 
@@ -51,11 +51,11 @@ def run_speaking():
 
 
 if __name__ == "__main__":
-    speaking_process = Process(target=run_speaking)
-    face_process = Process(target=rob.start_face)
+    speaking_thread = Thread(target=run_speaking)
+    face_thread = Thread(target=rob.start_face)
 
-    speaking_process.start()
-    face_process.start()
-    speaking_process.join()
-    face_process.join()
+    speaking_thread.start()
+    face_thread.start()
+    speaking_thread.join()
+    face_thread.join()
 
