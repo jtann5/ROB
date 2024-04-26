@@ -45,7 +45,7 @@ def get_response(text):
     return run.status
   
 def run_speaking():
-    rob.sayThread(get_response("Generate a speech"))
+    rob.sayThread(get_response("Generate a speech on a random topic"))
     while (rob.face.robot_state == 'talking'):
       rob.randomMovement()
       rob.smoothDefaults()

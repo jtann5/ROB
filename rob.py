@@ -48,7 +48,9 @@ class ROB:
         self.face = RobotFace()
         self.motor_value = [None] * 17
         self.speech_lock = False
-        self.movements = [self.raiseLeftArm, self.raiseRightArm, self.lowerLeftArm, self.lowerRightArm, self.claspHands, self.lectureFinger, self.handWaive, self.pointingToHand, self.bigPicture, self.sweeping, self.nodding, self.shakinghead, self.lookleft, self.lookright, self.lookup, self.lookdown, self.lookintotheabyss]
+        #self.movements = [self.raiseLeftArm, self.raiseRightArm, self.lowerLeftArm, self.lowerRightArm, self.claspHands, self.lectureFinger, self.handWaive, self.pointingToHand, self.bigPicture, self.sweeping, self.nodding, self.shakinghead, self.lookleft, self.lookright, self.lookup, self.lookdown, self.lookintotheabyss]
+        self.movements = [self.raiseLeftArm, self.raiseRightArm, self.lowerLeftArm, self.lowerRightArm, self.claspHands, self.lectureFinger, self.handWaive, self.pointingToHand, self.bigPicture, self.sweeping, self.lookleft, self.lookright, self.lookup, self.lookdown, self.lookintotheabyss]
+        # self.face.animate_eyes()
         # self.face.animate_eyes()
         self.defaults()
 
