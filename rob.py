@@ -70,7 +70,7 @@ class ROB:
     def sayThread(self, text):
         if not self.speech_lock:
             self.speech_lock = True
-            thread = threading.Thread(target=rob.say, args=(text))
+            thread = threading.Thread(target=rob.say, args=(self, text))
             thread.start()
 
     def randomMovement(self):
