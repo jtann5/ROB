@@ -45,7 +45,6 @@ def get_response(text):
     return run.status
   
 def run_speaking():
-    print(get_response("Do you work?"))
     rob.sayThread(get_response("Generate a speech on a random topic but not kindness"))
     while (rob.face.robot_state == 'talking'):
       rob.randomMovement()
