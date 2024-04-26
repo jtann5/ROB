@@ -60,7 +60,7 @@ class ROB:
         pygame.mixer.music.stop()
         threads = []
         for i in range(17):
-            thread = threading.Thread(target=rob.setMotorTime, args=(i, 6000, 0.5))
+            thread = threading.Thread(target=rob.setMotorTime, args=(i, 6000, 1))
             threads.append(thread)
             thread.start()
 
