@@ -48,6 +48,7 @@ def run_speaking():
     rob.sayThread(get_response("Generate a speech"))
     while (rob.face.robot_state == 'talking'):
       rob.randomMovement()
+      rob.smoothDefaults()
 
 
 if __name__ == "__main__":
