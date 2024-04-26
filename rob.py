@@ -332,6 +332,7 @@ rob = ROB()
 if __name__ == "__main__":
     rob = ROB()
     for i in range(10):
+        rob.defaults()
         rob.randomMovement()
 
 
