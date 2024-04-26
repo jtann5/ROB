@@ -50,6 +50,7 @@ class ROB:
         self.speech_lock = False
         self.movements = [self.raiseLeftArm, self.raiseRightArm, self.lowerLeftArm, self.lowerRightArm, self.claspHands, self.lectureFinger, self.handWaive, self.pointingToHand, self.bigPicture, self.sweeping, self.nodding, self.shakinghead, self.lookleft, self.lookright, self.lookup, self.lookdown, self.lookintotheabyss]
         # self.face.animate_eyes()
+        self.defaults()
 
     def defaults(self):
         pygame.mixer.music.stop()
@@ -331,8 +332,8 @@ rob = ROB()
 
 if __name__ == "__main__":
     rob = ROB()
-    rob.defaults()
-    for i in range(10):
+    rob.sayThread("Hello")
+    for i in range(0):
         rob.randomMovement()
         rob.smoothDefaults()
 
