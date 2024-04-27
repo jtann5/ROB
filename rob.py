@@ -329,6 +329,37 @@ class ROB:
         time.sleep(0.5)
 
 
+    def secondstocentimetersforwardbackward(self, centimeters, speed, direction):
+        ## conversion factor is seconds/centimeters this can change to a function if we graph the amount of power
+        conversionFactor = 1 / 10
+        amt_time = centimeters * conversionFactor
+
+        if direction == "forward":
+            rob.setMotor(0,  6000 - (speed * 20))
+            rob.setMotor(1, 6000 + (speed * 20))
+            time.sleep(amt_time)
+        else:
+            rob.setMotor(0, 6000 + (speed * 20))
+            rob.setMotor(1, 6000 - (speed * 20))
+            time.sleep(amt_time)
+        rob.setMotor(0, 6000)
+        rob.setMotor(1, 6000)
+
+
+    def secondstodegreesturn(self, seconds, direction):
+        factor = 200
+        if direction == "right":
+            rob.setMotor(0, 6000 - factor)
+            rob.setMotor(1, 6000 - factor)
+            time.sleep(seconds)
+        else:
+            rob.setMotor(0, 6000 + factor)
+            rob.setMotor(1, 6000 + factor)
+            time.sleep(seconds)
+        rob.setMotor(0, 6000)
+        rob.setMotor(1, 6000)
+
+
 rob = ROB()
 
 

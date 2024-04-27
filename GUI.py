@@ -5,6 +5,7 @@ from rob import rob
 import time
 import functools
 import copy
+from speechrecognition import UIlistening
 
 class BlockInstruction:
     def __init__(self):
@@ -65,10 +66,12 @@ class BlockInstruction:
     def talk(self):
         ## TODO RIGHT HERE
         print("rob is talking")
+        rob.say(self.input)
 
     def humanspeech(self):
         ## TODO RIGHT HERE
         print("I am listening")
+        UIlistening()
 
     def bodyturn(self):
         # send value to rob
@@ -88,11 +91,14 @@ class BlockInstruction:
     def robotturn(self):
         ## TODO RIGHT HERE
         print("rob is turning")
+        rob.secondstodegreesturn(self.turn_time, self.turn_direction)
 
     def movement(self):
         ## TODO RIGHT HERE
         # this is where we send that stuff to rob
         print("There is movement")
+        rob.secondstocentimetersforwardbackward(self.distance, self.speed, self.direction)
+
 
 
 icon_instructions = []
