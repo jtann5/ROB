@@ -337,11 +337,11 @@ class ROB:
         amt_time = centimeters * conversionFactor
 
         if direction == "forward":
-            rob.setMotor(0,  6000 - (speed * 19.5))
+            rob.setMotor(0,  6000 - int(speed * 19.5))
             rob.setMotor(1, 6000 + (speed * 20))
             time.sleep(amt_time)
         else:
-            rob.setMotor(0, 6000 + (speed * 19.5))
+            rob.setMotor(0, 6000 + int(speed * 19.5))
             rob.setMotor(1, 6000 - (speed * 20))
             time.sleep(amt_time)
         rob.setMotor(0, 6000)
