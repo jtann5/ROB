@@ -278,7 +278,7 @@ class Application(tk.Frame):
             self.speed_slider.config(length=400)
             self.speed_slider.pack(pady=10)
 
-            self.distance_slider = tk.Scale(self.settings_window, from_=0, to=100, orient="horizontal",
+            self.distance_slider = tk.Scale(self.settings_window, from_=0, to=300, orient="horizontal",
                                             label="Distance (cm):")
             self.distance_slider.set(initialDistance)
             self.distance_slider.config(length=400)
@@ -378,7 +378,7 @@ class Application(tk.Frame):
             self.speed_slider.config(length=400)
             self.speed_slider.pack(pady=10)
 
-            self.distance_slider = tk.Scale(self.settings_window, from_=0, to=100, orient="horizontal", label="Distance (cm):")
+            self.distance_slider = tk.Scale(self.settings_window, from_=0, to=300, orient="horizontal", label="Distance (cm):")
             self.distance_slider.set(initialDistance)
             self.distance_slider.config(length=400)
             self.distance_slider.pack(pady=10)
