@@ -333,15 +333,15 @@ class ROB:
         ## conversion factor is seconds/centimeters this can change to a function if we graph the amount of power
         ##ft = int(centimeters/2.54)/12
         ##print(ft)
-        conversionFactor = 1 / 49
+        conversionFactor = 1 / 51
         amt_time = centimeters * conversionFactor
 
         if direction == "forward":
-            rob.setMotor(0,  6000 - int(speed * 19.5))
+            rob.setMotor(0,  6000 - int(speed * 19.2))
             rob.setMotor(1, 6000 + (speed * 20))
             time.sleep(amt_time)
         else:
-            rob.setMotor(0, 6000 + int(speed * 19.5))
+            rob.setMotor(0, 6000 + int(speed * 19.2))
             rob.setMotor(1, 6000 - (speed * 20))
             time.sleep(amt_time)
         rob.setMotor(0, 6000)
