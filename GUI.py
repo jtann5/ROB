@@ -10,7 +10,7 @@ from speechrecognition import UIlistening
 class BlockInstruction:
     def __init__(self):
         self.distance = 0
-        self.speed = 0
+        self.speed = 50
         self.angle = 0
         self.direction = "forward"
         self.turn_direction = "right"
