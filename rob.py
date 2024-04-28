@@ -7,6 +7,7 @@ from face import RobotFace
 import os
 import threading
 import random
+import math
 
 def is_raspberry_pi():
     try:
@@ -331,9 +332,9 @@ class ROB:
 
     def secondstocentimetersforwardbackward(self, centimeters, speed, direction):
         ## conversion factor is seconds/centimeters this can change to a function if we graph the amount of power
-        ##ft = int(centimeters/2.54)/12
+        ft = int(centimeters/2.54)/12
         ##print(ft)
-        conversionFactor = 1 / 53
+        conversionFactor = - (math.log(ft) / 99.9069) + math.exp(-3.59956)
         amt_time = centimeters * conversionFactor
 
         if direction == "forward":
