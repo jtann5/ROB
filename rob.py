@@ -331,9 +331,9 @@ class ROB:
 
     def secondstocentimetersforwardbackward(self, centimeters, speed, direction):
         ## conversion factor is seconds/centimeters this can change to a function if we graph the amount of power
-        inches = int(centimeters/2.54)
-        print(inches)
-        conversionFactor = 1 / (30 + 3*inches)
+        ft = int(centimeters/2.54)/12
+        print(ft)
+        conversionFactor = 1 / (30 + 7*ft)
         amt_time = centimeters * conversionFactor
 
         if direction == "forward":
