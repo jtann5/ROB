@@ -331,15 +331,17 @@ class ROB:
 
     def secondstocentimetersforwardbackward(self, centimeters, speed, direction):
         ## conversion factor is seconds/centimeters this can change to a function if we graph the amount of power
-        conversionFactor = 1 / 35
+        conversionFactor = 1 / 45
+        if centimeters < 40:
+            conversionFactor = 1 / 35
         amt_time = centimeters * conversionFactor
 
         if direction == "forward":
-            rob.setMotor(0,  6000 - (speed * 20))
+            rob.setMotor(0,  6000 - (speed * 19))
             rob.setMotor(1, 6000 + (speed * 20))
             time.sleep(amt_time)
         else:
-            rob.setMotor(0, 6000 + (speed * 20))
+            rob.setMotor(0, 6000 + (speed * 19))
             rob.setMotor(1, 6000 - (speed * 20))
             time.sleep(amt_time)
         rob.setMotor(0, 6000)
