@@ -10,7 +10,7 @@ from speechrecognition import UIlistening
 class BlockInstruction:
     def __init__(self):
         self.distance = 0
-        self.speed = 50
+        self.speed = 60
         self.angle = 0
         self.direction = "forward"
         self.turn_direction = "right"
@@ -278,7 +278,7 @@ class Application(tk.Frame):
             self.speed_slider.config(length=400)
             self.speed_slider.pack(pady=10)
 
-            self.distance_slider = tk.Scale(self.settings_window, from_=30, to=300, orient="horizontal",
+            self.distance_slider = tk.Scale(self.settings_window, from_=31, to=300, orient="horizontal",
                                             label="Distance (cm):")
             self.distance_slider.set(initialDistance)
             self.distance_slider.config(length=400)
@@ -378,7 +378,7 @@ class Application(tk.Frame):
             self.speed_slider.config(length=400)
             self.speed_slider.pack(pady=10)
 
-            self.distance_slider = tk.Scale(self.settings_window, from_=30, to=300, orient="horizontal", label="Distance (cm):")
+            self.distance_slider = tk.Scale(self.settings_window, from_=31, to=300, orient="horizontal", label="Distance (cm):")
             self.distance_slider.set(initialDistance)
             self.distance_slider.config(length=400)
             self.distance_slider.pack(pady=10)

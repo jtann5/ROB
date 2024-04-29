@@ -334,9 +334,8 @@ class ROB:
         ## conversion factor is seconds/centimeters this can change to a function if we graph the amount of power
         ft = int(centimeters/2.54)/12
         ##print(ft)
-        conversionFactor = -0.00501636 * (math.log(ft - 0.948925) / 1) + math.exp(-3.77479)
-        if ft > 4:
-            conversionFactor = conversionFactor + 0.002
+        ##conversionFactor = -0.00501636 * (math.log(ft - 0.948925) / 1) + math.exp(-3.77479)
+        conversionFactor = 0.002
         print(conversionFactor)
         amt_time = centimeters * conversionFactor
 
