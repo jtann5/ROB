@@ -336,7 +336,9 @@ class ROB:
         ##print(ft)
         ##conversionFactor = -0.00501636 * (math.log(ft - 0.948925) / 1) + math.exp(-3.77479)
         conversionFactor = 0.0175
-        if centimeters > 34 and centimeters < 60:
+        if centimeters < 35:
+            conversionFactor = 0.0175
+        elif centimeters > 34 and centimeters < 60:
             conversionFactor = 0.0145
         elif centimeters > 59 and centimeters < 90:
             conversionFactor = 0.0129
