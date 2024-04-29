@@ -335,7 +335,25 @@ class ROB:
         ft = int(centimeters/2.54)/12
         ##print(ft)
         ##conversionFactor = -0.00501636 * (math.log(ft - 0.948925) / 1) + math.exp(-3.77479)
-        conversionFactor = 0.01152
+        conversionFactor = 0.0175
+        if centimeters > 34 and centimeters < 60:
+            conversionFactor = 0.0145
+        elif centimeters > 59 and centimeters < 90:
+            conversionFactor = 0.0129
+        elif centimeters > 89 and centimeters < 120:
+            conversionFactor = 0.0126
+        elif centimeters > 119 and centimeters < 150:
+            conversionFactor = 0.0123
+        elif centimeters > 149 and centimeters < 180:
+            conversionFactor = 0.01215
+        elif centimeters > 179 and centimeters < 210:
+            conversionFactor = 0.0119
+        elif centimeters > 209 and centimeters < 240:
+            conversionFactor = 0.01165
+        elif centimeters > 239 and centimeters < 270:
+            conversionFactor = 0.01152
+        else:
+            conversionFactor = 0.01152
         print(conversionFactor)
         amt_time = centimeters * conversionFactor
 
