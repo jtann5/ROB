@@ -350,12 +350,13 @@ class ROB:
 
 
     def secondstodegreesturn(self, seconds, direction):
-        factor = 780
+        factor = 778
         if direction == "right":
             rob.setMotor(0, 6000 - factor)
             rob.setMotor(1, 6000 - factor)
             time.sleep(seconds)
         else:
+            factor = 900
             rob.setMotor(0, 6000 + factor)
             rob.setMotor(1, 6000 + factor)
             time.sleep(seconds)
