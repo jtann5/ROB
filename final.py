@@ -95,6 +95,7 @@ def run_speaking():
 
     while True:
         if get_distance() <= 75: # if user approaches
+            rob.say("Hello human")
             while True:
                 print("Enter text: ")
                 words = input(">>> ")
