@@ -101,7 +101,7 @@ def run_speaking():
                 if words.strip() == "bye":
                     break
                 output = d.analyze(words.strip())
-                if output == "I don't understand! ":
+                if output.strip() == "I don't understand!":
                    output = get_response(words.strip())
                 rob.say(output)
                 print("Robot: " + str(output))
