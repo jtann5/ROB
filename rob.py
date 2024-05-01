@@ -385,6 +385,8 @@ class ROB:
         rob.setMotor(0, 6000)
         rob.setMotor(1, 6000)
 
+    def turnDegrees(self, degrees):
+        pass
 
 rob = ROB()
 
