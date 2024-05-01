@@ -4,6 +4,7 @@ from threading import Thread
 import time
 from DialogEngine import DialogEngine
 import RPi.GPIO as GPIO
+import speech_recognition as sr
 
 
 # You need to export environment variable OPENAI_API_KEY
@@ -89,6 +90,8 @@ def get_distance():
     return distance
 
 def run_speaking():
+    charging = False
+    
     d = DialogEngine()
     d.setFile('dialogInput.txt')
     d.openFile()
@@ -100,12 +103,72 @@ def run_speaking():
                 print("Enter text: ")
                 words = input(">>> ")
                 if words.strip() == "bye":
-                    break
+                  break
+                if words.strip() == "Take me to the bathroom":
+                   rob.say("Follow me to the bathroom")
+                   # Goto A3
+                elif words.strip() == "Take me to Hunter's Office":
+                   rob.say("Follow me to Hunter's Office")
+                   #Goto A2
+                if words.strip() == "charge":
+                   charging = True
+                   break
                 output = d.analyze(words.strip())
                 if output.strip() == "I don't understand!":
                    output = get_response(words.strip())
                 rob.say(output)
                 print("Robot: " + str(output))
+
+        if charging:
+           rob.say("charging activated")
+           # Goto A1
+        time.sleep(0.1)
+
+def run_speaking2():
+    charging = False
+    
+    d = DialogEngine()
+    d.setFile('dialogInput.txt')
+    d.openFile()
+
+    while True:
+        if get_distance() <= 75: # if user approaches
+          rob.say("Hello human")
+          while True:
+            with sr.Microphone(device_index=1) as source:
+              r = sr.Recognizer()
+              r.adjust_for_ambient_noise(source)
+              r.dynamic_energy_threshold = 5000
+
+              try:
+                  print("listening")
+                  rob.face.set_robot_state('listening')
+                  audio = r.listen(source, timeout=None)
+                  rob.face.set_robot_state('idle')
+                  print("got audio")
+                  words = r.recognize_google(audio)
+                  print(words)
+                  if words.strip() == "bye":
+                      listening = False
+                  if words.strip() == "Take me to the bathroom":
+                    rob.say("Follow me to the bathroom")
+                    # Goto A3
+                  elif words.strip() == "Take me to Hunter's Office":
+                    rob.say("Follow me to Hunter's Office")
+                    #Goto A2
+                  if words.strip() == "charge":
+                    charging = True
+                    break
+                  else:
+                      output = d.analyze(words.strip())
+                      rob.say(output)
+                      print(output)
+              except sr.UnknownValueError:
+                  rob.say("Do not know that word human!")
+                  print("Don't know that word")
+        if charging:
+           rob.say("charging activated")
+           # Goto A1
         time.sleep(0.1)
 
 
