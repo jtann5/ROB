@@ -102,22 +102,32 @@ def run_speaking():
             while True:
                 print("Enter text: ")
                 words = input(">>> ")
+
                 if words.strip() == "bye":
+                    break
+                elif words.strip() == "take me to the bathroom":
+                  rob.say("Follow me to the bathroom")
+                  # Goto A3
+                  rob.say("We have arrived. Goodbye human")
+                  # Goto A0
+                  charging = True
                   break
-                if words.strip() == "Take me to the bathroom":
-                   rob.say("Follow me to the bathroom")
-                   # Goto A3
-                elif words.strip() == "Take me to Hunter's Office":
-                   rob.say("Follow me to Hunter's Office")
-                   #Goto A2
-                if words.strip() == "charge":
-                   charging = True
-                   break
-                output = d.analyze(words.strip())
-                if output.strip() == "I don't understand!":
-                   output = get_response(words.strip())
-                rob.say(output)
-                print("Robot: " + str(output))
+                elif words.strip() == "take me to Hunter's office":
+                  rob.say("Follow me to Hunter's Office")
+                  # Goto A2
+                  rob.say("We have arrived. Goodbye human")
+                  # Goto A0
+                  charging = True
+                  break
+                elif words.strip() == "charge":
+                  charging = True
+                  break
+                else:
+                    output = d.analyze(words.strip())
+                    if output.strip() == "I don't understand!":
+                      output = get_response(words.strip())
+                    rob.say(output)
+                    print("Robot: " + str(output))
 
         if charging:
            rob.say("charging activated")
@@ -148,21 +158,33 @@ def run_speaking2():
                   print("got audio")
                   words = r.recognize_google(audio)
                   print(words)
+
                   if words.strip() == "bye":
-                      listening = False
-                  if words.strip() == "take me to the bathroom":
+                      break
+                  elif words.strip() == "take me to the bathroom":
                     rob.say("Follow me to the bathroom")
                     # Goto A3
-                  elif words.strip() == "Take me to Hunter's Office":
+                    rob.say("We have arrived. Goodbye human")
+                    # Goto A0
+                    charging = True
+                    break
+                  elif words.strip() == "take me to Hunter's office":
                     rob.say("Follow me to Hunter's Office")
-                    #Goto A2
-                  if words.strip() == "charge":
+                    # Goto A2
+                    rob.say("We have arrived. Goodbye human")
+                    # Goto A0
+                    charging = True
+                    break
+                  elif words.strip() == "charge":
                     charging = True
                     break
                   else:
                       output = d.analyze(words.strip())
+                      if output.strip() == "I don't understand!":
+                        output = get_response(words.strip())
                       rob.say(output)
-                      print(output)
+                      print("Robot: " + str(output))
+
               except sr.UnknownValueError:
                   rob.say("Do not know that word human!")
                   print("Don't know that word")
