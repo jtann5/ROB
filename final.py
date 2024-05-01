@@ -192,6 +192,7 @@ def run_speaking2():
         if charging:
            rob.say("charging activated")
            # Goto A1
+           break
         time.sleep(0.1)
 
 
