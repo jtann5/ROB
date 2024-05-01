@@ -101,8 +101,8 @@ def run_speaking():
     d.openFile()
 
     heading = Headings()
-    getRobProduct(heading)
     gotoQuadrant(heading, 2)
+    
     while True:
         if get_distance() <= 75: # if user approaches
             rob.say("Hello human")
@@ -309,7 +309,8 @@ def gotoQuadrant(heading, quadrantNum):
     distance = distance_between_points([heading.robposx, heading.robposy], quadrantCoords)
     driveVector = vectorDetector(heading.robposx, heading.robposy, quadrantCoords[0], quadrantCoords[1])
     angle = angle_between_vectors([heading.robVectorX, heading.robVectorY], driveVector)
-
+    rob.turnDegrees(angle)
+    rob.secondstocentimetersforwardbackward(distance*10, 60, "forward")
 
 
 
