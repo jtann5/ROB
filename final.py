@@ -150,7 +150,7 @@ def run_speaking2():
                   print(words)
                   if words.strip() == "bye":
                       listening = False
-                  if words.strip() == "Take me to the bathroom":
+                  if words.strip() == "take me to the bathroom":
                     rob.say("Follow me to the bathroom")
                     # Goto A3
                   elif words.strip() == "Take me to Hunter's Office":
