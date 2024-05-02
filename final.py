@@ -9,7 +9,7 @@ import speech_recognition as sr
 import numpy as np
 import serial
 import math
-
+import statistics
 
 # You need to export environment variable OPENAI_API_KEY
 client = OpenAI()
@@ -333,7 +333,14 @@ def gotoQuadrant(heading, quadrantNum):
 
 def getRobProduct(type):
     #print("ROBS COORDINATES")
-    rob1 = readSerial()
+    rob1array = []
+    robposarray = []
+    amt = 15
+    for i in range(amt):
+        rob1array.append(readSerial())
+
+    transposed_rob1array = zip(*rob1array)
+    rob1 = [statistics.median(pair) for pair in transposed_rob1array]
     time.sleep(1)
     #print("ROB P1")
     rob.setMotor(0, 7000)
@@ -342,7 +349,10 @@ def getRobProduct(type):
     rob.setMotor(0, 6000)
     rob.setMotor(1, 6000)
     time.sleep(1)
-    rob_coords = readSerial()
+    for i in range(amt):
+        robposarray.append(readSerial())
+    transposed_rob = zip(*robposarray)
+    rob_coords = [statistics.median(pair) for pair in transposed_rob]
     rob.defaults()
     global anchors
     position = calcPosition(anchors, rob_coords)
