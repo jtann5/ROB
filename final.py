@@ -310,8 +310,13 @@ def angle_between_vectors(vector1, vector2):
     cos_theta = max(min(cos_theta, 1), -1)
     angle_in_radians = math.acos(cos_theta)
     angle_in_degrees = math.degrees(angle_in_radians)
-    return angle_in_degrees
 
+    # Find which side the vector is on
+    cross_product = vector1[0] * vector2[1] - vector1[1] * vector2[0]
+    if cross_product < 0: # right
+        return angle_in_degrees
+    else: #left
+        return angle_in_degrees + 180
 
 def gotoQuadrant(heading, quadrantNum):
     ## use robvectorx and robvectory
