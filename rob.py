@@ -402,7 +402,7 @@ class ROB:
             if (360 - degrees) <= 45:
                 factor = 0.0081
             elif (360 - degrees) >= 135:
-                factor = 0.0063
+                factor = 0.0061
             else:
                 factor = 0.0066
 
