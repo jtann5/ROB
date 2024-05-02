@@ -353,8 +353,8 @@ def getRobProduct(type):
     ##print(position)
     type.robposx = position[0]
     type.robposy = position[1]
-    type.robXm = position[0] * 0.3048
-    type.robYm = position[1] * 0.3048
+    type.robXm = position[0]
+    type.robYm = position[1]
     print(f'Robs Pos in m: {type.robXm} {type.robYm}')
     closestAnchor = rob_coords.index(min(rob_coords))
     ##if not type.said:
