@@ -368,9 +368,9 @@ def getRobProduct(type):
     type.roborieny1 = roborieny1
     type.roborienx2 = roborienx2
     type.roborieny2 = roborieny2
-    robVectorX, robVectorY = vectorDetector(type.robXm, type.robYm, roborienx2, roborieny2)
-    type.robVectorX = robVectorX
-    type.robVectorY = robVectorY
+    robVectorX, robVectorY = vectorDetector(type.robXm, type.robYm, type.roborienx2, type.roborieny2)
+    type.robVectorX = robVectorX * 10
+    type.robVectorY = robVectorY * 10
 
 
 
