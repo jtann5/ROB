@@ -319,6 +319,8 @@ def gotoQuadrant(heading, quadrantNum):
     quadrantCoords = anchorsc[quadrantNum]
     distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords)
     driveVector = vectorDetector(heading.robXm, heading.robYm, quadrantCoords[0], quadrantCoords[1])
+    print(f'This is the rob vector: {heading.robVectorX}, {heading.robVectorY}')
+    print(f'This is the drive vector: {driveVector}')
     angle = angle_between_vectors([heading.robVectorX, heading.robVectorY], driveVector)
     rob.turnDegrees(angle)
     print("Angle: ", angle)
