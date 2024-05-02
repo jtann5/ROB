@@ -101,7 +101,6 @@ def run_speaking():
     d.openFile()
 
     heading = Headings()
-    gotoQuadrant(heading, 2)
     
     while True:
         if get_distance() <= 75: # if user approaches
@@ -115,15 +114,19 @@ def run_speaking():
                 elif words.strip() == "take me to the bathroom":
                   rob.say("Follow me to the bathroom")
                   # Goto A3
+                  gotoQuadrant(heading, 3)
                   rob.say("We have arrived. Goodbye human")
                   # Goto A0
+                  gotoQuadrant(heading, 0)
                   charging = True
                   break
                 elif words.strip() == "take me to Hunter's office":
                   rob.say("Follow me to Hunter's Office")
                   # Goto A2
+                  gotoQuadrant(heading, 2)
                   rob.say("We have arrived. Goodbye human")
                   # Goto A0
+                  gotoQuadrant(heading, 0)
                   charging = True
                   break
                 elif words.strip() == "charge":
@@ -139,6 +142,7 @@ def run_speaking():
         if charging:
            rob.say("charging activated")
            # Goto A1
+           gotoQuadrant(heading, 1)
            break
         time.sleep(0.1)
 
@@ -148,6 +152,8 @@ def run_speaking2():
     d = DialogEngine()
     d.setFile('dialogInput.txt')
     d.openFile()
+
+    heading = Headings()
 
     while True:
         if get_distance() <= 75: # if user approaches
@@ -172,15 +178,19 @@ def run_speaking2():
                   elif words.strip() == "take me to the bathroom":
                     rob.say("Follow me to the bathroom")
                     # Goto A3
+                    gotoQuadrant(heading, 3)
                     rob.say("We have arrived. Goodbye human")
                     # Goto A0
+                    gotoQuadrant(heading, 0)
                     charging = True
                     break
                   elif words.strip() == "take me to Hunter's office":
                     rob.say("Follow me to Hunter's Office")
                     # Goto A2
+                    gotoQuadrant(heading, 2)
                     rob.say("We have arrived. Goodbye human")
                     # Goto A0
+                    gotoQuadrant(heading, 0)
                     charging = True
                     break
                   elif words.strip() == "charge":
@@ -199,6 +209,7 @@ def run_speaking2():
         if charging:
            rob.say("charging activated")
            # Goto A1
+           gotoQuadrant(heading, 1)
            break
         time.sleep(0.1)
 
