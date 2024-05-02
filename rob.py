@@ -400,7 +400,7 @@ class ROB:
             time.sleep(degrees * factor)
         else:
             if (360 - degrees) <= 45:
-                factor = 0.0071
+                factor = 0.008
             elif (360 - degrees) >= 135:
                 factor = 0.0055
             else:
