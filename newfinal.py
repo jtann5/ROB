@@ -327,6 +327,7 @@ def gotoQuadrant(heading, quadrantNum):
     distance = 100000
     getRobProduct(heading)
     while distance > 0.2:
+        print(f"Distance: >>> {distance}")
         quadrantCoords = anchorsc[quadrantNum]
         ## gets the distance
         distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords) + 0.2
