@@ -317,8 +317,8 @@ def gotoQuadrant(heading, quadrantNum):
     ## use robvectorx and robvectory
     getRobProduct(heading)
     quadrantCoords = anchorsc[quadrantNum]
-    distance = distance_between_points([heading.robposx, heading.robposy], quadrantCoords)
-    driveVector = vectorDetector(heading.robposx, heading.robposy, quadrantCoords[0], quadrantCoords[1])
+    distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords)
+    driveVector = vectorDetector(heading.robXm, heading.robYm, quadrantCoords[0], quadrantCoords[1])
     angle = angle_between_vectors([heading.robVectorX, heading.robVectorY], driveVector)
     rob.turnDegrees(angle)
     print("Angle: ", angle)
@@ -350,6 +350,8 @@ def getRobProduct(type):
     print(position)
     type.robposx = position[0]
     type.robposy = position[1]
+    type.robXm = position[0] * 0.3048
+    type.robYm = position[1] * 0.3048
     closestAnchor = rob_coords.index(min(rob_coords))
     ##if not type.said:
     ##    rob.say("Quadrant " + str(closestAnchor))
@@ -384,6 +386,8 @@ class Headings:
         self.robVectorX = 0
         self.robVectorY = 0
         self.robProduct = 0
+        self.robXm = 0
+        self.robYm = 0
         self.said = False
 
     def printValues(self):
