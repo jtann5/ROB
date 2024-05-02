@@ -326,11 +326,13 @@ def angle_between_vectors(vector1, vector2):
 def gotoQuadrant(heading, quadrantNum):
     distance = 100000
     getRobProduct(heading)
-    while distance > 0.7:
+    while True:
         print(f"Distance: >>> {distance}")
         quadrantCoords = anchorsc[quadrantNum]
         ## gets the distance
         distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords) + 0.2
+        if (distance < 0.3):
+            break
         ## gets the drive vector
         driveVector = vectorDetector(heading.robXm, heading.robYm, quadrantCoords[0], quadrantCoords[1])
         ## gets the angle
