@@ -346,9 +346,10 @@ def gotoQuadrant(heading, quadrantNum):
         position = calcPosition(anchors, robDist)
         heading.robXm = position[0]
         heading.robYm = position[1]
-        robVectorX, robVectorY = vectorDetector(heading.robXm, heading.robYm, heading.previousLoc[0], heading.previousLoc[1])
+        robVectorX, robVectorY = vectorDetector(heading.previousLoc[0], heading.previousLoc[1], heading.robXm, heading.robYm)
         heading.robVectorX = robVectorX * 10
         heading.robVectorY = robVectorY * 10
+        heading.previousLoc = [heading.robXm, heading.robYm]
 
 
 def getRobProduct(type):
