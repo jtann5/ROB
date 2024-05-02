@@ -389,7 +389,7 @@ class ROB:
         speed = 1500
         if (degrees <= 180):
             #factor = 0.0052 for 90
-            factor = 0.007
+            factor = 0.0069
             rob.setMotor(0, 6000 - speed)
             rob.setMotor(1, 6000 - speed)
             time.sleep(degrees * factor)
