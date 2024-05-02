@@ -335,7 +335,7 @@ def getRobProduct(type):
     #print("ROBS COORDINATES")
     rob1array = []
     robposarray = []
-    amt = 15
+    amt = 30
     for i in range(amt):
         rob1array.append(readSerial())
 
