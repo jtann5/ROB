@@ -317,6 +317,7 @@ def gotoQuadrant(heading, quadrantNum):
     ## use robvectorx and robvectory
     getRobProduct(heading)
     quadrantCoords = anchorsc[quadrantNum]
+    print(f'Quadrant Coords {quadrantCoords}')
     distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords)
     driveVector = vectorDetector(heading.robXm, heading.robYm, quadrantCoords[0], quadrantCoords[1])
     print(f'This is the rob vector: {heading.robVectorX}, {heading.robVectorY}')
@@ -349,11 +350,12 @@ def getRobProduct(type):
     rob.defaults()
     global anchors
     position = calcPosition(anchors, rob_coords)
-    print(position)
+    ##print(position)
     type.robposx = position[0]
     type.robposy = position[1]
     type.robXm = position[0] * 0.3048
     type.robYm = position[1] * 0.3048
+    print(f'Robs Pos in m: {type.robXm} {type.robYm}')
     closestAnchor = rob_coords.index(min(rob_coords))
     ##if not type.said:
     ##    rob.say("Quadrant " + str(closestAnchor))
