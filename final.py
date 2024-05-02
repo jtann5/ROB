@@ -407,10 +407,20 @@ class Headings:
 
 
 if __name__ == "__main__":
-    speaking_thread = Thread(target=run_speaking2)
-    face_thread = Thread(target=rob.start_face)
+    ##speaking_thread = Thread(target=run_speaking2)
+    ##face_thread = Thread(target=rob.start_face)
 
-    speaking_thread.start()
-    face_thread.start()
-    speaking_thread.join()
-    face_thread.join()
+    ##speaking_thread.start()
+    ##face_thread.start()
+    ##speaking_thread.join()
+    ##face_thread.join()
+    robposarray=[]
+    amt = 5
+    for i in range(amt):
+        robposarray.append(readSerial())
+    transposed_rob = zip(*robposarray)
+    rob_coords = [statistics.median(pair) for pair in transposed_rob]
+    rob.defaults()
+    global anchors
+    position = calcPosition(anchors, rob_coords)
+    print(position)
