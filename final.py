@@ -323,7 +323,7 @@ def gotoQuadrant(heading, quadrantNum):
     getRobProduct(heading)
     quadrantCoords = anchorsc[quadrantNum]
     print(f'Quadrant Coords {quadrantCoords}')
-    distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords)
+    distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords) + 0.2
     driveVector = vectorDetector(heading.robXm, heading.robYm, quadrantCoords[0], quadrantCoords[1])
     print(f'This is inital values {heading.roborienx1} {heading.roborieny1}')
     print(f'This is the final values {heading.robXm} {heading.robYm}')
