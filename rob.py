@@ -391,7 +391,7 @@ class ROB:
             if degrees <= 45:
                 factor = 0.0069
             elif degrees >= 135:
-                factor = 0.0059
+                factor = 0.0058
             else:
                 factor = 0.0052
             
