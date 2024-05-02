@@ -339,7 +339,7 @@ def gotoQuadrant(heading, quadrantNum):
 
 def getRobProduct(type):
     #print("ROBS COORDINATES")
-    rob_coords = readSerial()
+    rob1 = readSerial()
     time.sleep(1)
     #print("ROB P1")
     rob.setMotor(0, 7000)
@@ -348,15 +348,7 @@ def getRobProduct(type):
     rob.setMotor(0, 6000)
     rob.setMotor(1, 6000)
     time.sleep(1)
-    rob1 = readSerial()
-    #print("ROB P2")
-    time.sleep(1)
-    rob.setMotor(0, 5000)
-    rob.setMotor(1, 7000)
-    time.sleep(0.5)
-    rob.setMotor(0, 6000)
-    rob.setMotor(1, 6000)
-    time.sleep(1)
+    rob_coords = readSerial()
     rob.defaults()
     global anchors
     position = calcPosition(anchors, rob_coords)
@@ -376,8 +368,8 @@ def getRobProduct(type):
     type.roborienx1 = roborienx1
     type.roborieny1 = roborieny1
     robVectorX, robVectorY = vectorDetector(type.robXm, type.robYm, type.roborienx1, type.roborieny1)
-    type.robVectorX = robVectorX * -10
-    type.robVectorY = robVectorY * -10
+    type.robVectorX = robVectorX * 10
+    type.robVectorY = robVectorY * 10
 
 
 
