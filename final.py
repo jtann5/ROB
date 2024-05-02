@@ -222,7 +222,8 @@ anchor2c = [2.75, 0.25]
 anchor3c = [0.25, 0.25]
 
 anchors = [anchor0, anchor1, anchor2, anchor3]
-anchorsc = [anchor0c, anchor1c, anchor2c, anchor3c]
+##anchorsc = [anchor0c, anchor1c, anchor2c, anchor3c]
+anchorsc = anchors
 
 def readSerial():
     ser = serial.Serial('/dev/ttyUSB0', 115200)
