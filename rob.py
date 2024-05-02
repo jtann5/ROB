@@ -388,14 +388,16 @@ class ROB:
     def turnDegrees(self, degrees):
         speed = 1500
         if (degrees <= 180):
+            #factor = 0.0069
             #factor = 0.0052 for 90
-            factor = 0.0069
+            factor = 0.004
             rob.setMotor(0, 6000 - speed)
             rob.setMotor(1, 6000 - speed)
             time.sleep(degrees * factor)
         else:
+            #factor = 0.0071
             #factor = 0.0056 for 90
-            factor = 0.007
+            factor = 0.004
             rob.setMotor(0, 6000 + speed)
             rob.setMotor(1, 6000 + speed)
             time.sleep((360 - degrees) * factor)
@@ -407,7 +409,7 @@ rob = ROB()
 
 if __name__ == "__main__":
     rob = ROB()
-    rob.turnDegrees(315)
+    rob.turnDegrees(180)
     #rob.sayThread("Hello")
     #for i in range(4):
     #    rob.sayThread("You get the joke")
