@@ -386,14 +386,14 @@ class ROB:
         rob.setMotor(1, 6000)
 
     def turnDegrees(self, degrees):
-        speed = 1000
+        speed = 1500
         if (degrees <= 180):
             factor = 0.01
             rob.setMotor(0, 6000 - speed)
             rob.setMotor(1, 6000 - speed)
             time.sleep(degrees * factor)
         else:
-            factor = 0.012
+            factor = 0.01
             rob.setMotor(0, 6000 + speed)
             rob.setMotor(1, 6000 + speed)
             time.sleep((360 - degrees) * factor)
