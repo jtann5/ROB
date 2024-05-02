@@ -336,7 +336,7 @@ def gotoQuadrant(heading, quadrantNum):
         ## gets the angle
         angle = angle_between_vectors([heading.robVectorX, heading.robVectorY], driveVector)
         rob.turnDegrees(angle)
-        rob.secondstocentimetersforwardbackward(distance * 10, 60, "forward")
+        rob.secondstocentimetersforwardbackward(distance * 20, 60, "forward")
         robnewarray = []
         amt = 10
         for i in range(amt):
