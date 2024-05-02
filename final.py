@@ -314,20 +314,26 @@ def angle_between_vectors(vector1, vector2):
 
 def gotoQuadrant(heading, quadrantNum):
     ## use robvectorx and robvectory
+    dis = 0
     getRobProduct(heading)
     quadrantCoords = anchorsc[quadrantNum]
-    print(f'Quadrant Coords {quadrantCoords}')
     distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords) + 0.2
-    driveVector = vectorDetector(heading.robXm, heading.robYm, quadrantCoords[0], quadrantCoords[1])
-    print(f'This is inital values {heading.roborienx1} {heading.roborieny1}')
-    print(f'This is the final values {heading.robXm} {heading.robYm}')
-    print(f'This is the rob vector: {heading.robVectorX}, {heading.robVectorY}')
-    print(f'This is the drive vector: {driveVector}')
-    angle = angle_between_vectors([heading.robVectorX, heading.robVectorY], driveVector)
-    rob.turnDegrees(angle)
-    print("Angle: ", angle)
-    print("Distance: ", distance*100)
-    rob.secondstocentimetersforwardbackward(distance*100, 60, "forward")
+    while dis < distance:
+        getRobProduct(heading)
+        quadrantCoords = anchorsc[quadrantNum]
+        print(f'Quadrant Coords {quadrantCoords}')
+        distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords) + 0.2
+        driveVector = vectorDetector(heading.robXm, heading.robYm, quadrantCoords[0], quadrantCoords[1])
+        print(f'This is inital values {heading.roborienx1} {heading.roborieny1}')
+        print(f'This is the final values {heading.robXm} {heading.robYm}')
+        print(f'This is the rob vector: {heading.robVectorX}, {heading.robVectorY}')
+        print(f'This is the drive vector: {driveVector}')
+        angle = angle_between_vectors([heading.robVectorX, heading.robVectorY], driveVector)
+        rob.turnDegrees(angle)
+        print("Angle: ", angle)
+        print("Distance: ", distance*10)
+        dis += distance*10
+        rob.secondstocentimetersforwardbackward(distance*10, 60, "forward")
 
 
 
@@ -335,7 +341,7 @@ def getRobProduct(type):
     #print("ROBS COORDINATES")
     rob1array = []
     robposarray = []
-    amt = 30
+    amt = 10
     for i in range(amt):
         rob1array.append(readSerial())
 
