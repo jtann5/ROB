@@ -391,7 +391,7 @@ class ROB:
             if degrees <= 45:
                 factor = 0.0069
             elif degrees >= 135:
-                factor = 0.0052
+                factor = 0.006
             else:
                 factor = 0.0052
             
@@ -399,9 +399,9 @@ class ROB:
             rob.setMotor(1, 6000 - speed)
             time.sleep(degrees * factor)
         else:
-            if degrees <= 45:
+            if (360 - degrees) <= 45:
                 factor = 0.0071
-            elif degrees >= 135:
+            elif (360 - degrees) >= 135:
                 factor = 0.0055
             else:
                 factor = 0.0056
