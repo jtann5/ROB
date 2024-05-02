@@ -389,7 +389,7 @@ class ROB:
         speed = 1500
         if (degrees <= 180):
             if degrees <= 45:
-                factor = 0.0075
+                factor = 0.007
             elif degrees >= 135:
                 factor = 0.0058
             else:
@@ -400,7 +400,7 @@ class ROB:
             time.sleep(degrees * factor)
         else:
             if (360 - degrees) <= 45:
-                factor = 0.0084
+                factor = 0.0082
             elif (360 - degrees) >= 135:
                 factor = 0.0055
             else:
