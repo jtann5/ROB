@@ -417,7 +417,7 @@ rob = ROB()
 
 if __name__ == "__main__":
     rob = ROB()
-    rob.turnDegrees(306)
+    rob.turnDegrees(254)
     #rob.sayThread("Hello")
     #for i in range(4):
     #    rob.sayThread("You get the joke")
