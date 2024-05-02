@@ -393,7 +393,7 @@ class ROB:
             elif degrees >= 135:
                 factor = 0.0058
             else:
-                factor = 0.0061
+                factor = 0.00605
             
             rob.setMotor(0, 6000 - speed)
             rob.setMotor(1, 6000 - speed)
