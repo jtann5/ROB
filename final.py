@@ -403,7 +403,7 @@ class Headings:
 
 
 if __name__ == "__main__":
-    speaking_thread = Thread(target=run_speaking)
+    speaking_thread = Thread(target=run_speaking2)
     face_thread = Thread(target=rob.start_face)
 
     speaking_thread.start()
