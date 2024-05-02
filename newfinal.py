@@ -326,7 +326,7 @@ def angle_between_vectors(vector1, vector2):
 def gotoQuadrant(heading, quadrantNum):
     distance = 100000
     getRobProduct(heading)
-    while distance > 0.2:
+    while distance > 0.7:
         print(f"Distance: >>> {distance}")
         quadrantCoords = anchorsc[quadrantNum]
         ## gets the distance
