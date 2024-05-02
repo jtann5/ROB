@@ -207,9 +207,9 @@ def run_speaking2():
                   rob.say("Do not know that word human!")
                   print("Don't know that word")
         if charging:
-           rob.say("charging activated")
            # Goto A1
            gotoQuadrant(heading, 1)
+           rob.say("charging activated")
            break
         time.sleep(0.1)
 
@@ -321,6 +321,8 @@ def gotoQuadrant(heading, quadrantNum):
     driveVector = vectorDetector(heading.robposx, heading.robposy, quadrantCoords[0], quadrantCoords[1])
     angle = angle_between_vectors([heading.robVectorX, heading.robVectorY], driveVector)
     rob.turnDegrees(angle)
+    print("Angle: ", angle)
+    print("Distance: ", distance*100, 60)
     rob.secondstocentimetersforwardbackward(distance*100, 60, "forward")
 
 
