@@ -402,9 +402,9 @@ class ROB:
             if (360 - degrees) <= 45:
                 factor = 0.0081
             elif (360 - degrees) >= 135:
-                factor = 0.0055
+                factor = 0.0065
             else:
-                factor = 0.0056
+                factor = 0.0066
 
             rob.setMotor(0, 6000 + speed)
             rob.setMotor(1, 6000 + speed)
@@ -417,7 +417,7 @@ rob = ROB()
 
 if __name__ == "__main__":
     rob = ROB()
-    rob.turnDegrees(315)
+    rob.turnDegrees(270)
     #rob.sayThread("Hello")
     #for i in range(4):
     #    rob.sayThread("You get the joke")
