@@ -421,6 +421,5 @@ if __name__ == "__main__":
     transposed_rob = zip(*robposarray)
     rob_coords = [statistics.median(pair) for pair in transposed_rob]
     rob.defaults()
-    global anchors
     position = calcPosition(anchors, rob_coords)
     print(position)
