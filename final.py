@@ -222,8 +222,7 @@ anchor2c = [2.75, 0.25]
 anchor3c = [0.25, 0.25]
 
 anchors = [anchor0, anchor1, anchor2, anchor3]
-##anchorsc = [anchor0c, anchor1c, anchor2c, anchor3c]
-anchorsc = anchors
+anchorsc = [anchor0c, anchor1c, anchor2c, anchor3c]
 
 def readSerial():
     ser = serial.Serial('/dev/ttyUSB0', 115200)
@@ -407,19 +406,10 @@ class Headings:
 
 
 if __name__ == "__main__":
-    ##speaking_thread = Thread(target=run_speaking2)
-    ##face_thread = Thread(target=rob.start_face)
+    speaking_thread = Thread(target=run_speaking2)
+    face_thread = Thread(target=rob.start_face)
 
-    ##speaking_thread.start()
-    ##face_thread.start()
-    ##speaking_thread.join()
-    ##face_thread.join()
-    robposarray=[]
-    amt = 5
-    for i in range(amt):
-        robposarray.append(readSerial())
-    transposed_rob = zip(*robposarray)
-    rob_coords = [statistics.median(pair) for pair in transposed_rob]
-    rob.defaults()
-    position = calcPosition(anchors, rob_coords)
-    print(position)
+    speaking_thread.start()
+    face_thread.start()
+    speaking_thread.join()
+    face_thread.join()
