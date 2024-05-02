@@ -140,9 +140,9 @@ def run_speaking():
                     print("Robot: " + str(output))
 
         if charging:
-           rob.say("charging activated")
            # Goto A1
            gotoQuadrant(heading, 1)
+           rob.say("charging activated")
            break
         time.sleep(0.1)
 
@@ -322,7 +322,7 @@ def gotoQuadrant(heading, quadrantNum):
     angle = angle_between_vectors([heading.robVectorX, heading.robVectorY], driveVector)
     rob.turnDegrees(angle)
     print("Angle: ", angle)
-    print("Distance: ", distance*100, 60)
+    print("Distance: ", distance*100)
     rob.secondstocentimetersforwardbackward(distance*100, 60, "forward")
 
 
@@ -401,7 +401,7 @@ class Headings:
 
 
 if __name__ == "__main__":
-    speaking_thread = Thread(target=run_speaking)
+    speaking_thread = Thread(target=run_speaking2)
     face_thread = Thread(target=rob.start_face)
 
     speaking_thread.start()
