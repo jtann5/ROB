@@ -389,9 +389,9 @@ class ROB:
         speed = 1500
         if (degrees <= 180):
             if degrees <= 45:
-                factor = 0.0069
+                factor = 0.0075
             elif degrees >= 135:
-                factor = 0.0065
+                factor = 0.0058
             else:
                 factor = 0.00608
             
