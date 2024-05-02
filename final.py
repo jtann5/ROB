@@ -345,7 +345,7 @@ def getRobProduct(type):
     #print("ROB P1")
     rob.setMotor(0, 7000)
     rob.setMotor(1, 5000)
-    time.sleep(0.5)
+    time.sleep(0.75)
     rob.setMotor(0, 6000)
     rob.setMotor(1, 6000)
     time.sleep(1)
