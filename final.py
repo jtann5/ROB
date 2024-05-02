@@ -116,8 +116,6 @@ def run_speaking():
                   # Goto A3
                   gotoQuadrant(heading, 3)
                   rob.say("We have arrived. Goodbye human")
-                  # Goto A0
-                  gotoQuadrant(heading, 0)
                   charging = True
                   break
                 elif words.strip() == "take me to Hunter's office":
@@ -125,8 +123,6 @@ def run_speaking():
                   # Goto A2
                   gotoQuadrant(heading, 2)
                   rob.say("We have arrived. Goodbye human")
-                  # Goto A0
-                  gotoQuadrant(heading, 0)
                   charging = True
                   break
                 elif words.strip() == "charge":
@@ -140,6 +136,7 @@ def run_speaking():
                     print("Robot: " + str(output))
 
         if charging:
+           rob.say("I must charge")
            # Goto A1
            gotoQuadrant(heading, 1)
            rob.say("charging activated")
@@ -180,8 +177,6 @@ def run_speaking2():
                     # Goto A3
                     gotoQuadrant(heading, 3)
                     rob.say("We have arrived. Goodbye human")
-                    # Goto A0
-                    gotoQuadrant(heading, 0)
                     charging = True
                     break
                   elif words.strip() == "take me to Hunter's office":
@@ -189,8 +184,6 @@ def run_speaking2():
                     # Goto A2
                     gotoQuadrant(heading, 2)
                     rob.say("We have arrived. Goodbye human")
-                    # Goto A0
-                    gotoQuadrant(heading, 0)
                     charging = True
                     break
                   elif words.strip() == "charge":
@@ -207,6 +200,7 @@ def run_speaking2():
                   rob.say("Do not know that word human!")
                   print("Don't know that word")
         if charging:
+           rob.say("I must charge")
            # Goto A1
            gotoQuadrant(heading, 1)
            rob.say("charging activated")
