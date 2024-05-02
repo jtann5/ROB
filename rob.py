@@ -391,7 +391,7 @@ class ROB:
             if degrees <= 45:
                 factor = 0.0069
             elif degrees >= 135:
-                factor = 0.0058
+                factor = 0.006
             else:
                 factor = 0.00608
             
@@ -417,7 +417,7 @@ rob = ROB()
 
 if __name__ == "__main__":
     rob = ROB()
-    rob.turnDegrees(90)
+    rob.turnDegrees(45)
     #rob.sayThread("Hello")
     #for i in range(4):
     #    rob.sayThread("You get the joke")
