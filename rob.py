@@ -393,7 +393,7 @@ class ROB:
             rob.setMotor(1, 6000 - speed)
             time.sleep(degrees * factor)
         else:
-            factor = 0.013
+            factor = 0.012
             rob.setMotor(0, 6000 + speed)
             rob.setMotor(1, 6000 + speed)
             time.sleep((360 - degrees) * factor)
