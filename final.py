@@ -367,7 +367,7 @@ def getRobProduct(type):
     roborienx1, roborieny1 = calcPosition(anchors, rob1)
     type.roborienx1 = roborienx1
     type.roborieny1 = roborieny1
-    robVectorY, robVectorX = vectorDetector(type.robXm, type.robYm, type.roborienx1, type.roborieny1)
+    robVectorX, robVectorY = vectorDetector(type.robXm, type.robYm, type.roborienx1, type.roborieny1)
     type.robVectorX = robVectorX * 10
     type.robVectorY = robVectorY * 10
 
@@ -384,8 +384,6 @@ class Headings:
         self.anchorVectorY = 0
         self.roborienx1 = 0
         self.roborieny1 = 0
-        self.roborienx2 = 0
-        self.roborieny2 = 0
         self.robVectorX = 0
         self.robVectorY = 0
         self.robProduct = 0
