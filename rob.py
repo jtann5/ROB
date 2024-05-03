@@ -387,24 +387,45 @@ class ROB:
 
     def turnDegrees(self, degrees):
         speed = 1500
+        tile = False
         if (degrees <= 180):
-            if degrees <= 45:
-                factor = 0.007
-            elif degrees >= 135:
-                factor = 0.0058
+            if tile:
+                # Values for tile
+                if degrees <= 45:
+                    factor = 0.0069
+                elif degrees >= 135:
+                    factor = 0.0049
+                else:
+                    factor = 0.0052
             else:
-                factor = 0.00608
+                # Values for carpet
+                if degrees <= 45:
+                    factor = 0.007
+                elif degrees >= 135:
+                    factor = 0.0058
+                else:
+                    factor = 0.00608
             
             rob.setMotor(0, 6000 - speed)
             rob.setMotor(1, 6000 - speed)
             time.sleep(degrees * factor)
         else:
-            if (360 - degrees) <= 45:
-                factor = 0.0081
-            elif (360 - degrees) >= 135:
-                factor = 0.0061
+            if tile:
+                # Values for tile
+                if degrees <= 45:
+                    factor = 0.0071
+                elif degrees >= 135:
+                    factor = 0.0051
+                else:
+                    factor = 0.0056
             else:
-                factor = 0.0066
+                # Values for carpet
+                if (360 - degrees) <= 45:
+                    factor = 0.0081
+                elif (360 - degrees) >= 135:
+                    factor = 0.0061
+                else:
+                    factor = 0.0066
 
             rob.setMotor(0, 6000 + speed)
             rob.setMotor(1, 6000 + speed)
