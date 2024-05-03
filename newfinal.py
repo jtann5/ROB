@@ -331,7 +331,7 @@ def gotoQuadrant(heading, quadrantNum):
         quadrantCoords = anchorsc[quadrantNum]
         ## gets the distance
         distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords)
-        if (distance < 0.5):
+        if (distance < 0.7):
             break
         ## gets the drive vector
         driveVector = vectorDetector(heading.robXm, heading.robYm, quadrantCoords[0], quadrantCoords[1])
@@ -342,7 +342,7 @@ def gotoQuadrant(heading, quadrantNum):
         print(f'Rob Vector: >>> {heading.robVectorX, heading.robVectorY}')
         print(f'Drive Vector: >>> {driveVector}')
         rob.turnDegrees(angle)
-        rob.secondstocentimetersforwardbackward(distance * 50, 60, "forward")
+        rob.secondstocentimetersforwardbackward(distance * 70, 60, "forward")
         robnewarray = []
         amt = 10
         for i in range(amt):
