@@ -220,10 +220,10 @@ anchor1 = [3, 3]
 anchor2 = [3, 0]
 anchor3 = [0, 0]
 
-anchor0c = [0.25, 2.75]
-anchor1c = [2.75, 2.75]
-anchor2c = [2.75, 0.25]
-anchor3c = [0.25, 0.25]
+anchor0c = [0.5, 2.5]
+anchor1c = [2.5, 2.5]
+anchor2c = [2.5, 0.5]
+anchor3c = [0.5, 0.5]
 
 anchors = [anchor0, anchor1, anchor2, anchor3]
 anchorsc = [anchor0c, anchor1c, anchor2c, anchor3c]
@@ -324,21 +324,25 @@ def angle_between_vectors(vector1, vector2):
 
 
 def gotoQuadrant(heading, quadrantNum):
-    distance = 100000
+    distance = 100
     getRobProduct(heading)
     while True:
         print(f"Distance: >>> {distance}")
         quadrantCoords = anchorsc[quadrantNum]
         ## gets the distance
-        distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords) + 0.2
-        if (distance < 0.7):
+        distance = distance_between_points([heading.robXm, heading.robYm], quadrantCoords)
+        if (distance < 0.5):
             break
         ## gets the drive vector
         driveVector = vectorDetector(heading.robXm, heading.robYm, quadrantCoords[0], quadrantCoords[1])
         ## gets the angle
         angle = angle_between_vectors([heading.robVectorX, heading.robVectorY], driveVector)
+        print(f'ROB pos: >>> {heading.robXm, heading.robYm}')
+        print(f'Angle: >>> {angle}')
+        print(f'Rob Vector: >>> {heading.robVectorX, heading.robVectorY}')
+        print(f'Drive Vector: >>> {driveVector}')
         rob.turnDegrees(angle)
-        rob.secondstocentimetersforwardbackward(distance * 20, 60, "forward")
+        rob.secondstocentimetersforwardbackward(distance * 30, 60, "forward")
         robnewarray = []
         amt = 10
         for i in range(amt):
