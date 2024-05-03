@@ -433,15 +433,6 @@ class Headings:
 
 
 if __name__ == "__main__":
-    amt = 10
-    robposarray = []
-    for i in range(amt):
-        robposarray.append(readSerial())
-    transposed_rob = zip(*robposarray)
-    rob_coords = [statistics.median(pair) for pair in transposed_rob]
-    position = calcPosition(anchorsa, rob_coords)
-    print(position)
-    '''
     speaking_thread = Thread(target=run_speaking2)
     face_thread = Thread(target=rob.start_face)
 
@@ -449,6 +440,13 @@ if __name__ == "__main__":
     face_thread.start()
     speaking_thread.join()
     face_thread.join()
-    '''
-
-
+'''
+amt = 10
+robposarray = []
+for i in range(amt):
+    robposarray.append(readSerial())
+transposed_rob = zip(*robposarray)
+rob_coords = [statistics.median(pair) for pair in transposed_rob]
+position = calcPosition(anchorsa, rob_coords)
+print(position)
+'''
