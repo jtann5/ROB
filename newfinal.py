@@ -225,7 +225,7 @@ anchor1c = [2.25, 2.25]
 anchor2c = [2.25, 0.75]
 anchor3c = [0.75, 0.75]
 
-anchors = [anchor0, anchor1, anchor2, anchor3]
+anchorsa = [anchor0, anchor1, anchor2, anchor3]
 anchorsc = [anchor0c, anchor1c, anchor2c, anchor3c]
 
 
@@ -350,7 +350,7 @@ def gotoQuadrant(heading, quadrantNum):
 
         transposed_rob1array = zip(*robnewarray)
         robDist = [statistics.median(pair) for pair in transposed_rob1array]
-        position = calcPosition(anchors, robDist)
+        position = calcPosition(anchorsa, robDist)
         heading.robXm = position[0]
         heading.robYm = position[1]
         robVectorX, robVectorY = vectorDetector(heading.previousLoc[0], heading.previousLoc[1], heading.robXm, heading.robYm)
@@ -382,8 +382,8 @@ def getRobProduct(type):
     transposed_rob = zip(*robposarray)
     rob_coords = [statistics.median(pair) for pair in transposed_rob]
     rob.defaults()
-    global anchors
-    position = calcPosition(anchors, rob_coords)
+    global anchorsa
+    position = calcPosition(anchorsa, rob_coords)
     ##print(position)
     type.robposx = position[0]
     type.robposy = position[1]
@@ -396,7 +396,7 @@ def getRobProduct(type):
     ##    type.said = True
     type.closestAnchor = closestAnchor
 
-    roborienx1, roborieny1 = calcPosition(anchors, rob1)
+    roborienx1, roborieny1 = calcPosition(anchorsa, rob1)
     type.roborienx1 = roborienx1
     type.roborieny1 = roborieny1
     robVectorX, robVectorY = vectorDetector(type.robXm, type.robYm, type.roborienx1, type.roborieny1)
