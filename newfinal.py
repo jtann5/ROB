@@ -342,7 +342,7 @@ def gotoQuadrant(heading, quadrantNum):
         print(f'Rob Vector: >>> {heading.robVectorX, heading.robVectorY}')
         print(f'Drive Vector: >>> {driveVector}')
         rob.turnDegrees(angle)
-        rob.secondstocentimetersforwardbackward(distance * 30, 60, "forward")
+        rob.secondstocentimetersforwardbackward(distance * 50, 60, "forward")
         robnewarray = []
         amt = 10
         for i in range(amt):
