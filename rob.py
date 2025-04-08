@@ -122,12 +122,6 @@ class ROB:
         rob.face.initialize_pygame()
         rob.face.animate_eyes()
 
-    def alexMode(self):
-        for i in range(15):
-            self.setMotor(i+2, 4000)
-        self.smoothDefaults()
-
-
     # For Project 10 Dynamic Personality Engine
     # Should have 10 different arm gestures and 5 different head movements
     # These animations should be smooth and natural looking
@@ -440,8 +434,5 @@ if __name__ == "__main__":
     rob = ROB()
     rob.turnDegrees(90)
     #rob.sayThread("Hello")
-    #for i in range(4):
-    #    rob.sayThread("You get the joke")
-    #    rob.alexMode()
 
 
